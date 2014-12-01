@@ -1,0 +1,13 @@
+app/config/parameters.yml
+app/bootstrap.php.cache
+app/phpunit.xml
+
+app/cache/*
+!app/cache/.gitkeep
+
+app/logs/*
+!app/logs/.gitkeep
+
+bin/
+vendor/
+web/

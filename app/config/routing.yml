@@ -1,0 +1,4 @@
+aamv_site_index:
+    resource: "@AamvSiteBundle/Controller"
+    type:     annotation
+    prefix:   /
