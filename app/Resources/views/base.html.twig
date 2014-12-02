@@ -6,8 +6,91 @@
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
+    
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        <div id="titre">
+            <img src="{{ asset('bundles/aamvsite/images/logo_enfant.png') }}" alt="petit gif d'enfant">
+            <span id="bloc">
+                <h1><span>A</span>ssociation des <span>A</span>ssistantes <span>M</span>aternelles <span>V</span>illeneuvoises</h1>
+                <hr>
+                <span class="small">et des Parents et ses Environs</span>
+            </span>
+            <img src="{{ asset('bundles/aamvsite/images/logo_enfant1.png') }}" alt="petit gif d'enfant">
+        </div>
+
+        <div id="nav">
+            <ul>
+                <li>News
+                    <ul>
+                        <li><a href=''>L'Association</a></li>
+                        <li><a href=''>Ses Réunions</a></li>
+                    </ul>
+                </li>
+
+                <li>L'association
+                    <ul>
+                        <li><a href=''>Présentation</a></li>
+                        <li><a href=''>Historique</a></li>
+                        <li><a href=''>Objectifs</a></li>
+                        <li><a href=''>Services A.M</a></li>
+                        <li><a href=''>Services Parents</a></li>
+                        <li><a href=''>Bulletin d'Adhésion</a></li>
+                    </ul>
+                </li>
+
+                <li>Services
+                    <ul>
+                        <li><a href=''>Petites Annonces</a></li>
+                        <li><a href='liste.html'>Liste d'Assistantes Maternelles</a></li>
+                        <li><a href=''>Assistantes Maternelles de Villeneuve d'Ascq</a></li>
+                        <li><a href=''>Autorisation</a></li>
+                        <li><a href=''>Questions/Réponses</a></li>
+                    </ul>
+                </li>
+
+                <li>Outils
+                    <ul>
+                        <li><a href=''>Outils</a></li>
+                        <li><a href=''>Formulaires</a></li>
+                        <li><a href=''>Bulletin de Salaire</a></li>
+                    </ul>
+                </li>
+
+                <li>Informations
+                    <ul>
+                        <li><a href=''>Tout savoir sur ...</a></li>
+                        <li><a href=''>Adresses</a></li>
+                        <li><a href=''>A voir</a></li>
+                    </ul>
+                </li>
+
+                <li>Contacts
+                    <ul>
+                        <li><a href=''>Une demande</a></li>
+                        <li><a href=''>Nous contacter</a></li>
+                    </ul>
+                </li>
+
+                <li><a href='forum'>Forum</a></li>
+
+                <hr>
+
+            </ul>
+        </div>
+
+        <div id="body">
+            <div class="int">
+            {% block body %}{% endblock %}
+            {% block javascripts %}{% endblock %}
+        </div>
+        </div>
+
+        <div id="foot">
+            <div class="int">
+                <div class="triangle gauche"></div>
+                <div class="triangle droit"></div>
+                Réalisation : <a href='http://damien-deconinck.fr'>Damien Deconinck</a> - 2014
+            </div>
+        </div>
     </body>
 </html>
