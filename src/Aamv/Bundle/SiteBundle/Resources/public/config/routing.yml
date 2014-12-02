@@ -1,0 +1,3 @@
+aamv_homepage:
+	path: /
+	defaults: { _controller: AamvSiteBundle:News:index }
