@@ -4,11 +4,14 @@ namespace Aamv\Bundle\SiteBundle\Controller;
 
 use Symfony\Component\HttpFoundation;
 
+class NewsController {
 
-class NewsController
-{
-	public function indexAction()
-	{
-		return new Reponse();
-	}
+    public function associationAction() {
+        
+    }
+
+    public function reunionAction() {
+        
+    }
+
 }
