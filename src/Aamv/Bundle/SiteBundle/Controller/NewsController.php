@@ -2,18 +2,13 @@
 
 namespace Aamv\Bundle\SiteBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation;
+
 
 class NewsController
 {
-
-	/**
-	 * @Route("/")
-	 * @Template
-	 */
 	public function indexAction()
 	{
-		return [];
+		return new Reponse();
 	}
 }

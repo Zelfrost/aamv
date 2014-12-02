@@ -1,0 +1,3 @@
+aamv_site_homepage:
+    path:     /
+    defaults: { _controller: AamvSiteBundle:Homepage:index }

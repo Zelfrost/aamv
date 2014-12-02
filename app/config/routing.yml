@@ -1,4 +1,3 @@
-aamv_site_index:
-    resource: "@AamvSiteBundle/Controller"
-    type:     annotation
+aamv_site:
+    resource: "@AamvSiteBundle/Resources/config/routing.yml"
     prefix:   /
