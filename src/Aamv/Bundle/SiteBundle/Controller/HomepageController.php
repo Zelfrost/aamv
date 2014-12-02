@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation;
 class HomepageController extends Controller {
 
     public function indexAction() {
-        return $this->render('AamvSiteBundle:homepage.html.twig');
+        return $this->render('AamvSiteBundle:General:homepage.html.twig');
     }
 
 }
