@@ -10,7 +10,7 @@ class NewsController
 
 	/**
 	 * @Route("/")
-	 * @Template("")
+	 * @Template
 	 */
 	public function indexAction()
 	{

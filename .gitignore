@@ -9,5 +9,8 @@ app/logs/*
 !app/logs/.gitkeep
 
 bin/
+!bin/install
+
 vendor/
-web/
+
+web/bundles
