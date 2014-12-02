@@ -1,16 +1,42 @@
-app/config/parameters.yml
-app/bootstrap.php.cache
-app/phpunit.xml
+# Bootstrap
+app/bootstrap*
+/app/bootstrap.php.cache
 
-app/cache/*
+# Symfony directories
+vendor/*
+/build/
+!/bin/install
+/bin/
+*/logs/*
+*/cache/*
+web/uploads/*
+web/bundles/*
+web/css/*
+web/js/*
 !app/cache/.gitkeep
-
-app/logs/*
 !app/logs/.gitkeep
 
-bin/
-!bin/install
+# Configuration files
+app/config/parameters.ini
+app/config/parameters.yml
+app/phpunit.xml
 
-vendor/
+# Composer
+composer.phar
+composer.lock
 
-web/bundles
+# Dossier projet phpStorm/NetBeans
+.idea/*
+nbproject/*
+
+# Mac
+.DS_STORE
+*/.DS_STORE
+
+# Fichiers de serveurs
+.bash_history
+.ssh/
+log/
+tmp/
+web/app.php.info
+web/stats/
