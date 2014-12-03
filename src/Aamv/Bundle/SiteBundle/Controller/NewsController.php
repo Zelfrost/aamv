@@ -2,16 +2,17 @@
 
 namespace Aamv\Bundle\SiteBundle\Controller;
 
-use Symfony\Component\HttpFoundation;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class NewsController {
-
-    public function associationAction() {
-        
+class NewsController extends Controller
+{
+    public function associationAction()
+    {
+        return $this->render('AamvSiteBundle:News:association.html.twig');
     }
 
-    public function reunionAction() {
-        
+    public function reunionAction()
+    {
+        return $this->render('AamvSiteBundle:News:reunions.html.twig');
     }
-
 }

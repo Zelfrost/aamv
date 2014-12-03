@@ -1,11 +1,11 @@
 aamv_site_homepage:
     path:     /
     defaults: { _controller: AamvSiteBundle:Homepage:index }
-    
-aamv_site_new_association:
-    path:     /
+
+aamv_site_news_association:
+    path:     /news/association
     defaults: { _controller: AamvSiteBundle:News:association }
-    
-aamv_site_new_reunion:
-    path:     /
+
+aamv_site_news_reunions:
+    path:     /news/reunion
     defaults: { _controller: AamvSiteBundle:News:reunion }
