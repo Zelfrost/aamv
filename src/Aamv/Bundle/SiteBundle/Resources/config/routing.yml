@@ -9,8 +9,8 @@ aamv_site_news_association:
     defaults: { _controller: AamvSiteBundle:News:association }
 
 aamv_site_news_reunions:
-    path:     /news/reunion
-    defaults: { _controller: AamvSiteBundle:News:reunion }
+    path:     /news/reunions
+    defaults: { _controller: AamvSiteBundle:News:reunions }
 
 # Pages L'Association
 aamv_site_association_presentation:

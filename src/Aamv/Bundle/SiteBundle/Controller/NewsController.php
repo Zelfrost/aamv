@@ -11,7 +11,7 @@ class NewsController extends Controller {
         return $this->render('AamvSiteBundle:News:association.html.twig');
     }
 
-    public function reunionAction() {
-        return $this->render('AamvSiteBundle:News:reunion.html.twig');
+    public function reunionsAction() {
+        return $this->render('AamvSiteBundle:News:reunions.html.twig');
     }
 }
