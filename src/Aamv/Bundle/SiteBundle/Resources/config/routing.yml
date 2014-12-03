@@ -4,35 +4,35 @@ aamv_site_homepage:
     defaults: { _controller: AamvSiteBundle:Homepage:index }
 
 # Pages News
-aamv_site_new_association:
-    path:     /association
+aamv_site_news_association:
+    path:     /news/association
     defaults: { _controller: AamvSiteBundle:News:association }
-    
-aamv_site_new_reunion:
-    path:     /reunion
+
+aamv_site_news_reunions:
+    path:     /news/reunion
     defaults: { _controller: AamvSiteBundle:News:reunion }
 
 # Pages L'Association
 aamv_site_association_presentation:
-    path:     /association
+    path:     /association/presentation
     defaults: { _controller: AamvSiteBundle:Association:presentation }
     
 aamv_site_association_historique:
-    path:     /reunion
+    path:     /association/reunion
     defaults: { _controller: AamvSiteBundle:Association:historique }
     
 aamv_site_association_objectifs:
-    path:     /objectifs
+    path:     /association/objectifs
     defaults: { _controller: AamvSiteBundle:Association:objectifs }
     
 aamv_site_association_services_am:
-    path:     /services_am
+    path:     /association/services_am
     defaults: { _controller: AamvSiteBundle:Association:servicesam }
     
 aamv_site_association_services_parents:
-    path:     /services_parents
+    path:     /association/services_parents
     defaults: { _controller: AamvSiteBundle:Association:servicesparents }
     
 aamv_site_association_adhesion:
-    path:     /adhesion
+    path:     /association/adhesion
     defaults: { _controller: AamvSiteBundle:Association:adhesion }

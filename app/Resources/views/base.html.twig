@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
+<<<<<<< HEAD
         <title>{% block title %}AAMV{% endblock %}</title>
         
         {% stylesheets 
@@ -10,12 +11,18 @@
         <link rel="stylesheet" type="text/css" href="{{ asset_url }}">
         {% endstylesheets %}
         
+=======
+        <title>{% block title %}Association des Assistantes Maternelles de Villeneuve d'Ascq{% endblock %}</title>
+>>>>>>> 4a008dc658efd044b68478bd1f2a4193339f657a
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/aamvsite/css/base.css') }}">
+
+        {% block css %}{% endblock css %}
     </head>
     
     <body>
-        {% include '::title.html.twig' %}
+        {% include '::header.html.twig' %}
         {% include '::nav.html.twig' %}
 
         <div id="body">

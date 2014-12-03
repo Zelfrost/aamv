@@ -1,6 +1,10 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}AAMV - Acceuil{% endblock %}
+{% block title %}Accueil - {{ parent() }}{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/aamvsite/css/Homepage/index.css') }}">
+{% endblock css %}
 
 {% block body %}
     <a href="https://lenord.fr/jcms/j_6/accueil"><img src="{{ asset('bundles/aamvsite/images/nord.png') }}" alt="Logo du Nord"></a>

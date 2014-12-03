@@ -14,21 +14,4 @@ class NewsController extends Controller {
     public function reunionAction() {
         return $this->render('AamvSiteBundle:News:reunion.html.twig');
     }
-
-    public function objectifsAction() {
-        
-    }
-
-    public function servicesamAction() {
-        
-    }
-
-    public function servicesparentsAction() {
-        
-    }
-
-    public function adhesionAction() {
-        
-    }
-
 }

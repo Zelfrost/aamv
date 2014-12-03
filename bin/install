@@ -7,7 +7,6 @@ setfacl -dR -m u:"$HTTPDUSER":rwX -m u:`whoami`:rwX app/cache app/logs
 
 composer install
 
-php app/console assetic:dump
 php app/console assets:install --symlink
 
 php app/console doctrine:database:create
