@@ -18,7 +18,7 @@ aamv_site_association_presentation:
     defaults: { _controller: AamvSiteBundle:Association:presentation }
     
 aamv_site_association_historique:
-    path:     /association/reunion
+    path:     /association/historique
     defaults: { _controller: AamvSiteBundle:Association:historique }
     
 aamv_site_association_objectifs:
@@ -36,3 +36,59 @@ aamv_site_association_services_parents:
 aamv_site_association_adhesion:
     path:     /association/adhesion
     defaults: { _controller: AamvSiteBundle:Association:adhesion }
+
+# Pages Services
+aamv_site_services_annonces:
+    path:     /services/annonces
+    defaults: { _controller: AamvSiteBundle:Services:annonces }
+
+aamv_site_services_listeam:
+    path:     /services/liste_assistantes_maternelles
+    defaults: { _controller: AamvSiteBundle:Services:listeam }
+
+aamv_site_services_amvilleneuve:
+    path:     /services/assistantes_maternelles_villeneuve
+    defaults: { _controller: AamvSiteBundle:Services:amvilleneuve }
+
+aamv_site_services_autorisation:
+    path:     /services/autorisation
+    defaults: { _controller: AamvSiteBundle:Services:autorisation }
+    
+aamv_site_services_questionsreponses:
+    path:     /services/questions_reponses
+    defaults: { _controller: AamvSiteBundle:Services:questionsreponses }
+    
+# Pages Outils
+aamv_site_outils:
+    path:     /outils
+    defaults: { _controller: AamvSiteBundle:Outils:outils }
+    
+aamv_site_outils_formulaires:
+    path:     /outils/formulaires
+    defaults: { _controller: AamvSiteBundle:Outils:formulaires }
+    
+aamv_site_outils_salaire:
+    path:     /outils/bulletin_salaire
+    defaults: { _controller: AamvSiteBundle:Outils:salaire }
+
+# Pages Informations
+aamv_site_informations_savoir:
+    path:     /informations/tout_savoir
+    defaults: { _controller: AamvSiteBundle:Informations:savoir }
+    
+aamv_site_informations_adresses:
+    path:     /informations/adresses
+    defaults: { _controller: AamvSiteBundle:Informations:adresses }
+    
+aamv_site_informations_voir:
+    path:     /informations/a_voir
+    defaults: { _controller: AamvSiteBundle:Informations:voir }
+
+# Pages Contacts
+aamv_site_contacts_demande:
+    path:     /contacts/demande
+    defaults: { _controller: AamvSiteBundle:Contacts:demande }
+
+aamv_site_contacts_nouscontacter:
+    path:     /contacts/nous_contacter
+    defaults: { _controller: AamvSiteBundle:Contacts:nouscontacter }
