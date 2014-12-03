@@ -1,134 +1,134 @@
 #body a img {
-	position: absolute;
-	top: 100px;
+    position: absolute;
+    top: 100px;
 
-	width: 150px;
+    width: 150px;
 }
 #body a:first-of-type img {
-	left: 0;
+    left: 0;
 }
 #body a:nth-of-type(2) img {
-	right: 0;
+    right: 0;
 }
 #body #logo {
-	display: block;
+    display: block;
 
-	max-width: 80%;
-	margin: 30px auto 60px;
+    max-width: 80%;
+    margin: 30px auto 60px;
 }
 
 #news {
-	width: 95%;
-	margin: 0 auto;
+    width: 95%;
+    margin: 0 auto;
 
-	padding: 10px 15px;
+    padding: 10px 15px;
 
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .new {
-	float: left;
+    float: left;
 
-	width: 50%;
-	padding: 5px;
+    width: 50%;
+    padding: 5px;
 
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 .new .int {
-	padding: 10px 15px;
+    padding: 10px 15px;
 
-	background: #EEE;
-	border-bottom: 4px solid #FACA4A;
+    background: #EEE;
+    border-bottom: 4px solid #FACA4A;
 }
 
 #newsletter {
-	width: 70%;
-	padding: 5%;
+    width: 70%;
+    padding: 5%;
 
-	margin: 10px auto;
+    margin: 10px auto;
 
-	border: 1px solid #AAA;
+    border: 1px solid #AAA;
 
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 #newsletter p {
-	margin: 0;
-	margin-bottom: 20px;
+    margin: 0;
+    margin-bottom: 20px;
 
-	text-align: center;
+    text-align: center;
 }
 #newsletter p:first-letter {
-	margin: 0;
+    margin: 0;
 }
 
 #newsletter input[type=mail], #newsletter input[type=submit] {
-	float: left;
+    float: left;
 
-	width: 80%;
-	height: 30px;
+    width: 80%;
+    height: 30px;
 
-	padding: 5px 10px;
-	margin: 0;
+    padding: 5px 10px;
+    margin: 0;
 
-	font-size: 16px;
-	line-height: 16px;
+    font-size: 16px;
+    line-height: 16px;
 
-	border-radius: 0;
-	border: 1px solid #AAA;
+    border-radius: 0;
+    border: 1px solid #AAA;
 
-	color: #555;
+    color: #555;
 
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 #newsletter input[type=submit] {
-	width: 20%;
-	border-left: 0;
+    width: 20%;
+    border-left: 0;
 
-	color: #555;
+    color: #555;
 
-	background: rgba(250, 202, 74, 0.85);
+    background: rgba(250, 202, 74, 0.85);
 }
 #newsletter input[type=submit]:hover {
-	box-shadow: 0 0 15px rgba(173, 140, 51, 0.2) inset;
+    box-shadow: 0 0 15px rgba(173, 140, 51, 0.2) inset;
 
-	cursor: pointer;
+    cursor: pointer;
 }
 #newsletter input[type=submit]:active {
-	background: rgba(173, 140, 51, 0.6);
-	box-shadow: 0 0 15px rgba(250, 202, 74, 0.4) inset;
+    background: rgba(173, 140, 51, 0.6);
+    box-shadow: 0 0 15px rgba(250, 202, 74, 0.4) inset;
 
-	cursor: pointer;
+    cursor: pointer;
 }
 
 #newsletter input[type=radio] {
-	display: none;
+    display: none;
 }
 #newsletter label {
-	display: inline-block;
-	float: right;
+    display: inline-block;
+    float: right;
 
-	padding: 2px 10px;
-	background: #EEE;
+    padding: 2px 10px;
+    background: #EEE;
 
-	border: 1px solid #AAA;
-	border-top: 0;
+    border: 1px solid #AAA;
+    border-top: 0;
 }
 #newsletter label:last-child {
-	border-right: none;
+    border-right: none;
 }
 #newsletter input[type=radio]:checked + label {
-	background: #93EB96;
+    background: #93EB96;
 }
 #newsletter label:hover {
-	cursor: pointer;
+    cursor: pointer;
 }
