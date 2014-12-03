@@ -2,16 +2,6 @@
 
 {% block title %}AAMV - Acceuil{% endblock %}
 
-{% block stylesheets %}
-    {% stylesheets 
-			'@AamvSiteBundle/Resources/public/css/base.css'
-			'@AamvSiteBundle/Resources/public/css/News/index.css' %}
-    <link rel="stylesheet" type="text/css" href="{{ asset_url }}">
-
-    {% endstylesheets %}
-{% endblock %}
-
-
 {% block body %}
     <a href="https://lenord.fr/jcms/j_6/accueil"><img src="{{ asset('bundles/aamvsite/images/nord.png') }}" alt="Logo du Nord"></a>
     <a href="http://www.mairie-villeneuvedascq.fr/"><img src="{{ asset('bundles/aamvsite/images/villeneuve.png') }}" alt="Logo de villeneuve"></a>

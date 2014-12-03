@@ -3,6 +3,13 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}AAMV{% endblock %}</title>
+        
+        {% stylesheets 
+            '@AamvSiteBundle/Resources/public/css/base.css'
+            '@AamvSiteBundle/Resources/public/css/News/index.css' %}
+        <link rel="stylesheet" type="text/css" href="{{ asset_url }}">
+        {% endstylesheets %}
+        
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
