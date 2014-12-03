@@ -1,3 +1,10 @@
+aamv_user:
+    resource: "@AamvUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
 aamv_site:
     resource: "@AamvSiteBundle/Resources/config/routing.yml"
     prefix:   /
