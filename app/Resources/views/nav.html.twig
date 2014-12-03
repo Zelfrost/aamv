@@ -1,57 +1,34 @@
 <div id="nav">
     <ul>
-        <li>News
+        <li><a href="{{ path('aamv_site_news') }}">News</a></li>
+
+        <li>Services
             <ul>
-                <li><a href='{{ path('aamv_site_news_association') }}'>L'Association</a></li>
-                <li><a href='{{ path('aamv_site_news_reunions') }}'>Ses Réunions</a></li>
+                <li><a href="{{ path('aamv_site_services_annonces') }}">Petites Annonces</a></li>
+                <li><a href="{{ path('aamv_site_services_outils') }}">Outils pour les assistantes maternelles</a></li>
+                <li><a href="{{ path('aamv_site_services_questions_reponses') }}">Questions/Réponses</a></li>
+            </ul>
+        </li>
+
+        <li>Divers
+            <ul>
+                <li><a href="{{ path('aamv_site_divers_articles') }}">Articles détaillés</a></li>
+                <li><a href="{{ path('aamv_site_divers_adresses') }}">Bonnes adresses</a></li>
+                <li><a href="{{ path('aamv_site_divers_sites_utiles') }}">Sites utiles</a></li>
             </ul>
         </li>
 
         <li>L'association
             <ul>
-                <li><a href="{{ path('aamv_site_association_presentation') }}">Présentation</a></li>
-                <li><a href="{{ path('aamv_site_association_historique') }}">Historique</a></li>
-                <li><a href="{{ path('aamv_site_association_objectifs') }}">Objectifs</a></li>
-                <li><a href="{{ path('aamv_site_association_services_am') }}">Services A.M</a></li>
-                <li><a href="{{ path('aamv_site_association_services_parents') }}">Services Parents</a></li>
-                <li><a href="{{ path('aamv_site_association_adhesion') }}">Bulletin d'Adhésion</a></li>
+                <li><a href="{{ path('aamv_site_association_presentation') }}">Qui sommes nous ?</a></li>
+                <li><a href="{{ path('aamv_site_association_photos') }}">Photos</a></li>
+                <li><a href="{{ path('aamv_site_association_parle') }}">On en parle</a></li>
             </ul>
         </li>
 
-        <li>Services
-            <ul>
-                <li><a href="{{ path('aamv_site_services_annonces') }}">Petites Annonces</a></li>
-                <li><a href="{{ path('aamv_site_services_listeam') }}">Liste d'Assistantes Maternelles</a></li>
-                <li><a href="{{ path('aamv_site_services_amvilleneuve') }}">Assistantes Maternelles de Villeneuve d'Ascq</a></li>
-                <li><a href="{{ path('aamv_site_services_autorisation') }}">Autorisation</a></li>
-                <li><a href="{{ path('aamv_site_services_questionsreponses') }}">Questions/Réponses</a></li>
-            </ul>
-        </li>
+        <li><a href="{{ path('aamv_site_contacts') }}">Contacts</a></li>
 
-        <li>Outils
-            <ul>
-                <li><a href="{{ path('aamv_site_outils') }}">Outils</a></li>
-                <li><a href="{{ path('aamv_site_outils_formulaires') }}">Formulaires</a></li>
-                <li><a href="{{ path('aamv_site_outils_salaire') }}">Bulletin de Salaire</a></li>
-            </ul>
-        </li>
-
-        <li>Informations
-            <ul>
-                <li><a href="{{ path('aamv_site_informations_savoir') }}">Tout savoir sur ...</a></li>
-                <li><a href="{{ path('aamv_site_informations_adresses') }}">Adresses</a></li>
-                <li><a href="{{ path('aamv_site_informations_voir') }}">A voir</a></li>
-            </ul>
-        </li>
-
-        <li>Contacts
-            <ul>
-                <li><a href="{{ path('aamv_site_contacts_demande') }}">Une demande</a></li>
-                <li><a href="{{ path('aamv_site_contacts_nouscontacter') }}">Nous contacter</a></li>
-            </ul>
-        </li>
-
-        <li><a href="{{ path('aamv_site_homepage') }}">Forum</a></li>
+        <li><a href="http://forum.aamv.net/">Forum</a></li>
 
         <hr>
 
