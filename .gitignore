@@ -5,8 +5,9 @@ app/bootstrap*
 # Symfony directories
 vendor/*
 /build/
-!/bin/install
 /bin/
+!/bin/install
+!/bin/codesniffer
 */logs/*
 */cache/*
 web/uploads/*
