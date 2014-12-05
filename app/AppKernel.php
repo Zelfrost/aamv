@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
 
             new Aamv\Bundle\SiteBundle\AamvSiteBundle(),
+            new Aamv\Bundle\AdminBundle\AamvAdminBundle(),
             new Aamv\Bundle\UserBundle\AamvUserBundle(),
         );
 

@@ -35,7 +35,7 @@ assetic:
     debug:          "%kernel.debug%"
     use_controller: false
     java:           
-    bundles:        [ AamvSiteBundle ]
+    bundles:        [ AamvSiteBundle, AamvAdminBundle ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~

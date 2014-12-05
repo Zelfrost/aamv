@@ -1,0 +1,9 @@
+services:
+#    imadev.goaleo.adminbundle.entity.sport:
+#        class: Imadev\Goaleo\AdminBundle\Entity\SportAdmin
+#        tags:
+#            - { name: sonata.admin, manager_type: orm, group: "Sport", label: "Sport Family" }
+#        arguments: [null, Imadev\Goaleo\SportBundle\Entity\Sport, ImadevGoaleoAdminBundle:SportAdmin]
+#        
+#        calls:
+#            - [ setLabelTranslatorStrategy, ["@sonata.admin.label.strategy.underscore"]]
