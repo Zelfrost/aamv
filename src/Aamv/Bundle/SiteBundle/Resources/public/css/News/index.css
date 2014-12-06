@@ -1,0 +1,29 @@
+article {
+    margin: 10px 0;
+
+    background-color: #FAD87C;
+}
+
+article header {
+    padding: 10px 20px;
+
+    color: #FFF;
+    font-weight: bold;
+    font-size: 1.2em;
+
+    color: #FFF;
+    background-color: #AD8722;
+}
+
+article section {
+    padding: 10px 30px;
+
+}
+
+article footer {
+    margin-top: 25px;
+    padding: 5px 10px;
+
+    font-size: 0.8em;
+    text-align: right;
+}
