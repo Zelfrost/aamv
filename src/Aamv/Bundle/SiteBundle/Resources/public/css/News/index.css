@@ -1,7 +1,11 @@
 article {
-    margin: 10px 0;
+    width: 90%;
+    margin: 20px 0 0;
 
     background-color: #FAD87C;
+}
+article:nth-child(odd) {
+    margin-left: 10%;
 }
 
 article header {
