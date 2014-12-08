@@ -17,7 +17,9 @@ class LoadQuestionData implements FixtureInterface {
                 ->setTitle('Une news comme une autre')
                 ->setContent('Une news avec du texte, des infos, du blabla sur les nouveautés :)')
                 ->setAuthor('Guillaume')
-                ->setCreatedAt(new \DateTime());
+                ->setCreatedAt(new \DateTime())
+                ->setUpdatedAt(new \DateTime());
+
 
         $manager->persist($news1);
 
@@ -28,7 +30,8 @@ class LoadQuestionData implements FixtureInterface {
                 ->setTitle('Une news comme une autre')
                 ->setContent('Une news avec du texte, des infos, du blabla sur les nouveautés :)')
                 ->setAuthor('Guillaume')
-                ->setCreatedAt(new \DateTime());
+                ->setCreatedAt(new \DateTime())
+                ->setUpdatedAt(new \DateTime());
 
         $manager->persist($news2);
 
@@ -39,7 +42,8 @@ class LoadQuestionData implements FixtureInterface {
                 ->setTitle('Une news comme une autre')
                 ->setContent('Une news avec du texte, des infos, du blabla sur les nouveautés :)')
                 ->setAuthor('Guillaume')
-                ->setCreatedAt(new \DateTime());
+                ->setCreatedAt(new \DateTime())
+                ->setUpdatedAt(new \DateTime());
 
         $manager->persist($news3);
 
@@ -50,7 +54,8 @@ class LoadQuestionData implements FixtureInterface {
                 ->setTitle('Une news comme une autre')
                 ->setContent('Une news avec du texte, des infos, du blabla sur les nouveautés :)')
                 ->setAuthor('Guillaume')
-                ->setCreatedAt(new \DateTime());
+                ->setCreatedAt(new \DateTime())
+                ->setUpdatedAt(new \DateTime());
 
         $manager->persist($news4);
 
@@ -61,7 +66,8 @@ class LoadQuestionData implements FixtureInterface {
                 ->setTitle('Une news comme une autre')
                 ->setContent('Une news avec du texte, des infos, du blabla sur les nouveautés :)')
                 ->setAuthor('Guillaume')
-                ->setCreatedAt(new \DateTime());
+                ->setCreatedAt(new \DateTime())
+                ->setUpdatedAt(new \DateTime());
 
         $manager->persist($news5);
 
