@@ -11,7 +11,7 @@ class NewsRepository extends EntityRepository
         $first = ($page - 1) * $resultsPerPage;
 
         $query = $this->createQueryBuilder('n')
-            ->orderBy('createdAt', 'DESC')
+            ->orderBy('n.createdAt', 'DESC')
             ->setFirstResult($first)
             ->setMaxResults($first + ($page * $resultsPerPage))
             ->getQuery();

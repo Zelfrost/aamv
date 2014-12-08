@@ -5,8 +5,8 @@ aamv_site_homepage:
 
 # Pages News
 aamv_site_news:
-    path:     /news
-    defaults: { _controller: AamvSiteBundle:News:index }
+    path:     /news/{page}
+    defaults: { _controller: AamvSiteBundle:News:index, page: 1 }
 
 # Pages Services
 aamv_site_services_annonces:

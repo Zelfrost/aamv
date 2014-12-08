@@ -9,43 +9,6 @@
 {% block body %}
     <h2>Les news</h2>
 
-    <article>
-        <header>Nos tout nouveaux outils</header>
-        <section>
-            De nouveaux outils sont disponibles sur le site. Retrouvez les <a href="{{ path('aamv_site_services_outils') }}">ici</a>. La liste des nouveautés :
-            <ul class="liste_news">
-                <li>Fichier de calcul des mensualisations 2014</li>
-                <li>Fichier de calcul du prix des repas</li>
-                <li>Fichier d'information sur les congés</li>
-            </ul>
-        </section>
-        <footer>Par Damien Deconinck, le Samedi 06 Décembre 2014</footer>
-    </article>
-
-    <article>
-        <header>De nouveaux membres</header>
-        <section>Pleins de nouveaux membres ce mois-ci ! Nous leur souhaitons à toutes et tous la bienvenue, et espèrons que ce site saura les aider.</section>
-        <footer>Par Damien Deconinck, le Samedi 06 Décembre 2014</footer>
-    </article>
-
-    <article>
-        <header>Une news comme une autre</header>
-        <section>Une news avec du texte, des infos, du blabla sur les nouveautés :)</section>
-        <footer>Par Damien Deconinck, le Samedi 06 Décembre 2014</footer>
-    </article>
-
-    <article>
-        <header>Une news comme une autre</header>
-        <section>Une news avec du texte, des infos, du blabla sur les nouveautés :)</section>
-        <footer>Par Damien Deconinck, le Samedi 06 Décembre 2014</footer>
-    </article>
-
-    <article>
-        <header>Une news comme une autre</header>
-        <section>Une news avec du texte, des infos, du blabla sur les nouveautés :)</section>
-        <footer>Par Damien Deconinck, le Samedi 06 Décembre 2014</footer>
-    </article>
-
     {% for new in news %}
         <article>
             <header>{{ new.title }}</header>
