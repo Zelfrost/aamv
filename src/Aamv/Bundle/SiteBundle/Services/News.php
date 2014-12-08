@@ -22,9 +22,11 @@ class News
      * Retourne le contenu et la date formaté des news
      * @return type
      */
-    public function getNews()
+    public function getNews($page, $resultsPerPage)
     {
-        return $this->em->getRepository('AamvSiteBundle:News')->findAll();
+        return $this->em
+            ->getRepository('AamvSiteBundle:News')
+            ->findByPage($page, $resultsPerPage);
     }
 
 }
