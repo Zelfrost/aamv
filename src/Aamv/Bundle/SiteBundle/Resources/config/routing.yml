@@ -51,3 +51,12 @@ aamv_site_association_parle:
 aamv_site_contacts:
     path:     /contacts
     defaults: { _controller: AamvSiteBundle:Contacts:index }
+    
+###############
+#    Admin    #
+###############
+
+# Admin News
+aamv_admin_news:
+    path:   /admin/news
+    defaults: { _controller: AamvSiteBundle:Admin/NewsAdmin:index }
