@@ -8,6 +8,8 @@ class NewsController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('AamvSiteBundle:News:index.html.twig');
+        $news = $this->get('aamv_site_news.get_news')->getNews();
+
+        return $this->render('AamvSiteBundle:News:index.html.twig', array('news' => $news));
     }
 }
