@@ -4,7 +4,8 @@ namespace Aamv\Bundle\SiteBundle\Services;
 
 use Doctrine\ORM\EntityManager;
 
-class News {
+class News
+{
 
     protected $em;
 
@@ -12,7 +13,8 @@ class News {
      * Constructeur de la classe News
      * @param EntityManager $em
      */
-    public function __construct(EntityManager $em) {
+    public function __construct(EntityManager $em)
+    {
         $this->em = $em;
     }
 
@@ -20,7 +22,8 @@ class News {
      * Retourne le contenu et la date formaté des news
      * @return type
      */
-    public function getNews() {
+    public function getNews()
+    {
         return $this->em->getRepository('AamvSiteBundle:News')->findAll();
     }
 
