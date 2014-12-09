@@ -3,19 +3,27 @@
 namespace Aamv\Bundle\SiteBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class NewsRepository extends EntityRepository
 {
-    public function findByPage($page, $resultsPerPage)
+    public function countTotal()
     {
-        $first = ($page - 1) * $resultsPerPage;
-
         $query = $this->createQueryBuilder('n')
-            ->orderBy('n.createdAt', 'DESC')
-            ->setFirstResult($first)
-            ->setMaxResults($first + ($page * $resultsPerPage))
+            ->select('count(n.id)')
             ->getQuery();
 
-        return $query->getResult();
+        $result = $query->getOneOrNullResult();
+        return $result[1];
+    }
+
+    public function findByPage($page, $resultsPerPage)
+    {
+        $query = $this->createQueryBuilder('n')
+            ->orderBy('n.createdAt', 'DESC')
+            ->setFirstResult(($page - 1) * $resultsPerPage)
+            ->setMaxResults($resultsPerPage);
+
+        return new Paginator($query);
     }
 }
