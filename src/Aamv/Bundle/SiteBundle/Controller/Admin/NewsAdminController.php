@@ -8,6 +8,6 @@ class NewsAdminController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('AamvSiteBundle:News:index.html.twig');
+        return $this->render('AamvSiteBundle:Admin/News:news_admin.html.twig');
     }
 }
