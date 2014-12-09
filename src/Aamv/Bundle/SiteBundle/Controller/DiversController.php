@@ -2,9 +2,9 @@
 
 namespace Aamv\Bundle\SiteBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Aamv\Bundle\DefaultBundle\Controller\AbstractController;
 
-class DiversController extends Controller
+class DiversController extends AbstractController
 {
     public function articlesAction()
     {

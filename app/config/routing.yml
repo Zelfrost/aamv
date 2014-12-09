@@ -10,7 +10,7 @@ aamv_user:
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
- 
+
 # Aamv Admin
 aamv_admin_aamv:
     resource: "@AamvSiteBundle/Resources/config/routing_admin.yml"

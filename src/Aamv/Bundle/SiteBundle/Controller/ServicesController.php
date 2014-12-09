@@ -2,10 +2,9 @@
 
 namespace Aamv\Bundle\SiteBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation;
+use Aamv\Bundle\DefaultBundle\Controller\AbstractController;
 
-class ServicesController extends Controller
+class ServicesController extends AbstractController
 {
     public function annoncesAction()
     {

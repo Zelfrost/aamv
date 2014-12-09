@@ -2,9 +2,9 @@
 
 namespace Aamv\Bundle\SiteBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Aamv\Bundle\DefaultBundle\Controller\AbstractController;
 
-class NewsController extends Controller
+class NewsController extends AbstractController
 {
     public function indexAction($page)
     {

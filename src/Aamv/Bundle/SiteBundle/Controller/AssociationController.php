@@ -2,9 +2,9 @@
 
 namespace Aamv\Bundle\SiteBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Aamv\Bundle\DefaultBundle\Controller\AbstractController;
 
-class AssociationController extends Controller
+class AssociationController extends AbstractController
 {
     public function presentationAction()
     {

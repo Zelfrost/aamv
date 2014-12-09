@@ -2,9 +2,9 @@
 
 namespace Aamv\Bundle\SiteBundle\Controller\Admin;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Aamv\Bundle\DefaultBundle\Controller\AbstractController;
 
-class NewsAdminController extends Controller
+class NewsAdminController extends AbstractController
 {
     public function indexAction()
     {

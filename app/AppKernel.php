@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new FOS\UserBundle\FOSUserBundle(),
 
+            new Aamv\Bundle\DefaultBundle\AamvDefaultBundle(),
             new Aamv\Bundle\SiteBundle\AamvSiteBundle(),
             new Aamv\Bundle\AdminBundle\AamvAdminBundle(),
             new Aamv\Bundle\UserBundle\AamvUserBundle(),
