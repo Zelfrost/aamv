@@ -13,7 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  * @author  Guillaume COPIN
  * @package Aamv\AdminBundle\Controller
  */
-class DashboardController extends Controller {
+class DashboardController extends Controller 
+{
 
     /**
      * Display dashboard
