@@ -6,7 +6,6 @@ use Doctrine\ORM\EntityManager;
 
 class News
 {
-
     protected $em;
 
     /**
@@ -22,9 +21,22 @@ class News
      * Retourne le contenu et la date formaté des news
      * @return type
      */
-    public function getNews()
+    public function getNews($page, $resultsPerPage)
     {
-        return $this->em->getRepository('AamvSiteBundle:News')->findAll();
-    }
+        $newsCount = $this->em
+            ->getRepository('AamvSiteBundle:News')
+            ->countTotal();
 
+        $pagination = array(
+            'page'       => $page,
+            'route'      => 'aamv_site_news',
+            'pages_count' => ceil($newsCount / $resultsPerPage)
+        );
+
+        $news = $this->em
+            ->getRepository('AamvSiteBundle:News')
+            ->findByPage($page, $resultsPerPage);
+
+        return array('news' => $news, 'pagination' => $pagination);
+    }
 }

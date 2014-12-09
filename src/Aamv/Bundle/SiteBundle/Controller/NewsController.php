@@ -6,10 +6,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class NewsController extends Controller
 {
-    public function indexAction()
+    public function indexAction($page)
     {
-        $news = $this->get('aamv_site_news.get_news')->getNews();
+        $resultsPerPage = $this->container->getParameter('news.results_per_page');
 
-        return $this->render('AamvSiteBundle:News:index.html.twig', array('news' => $news));
+        $news = $this->get('aamv_site_news.get_news')->getNews($page, $resultsPerPage);
+
+        return $this->render('AamvSiteBundle:News:index.html.twig', array('news' => $news['news'], 'pagination' => $news['pagination']));
     }
 }

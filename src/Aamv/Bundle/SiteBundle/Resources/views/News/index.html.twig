@@ -33,6 +33,8 @@
             <header>{{ new.title }}</header>
             <section>{{ new.content }}</section>
             <footer>Par {{ new.author }}, le {{ new.createdAt|localizeddate('full', 'none') }}</footer>
-        </article> 
+        </article>
     {% endfor %}
+
+    {% include '::pagination.html.twig' %}
 {% endblock body %}

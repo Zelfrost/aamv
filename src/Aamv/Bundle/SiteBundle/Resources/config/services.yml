@@ -1,0 +1,4 @@
+services:
+    aamv_site_news.get_news:
+        class:     Aamv\Bundle\SiteBundle\Services\News
+        arguments: [ @doctrine.orm.entity_manager ]
