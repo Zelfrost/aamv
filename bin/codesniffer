@@ -2,4 +2,4 @@
 
 set -e
 
-bin/phpcs --standard=PSR2 src/
+bin/phpcs --standard=PSR2 src/Aamv/Bundle/SiteBundle

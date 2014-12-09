@@ -12,6 +12,9 @@ class NewsController extends Controller
 
         $news = $this->get('aamv_site_news.get_news')->getNews($page, $resultsPerPage);
 
-        return $this->render('AamvSiteBundle:News:index.html.twig', array('news' => $news['news'], 'pagination' => $news['pagination']));
+        return $this->render(
+            'AamvSiteBundle:News:index.html.twig',
+            array('news' => $news['news'], 'pagination' => $news['pagination'])
+        );
     }
 }
