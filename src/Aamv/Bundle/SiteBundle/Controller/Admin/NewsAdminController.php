@@ -11,6 +11,7 @@ class NewsAdminController extends AbstractController
         $resultsPerPage = $this->container->getParameter('news.results_per_page');
 
         $results = $this->get('aamv_site_news.get_news')->getNews($page, $resultsPerPage);
+        $results['pagination']['route'] = 'aamv_admin_news';
 
         return $this->render(
             'AamvSiteBundle:Admin/News:news_admin.html.twig',

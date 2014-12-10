@@ -29,7 +29,6 @@ class News
 
         $pagination = array(
             'page'       => $page,
-            'route'      => 'aamv_site_news',
             'pages_count' => ceil($newsCount / $resultsPerPage)
         );
 

@@ -24,4 +24,6 @@
             <footer><span>Par {{ new.author }}, le {{ new.createdAt|localizeddate('full', 'none') }}</span></footer>
         </article>
     {% endfor %}
+
+    {% include 'AamvDefaultBundle::pagination.html.twig' %}
 {% endblock %}
