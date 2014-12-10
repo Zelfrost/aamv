@@ -6,8 +6,15 @@ use Aamv\Bundle\DefaultBundle\Controller\AbstractController;
 
 class NewsAdminController extends AbstractController
 {
-    public function indexAction()
+    public function indexAction($page)
     {
-        return $this->render('AamvSiteBundle:Admin/News:news_admin.html.twig');
+        $resultsPerPage = $this->container->getParameter('news.results_per_page');
+
+        $results = $this->get('aamv_site_news.get_news')->getNews($page, $resultsPerPage);
+
+        return $this->render(
+            'AamvSiteBundle:Admin/News:news_admin.html.twig',
+            $results
+        );
     }
 }

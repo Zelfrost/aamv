@@ -1,8 +1,8 @@
 aamv_admin_dashboard:
     path:     /
-    defaults: { _controller: AamvAdminBundle:Dashboard:show }  
+    defaults: { _controller: AamvAdminBundle:Dashboard:show }
 
 # Admin News
 aamv_admin_news:
-    path:   /news
-    defaults: { _controller: AamvSiteBundle:Admin/NewsAdmin:index }
+    path:   /news/{page}
+    defaults: { _controller: AamvSiteBundle:Admin/NewsAdmin:index, page: 1 }
