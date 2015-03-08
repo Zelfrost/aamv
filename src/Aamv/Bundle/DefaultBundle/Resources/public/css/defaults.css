@@ -262,9 +262,36 @@ footer {
     text-align: right;
 }
 
+footer span {
+    float: left;
+}
+
 footer a {
     color: #FAFAFA;
     text-decoration: none;
 
     font-weight: 700;
+}
+
+#back {
+    display: block;
+    float: right;
+
+    position: relative;
+    right: -30px;
+
+    margin-bottom: 20px;
+}
+
+#back a {
+    display: inline-block;
+    padding: 10px 15px;
+
+    font-weight: bold;
+    color: #FFF;
+    background-color: rgba(250, 202, 74, 0.85);
+}
+#back a:hover {
+    text-decoration: none;
+    background-color: rgba(240, 192, 64, 0.85);
 }

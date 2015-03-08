@@ -15,8 +15,10 @@ class AamvSiteExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter('news.results_per_page', $configs[0]['news']['result_per_page']);
+        $container->setParameter('ads.results_per_page', $configs[0]['ads']['result_per_page']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+        $loader->load('form_news.yml');
     }
 }

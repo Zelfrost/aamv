@@ -1,0 +1,17 @@
+.message {
+    width: 100%;
+    padding: 10px 15px;
+
+    margin-top: 10px;
+
+    color: #EEE;
+    text-align: center;
+}
+.error {
+    background-color: #d9534f;
+    border: 1px solid #d43f3a;
+}
+.warning {
+    background-color: #f0ad4e;
+    border: 1px solid #eea236;
+}

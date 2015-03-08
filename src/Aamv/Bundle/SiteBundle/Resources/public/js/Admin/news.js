@@ -1,4 +1,13 @@
 $(document).ready(function() {
+    $('#create').click(function() {
+        $.get(
+            Routing.generate('aamv_admin_news_create'),
+            function(data) {
+                // Create a pop-in with the form
+            }
+        );
+    });
+
     $('.edit-news').click(function() {
         article = $(this).closest('article');
 

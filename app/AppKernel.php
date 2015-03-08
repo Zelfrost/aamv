@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
 
             new Aamv\Bundle\DefaultBundle\AamvDefaultBundle(),
             new Aamv\Bundle\SiteBundle\AamvSiteBundle(),

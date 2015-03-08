@@ -5,12 +5,12 @@ namespace Aamv\Bundle\SiteBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * News
+ * Ads
  *
- * @ORM\Table(name="news")
- * @ORM\Entity(repositoryClass="Aamv\Bundle\SiteBundle\Repository\NewsRepository");
+ * @ORM\Table(name="ads")
+ * @ORM\Entity(repositoryClass="Aamv\Bundle\SiteBundle\Repository\AdsRepository");
  */
-class News
+class Ads
 {
     /**
      * @var integer
@@ -18,7 +18,7 @@ class News
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     */
+    */
     private $id;
 
     /**
@@ -57,10 +57,13 @@ class News
      */
     private $updatedAt;
 
-    public function __construct()
+    public function __construct($title, $content)
     {
+        $this->title     = $title;
+        $this->content   = $content;
         $this->createdAt = new \DateTime();
     }
+
 
     /**
      * Get id

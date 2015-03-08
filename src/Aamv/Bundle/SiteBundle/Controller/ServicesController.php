@@ -6,9 +6,29 @@ use Aamv\Bundle\DefaultBundle\Controller\AbstractController;
 
 class ServicesController extends AbstractController
 {
-    public function annoncesAction()
+    public function adsAction($page)
     {
-        return $this->render('AamvSiteBundle:Services:annonces.html.twig');
+        $resultsPerPage = $this->container->getParameter('ads.results_per_page');
+
+        $results = $this->get('aamv_site.ads.ads_finder')->getAds($page, $resultsPerPage);
+        $results['pagination']['route'] = 'aamv_site_ads';
+
+        return $this->render(
+            'AamvSiteBundle:Services:ads.html.twig',
+            $results
+        );
+    }
+
+    public function adAction($id)
+    {
+        $ad = $this->getDoctrine()
+            ->getRepository('AamvSiteBundle:Ads')
+            ->findOneById($id);
+
+        return $this->render(
+            'AamvSiteBundle:Services:ad.html.twig',
+            array('ad' => $ad)
+        );
     }
 
     public function outilsAction()

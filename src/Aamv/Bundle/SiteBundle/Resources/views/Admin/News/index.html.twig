@@ -1,0 +1,46 @@
+{% extends 'AamvAdminBundle::base.html.twig' %}
+
+{% block title %}Gestion des news Aamv {% endblock %}
+
+{% block page_title %}
+    <h1><i class="fa fa-file-o"></i> Gestion des News</h1>
+    <h4>Affichage, création et modification des news</h4>
+{% endblock %}
+
+{% block specific_stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/aamvsite/css/Admin/news.css') }}">
+{% endblock %}
+
+{% block body %}
+    <a href="{{ path('aamv_admin_news_create') }}" class="btn btn-success btn-block">Ajouter une news</a>
+
+    {% for message in messages %}
+        <div class="message {{ message.class }}">{{ message.value }}</div>
+    {% endfor %}
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Auteur</th>
+                <th>Date de création</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for new in news %}
+            <tr>
+                <td>{{ new.id }}</td>
+                <td>{{ new.title }}</td>
+                <td>{{ new.author }}</td>
+                <td>{{ new.createdAt|localizeddate("full", "none") }}</td>
+                <td><a href="{{ path('aamv_admin_news_edit', {id: new.id}) }}">Editer</a> / <a href="{{ path('aamv_admin_news_delete', {id: new.id}) }}">Supprimer</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% include 'AamvDefaultBundle::pagination.html.twig' %}
+{% endblock %}

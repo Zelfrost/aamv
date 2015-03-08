@@ -3,6 +3,20 @@ aamv_admin_dashboard:
     defaults: { _controller: AamvAdminBundle:Dashboard:show }
 
 # Admin News
+aamv_admin_news_create:
+    path:   /news/create
+    defaults: { _controller: AamvSiteBundle:Admin/NewsAdmin:create }
+    options:
+        expose: true
+
+aamv_admin_news_edit:
+    path:   /news/edit/{id}
+    defaults: { _controller: AamvSiteBundle:Admin/NewsAdmin:edit }
+
+aamv_admin_news_delete:
+    path:   /news/delete/{id}
+    defaults: { _controller: AamvSiteBundle:Admin/NewsAdmin:delete }
+
 aamv_admin_news:
-    path:   /news/{page}
-    defaults: { _controller: AamvSiteBundle:Admin/NewsAdmin:index, page: 1 }
+    path:   /news/{page}/{message}
+    defaults: { _controller: AamvSiteBundle:Admin/NewsAdmin:index, page: 1, message: 'none' }

@@ -43,9 +43,22 @@ span.edit {
     width: 90%;
 }
 
+.table.table-hover th {
+    border-color: #999;
+    border-width: 2px;
+}
+.table.table-hover td {
+    border-color: #AAA;
+}
+
+label {
+    margin-top: 10px;
+    padding: 5px;
+}
+
 input {
     width: 100%;
-    padding: 2px 15px;
+    padding: 10px 15px;
 
     background: #EEE;
     border: 1px solid #CCC;
@@ -58,7 +71,13 @@ input {
 
 textarea {
     width: 100%;
+    padding: 10px 15px;
 
     background: #EEE;
     border: 1px solid #CCC;
+}
+
+.btn.btn-success {
+    margin-top: 10px;
+    padding: 10px 20px;
 }

@@ -12,9 +12,11 @@
             'bundles/aamvadmin/assets/font-awesome/css/font-awesome.min.css'
             'bundles/aamvadmin/css/flaty.css'
             'bundles/aamvadmin/css/flaty-responsive.css'
+            'bundles/aamvadmin/css/defaults.css'
         filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/aamvdefault/css/pagination.css') }}">
     {% endblock %}
 {% block specific_stylesheets %}{% endblock %}
 

@@ -24,6 +24,16 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+                ->arrayNode('ads')
+                    ->isRequired()
+                    ->children()
+                        ->scalarNode('result_per_page')
+                            ->isRequired()
+                            ->cannotBeEmpty()
+                            ->defaultValue(10)
+                        ->end()
+                    ->end()
+                ->end()
             ->end();
 
         return $treeBuilder;

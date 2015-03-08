@@ -1,0 +1,20 @@
+{% extends "AamvDefaultBundle::base.html.twig" %}
+
+{% block title %}Petits annonces - {{ parent() }}{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/aamvsite/css/News/index.css') }}">
+{% endblock css %}
+
+
+{% block body %}
+    <h2>Petites annonces</h2>
+
+    {% for ad in ads %}
+        <article>
+            <header>{{ ad.title }}</header>
+            <section>{{ ad.content }}</section>
+            <footer><span><a href="{{ path('aamv_site_services_ad', {id: ad.id}) }}">Plus d'informations</a></span>Par {{ ad.author }}, le {{ ad.createdAt|localizeddate('full', 'none') }}</footer>
+        </article>
+    {% endfor %}
+{% endblock %}

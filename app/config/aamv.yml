@@ -1,3 +1,6 @@
 aamv_site:
     news:
         result_per_page: 10
+
+    ads:
+        result_per_page: 10

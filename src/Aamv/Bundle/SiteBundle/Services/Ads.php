@@ -4,12 +4,12 @@ namespace Aamv\Bundle\SiteBundle\Services;
 
 use Doctrine\ORM\EntityManager;
 
-class News
+class Ads
 {
     protected $em;
 
     /**
-     * Constructeur de la classe News
+     * Constructeur de la classe Ads
      * @param EntityManager $em
      */
     public function __construct(EntityManager $em)
@@ -18,24 +18,24 @@ class News
     }
 
     /**
-     * Retourne le contenu et la date formaté des news
+     * Retourne le contenu et la date formaté des annonces
      * @return type
      */
-    public function getNews($page, $resultsPerPage)
+    public function getAds($page, $resultsPerPage)
     {
-        $newsCount = $this->em
-            ->getRepository('AamvSiteBundle:News')
+        $adsCount = $this->em
+            ->getRepository('AamvSiteBundle:Ads')
             ->countTotal();
 
         $pagination = array(
             'page'        => $page,
-            'pages_count' => ceil($newsCount / $resultsPerPage)
+            'pages_count' => ceil($adsCount / $resultsPerPage)
         );
 
-        $news = $this->em
-            ->getRepository('AamvSiteBundle:News')
+        $ads = $this->em
+            ->getRepository('AamvSiteBundle:Ads')
             ->findByPage($page, $resultsPerPage);
 
-        return array('news' => $news, 'pagination' => $pagination);
+        return array('ads' => $ads, 'pagination' => $pagination);
     }
 }

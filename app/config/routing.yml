@@ -15,3 +15,7 @@ fos_user:
 aamv_admin_aamv:
     resource: "@AamvSiteBundle/Resources/config/routing_admin.yml"
     prefix: /admin
+
+# FOS js Routing
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
