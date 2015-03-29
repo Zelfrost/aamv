@@ -20,7 +20,7 @@ class AdsRepository extends EntityRepository
     public function findByPage($page, $resultsPerPage)
     {
         $query = $this->createQueryBuilder('a')
-            ->orderBy('a.createdAt', 'DESC')
+            ->orderBy('a.editedAt', 'DESC')
             ->setFirstResult(($page - 1) * $resultsPerPage)
             ->setMaxResults($resultsPerPage);
 

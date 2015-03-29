@@ -1,3 +1,0 @@
-aamv_admin_dashboard:
-    path:     /
-    defaults: { _controller: AamvAdminBundle:Dashboard:show }

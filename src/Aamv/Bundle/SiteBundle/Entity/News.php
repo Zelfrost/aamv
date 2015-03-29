@@ -38,7 +38,7 @@ class News
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="Aamv\Bundle\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Aamv\Bundle\SiteBundle\Entity\User")
      * @ORM\JoinColumn(nullable=false, referencedColumnName="id")
      */
     private $author;
@@ -60,6 +60,7 @@ class News
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
     }
 
     /**
@@ -121,7 +122,7 @@ class News
     /**
      * Set author
      *
-     * @param Aamv\Bundle\UserBundle\Entity\User $author
+     * @param Aamv\Bundle\SiteBundle\Entity\User $author
      * @return News
      */
     public function setAuthor($author)
@@ -134,7 +135,7 @@ class News
     /**
      * Get author
      *
-     * @return Aamv\Bundle\UserBundle\Entity\User 
+     * @return Aamv\Bundle\SiteBundle\Entity\User 
      */
     public function getAuthor()
     {

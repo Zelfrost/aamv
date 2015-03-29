@@ -41,6 +41,74 @@ article section a {
     border-radius: 5px;
 }
 
+#body article h1, #body article h2,
+#body article h3, #body article h4,
+#body article h5, #body article h6 {
+    left: 0;
+    margin: 0;
+    width: 100%;
+    padding: 5px 0;
+
+    color: #444;
+    text-align: left;
+
+    background: none;
+}
+#body article h1 {
+    font-size: 1.5em;
+}
+#body article h2 {
+    font-size: 1.3em;
+}
+#body article h3 {
+    font-size: 1.2em;
+}
+#body article h4 {
+    font-size: 1.1em;
+}
+#body article h5 {
+    font-size: 1.05em;
+}
+#body article h6 {
+    font-size: 1em;
+}
+
+#body article p {
+    margin: 0;
+}
+
+#body article blockquote {
+    margin-left: 20px;
+}
+
+#body article blockquote p {
+    padding: 0 5px 5px 15px;
+
+    background-color: #FFE589;
+    border-left: 6px solid #E5C369;
+}
+#body article blockquote p:first-child {
+    padding-top: 5px;
+}
+
+#body article ul li {
+    list-style-type: circle;
+}
+#body article ol li {
+    list-style-type: decimal;
+}
+#body article li::before {
+    content: "";
+}
+
+#body article hr {
+    margin-bottom: 20px;
+    width: 75%;
+
+    opacity: 1;
+    border-color: #444;
+}
+
 article footer {
     padding: 5px 10px;
     width: 100%;

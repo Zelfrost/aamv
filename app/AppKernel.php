@@ -19,11 +19,14 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new Sonata\CoreBundle\SonataCoreBundle(),
+            new Sonata\BlockBundle\SonataBlockBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
+            new Sonata\AdminBundle\SonataAdminBundle(),
 
             new Aamv\Bundle\DefaultBundle\AamvDefaultBundle(),
             new Aamv\Bundle\SiteBundle\AamvSiteBundle(),
-            new Aamv\Bundle\AdminBundle\AamvAdminBundle(),
-            new Aamv\Bundle\UserBundle\AamvUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

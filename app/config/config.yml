@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: sonata.yml }
     - { resource: aamv.yml }
 
 framework:
@@ -36,7 +37,7 @@ assetic:
     debug:          "%kernel.debug%"
     use_controller: false
     java:           
-    bundles:        [ AamvDefaultBundle, AamvSiteBundle, AamvAdminBundle ]
+    bundles:        [ AamvDefaultBundle, AamvSiteBundle ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -80,4 +81,4 @@ swiftmailer:
 fos_user:
     db_driver: orm
     firewall_name: main
-    user_class: Aamv\Bundle\UserBundle\Entity\User
+    user_class: Aamv\Bundle\SiteBundle\Entity\User
