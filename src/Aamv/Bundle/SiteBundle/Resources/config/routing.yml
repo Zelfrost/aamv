@@ -12,9 +12,6 @@ aamv_site_news:
 aamv_site_services_ads:
     path:     /services/ads/{page}
     defaults: { _controller: AamvSiteBundle:Services:ads, page: 1 }
-aamv_site_services_ad:
-    path:     /services/ad/{id}
-    defaults: { _controller: AamvSiteBundle:Services:ad }
 
 aamv_site_services_outils:
     path:     /services/outils

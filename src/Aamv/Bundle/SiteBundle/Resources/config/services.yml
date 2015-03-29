@@ -1,7 +1,4 @@
 services:
-    aamv_site.news.news_finder:
-        class:     Aamv\Bundle\SiteBundle\Services\News
-        arguments: [ @doctrine.orm.entity_manager ]
-    aamv_site.ads.ads_finder:
-        class:     Aamv\Bundle\SiteBundle\Services\Ads
+    aamv_site.publishables_getter:
+        class:     Aamv\Bundle\SiteBundle\Publishables\Getter
         arguments: [ @doctrine.orm.entity_manager ]

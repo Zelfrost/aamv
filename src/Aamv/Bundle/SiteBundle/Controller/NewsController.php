@@ -10,11 +10,17 @@ class NewsController extends AbstractController
     {
         $resultsPerPage = $this->container->getParameter('news.results_per_page');
 
-        $results = $this->get('aamv_site.news.news_finder')->getNews($page, $resultsPerPage);
+        $results = $this->get('aamv_site.publishables_getter')->get(
+            'News',
+            $page,
+            $resultsPerPage
+        );
+
+        $results['title']               = 'Les dernières news';
         $results['pagination']['route'] = 'aamv_site_news';
 
         return $this->render(
-            'AamvSiteBundle:News:index.html.twig',
+            'AamvSiteBundle:Publishables:list.html.twig',
             $results
         );
     }

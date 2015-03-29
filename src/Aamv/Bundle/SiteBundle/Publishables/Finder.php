@@ -1,16 +1,22 @@
 <?php
 
-namespace Aamv\Bundle\SiteBundle\Repository;
+namespace Aamv\Bundle\SiteBundle\Publishables;
 
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
-class AdsRepository extends EntityRepository
+class Finder
 {
+    private $repository;
+
+    public function __construct($repository)
+    {
+        $this->repository = $repository;
+    }
+
     public function countTotal()
     {
-        $query = $this->createQueryBuilder('a')
-            ->select('count(a.id)')
+        $query = $this->repository->createQueryBuilder('n')
+            ->select('count(n.id)')
             ->getQuery();
 
         $result = $query->getOneOrNullResult();
@@ -19,8 +25,8 @@ class AdsRepository extends EntityRepository
 
     public function findByPage($page, $resultsPerPage)
     {
-        $query = $this->createQueryBuilder('a')
-            ->orderBy('a.editedAt', 'DESC')
+        $query = $this->repository->createQueryBuilder('n')
+            ->orderBy('n.createdAt', 'DESC')
             ->setFirstResult(($page - 1) * $resultsPerPage)
             ->setMaxResults($resultsPerPage);
 

@@ -10,24 +10,18 @@ class ServicesController extends AbstractController
     {
         $resultsPerPage = $this->container->getParameter('ads.results_per_page');
 
-        $results = $this->get('aamv_site.ads.ads_finder')->getAds($page, $resultsPerPage);
-        $results['pagination']['route'] = 'aamv_site_ads';
-
-        return $this->render(
-            'AamvSiteBundle:Services:ads.html.twig',
-            $results
+        $results = $this->get('aamv_site.publishables_getter')->get(
+            'Ads',
+            $page,
+            $resultsPerPage
         );
-    }
 
-    public function adAction($id)
-    {
-        $ad = $this->getDoctrine()
-            ->getRepository('AamvSiteBundle:Ads')
-            ->findOneById($id);
+        $results['title']               = 'Petites annonces';
+        $results['pagination']['route'] = 'aamv_site_services_ads';
 
         return $this->render(
-            'AamvSiteBundle:Services:ad.html.twig',
-            array('ad' => $ad)
+            'AamvSiteBundle:Publishables:list.html.twig',
+            $results
         );
     }
 

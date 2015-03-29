@@ -4,11 +4,11 @@ article {
 
     background-color: #FAD87C;
 }
-article:nth-child(odd) {
+article:nth-of-type(even) {
     margin-left: 10%;
     text-align: right;
 }
-article:nth-child(odd) footer {
+article:nth-of-type(even) footer {
     text-align: left;
 }
 

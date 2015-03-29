@@ -1,0 +1,21 @@
+{% extends "AamvDefaultBundle::base.html.twig" %}
+
+{% block title %}{{ title }} - {{ parent() }}{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/aamvsite/css/Publishables/list.css') }}">
+{% endblock css %}
+
+{% block body %}
+    <h2>{{ title }}</h2>
+
+    {% for publishable in publishables %}
+        <article>
+            <header>{{ publishable.title }}</header>
+            <section>{{ publishable.content|raw }}</section>
+            <footer>Par {{ publishable.author }}, le {{ publishable.createdAt|localizeddate('full', 'none') }}</footer>
+        </article>
+    {% endfor %}
+
+    {% include 'AamvDefaultBundle::pagination.html.twig' %}
+{% endblock body %}

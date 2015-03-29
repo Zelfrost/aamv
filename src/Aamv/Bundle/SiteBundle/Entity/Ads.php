@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Ads
  *
  * @ORM\Table(name="ads")
- * @ORM\Entity(repositoryClass="Aamv\Bundle\SiteBundle\Repository\AdsRepository");
+ * @ORM\Entity;
  */
 class Ads
 {
@@ -57,11 +57,10 @@ class Ads
      */
     private $updatedAt;
 
-    public function __construct($title, $content)
+    public function __construct()
     {
-        $this->title     = $title;
-        $this->content   = $content;
         $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
     }
 
 
