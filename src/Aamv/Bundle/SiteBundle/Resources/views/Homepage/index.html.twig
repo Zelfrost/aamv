@@ -13,23 +13,15 @@
 
     <h2>News</h2>
     <div id="news">
-        <div class="new">
-            <div class="int">
-                Prochaine réunion prévue pour le mois de Juin - Date à confirmer
+        {% for new in publishables %}
+        <a href="">
+            <div class="new">
+                <div class="title">
+                    <h3>{{ new.title|raw|slice(0, 150) }} {% if new.title|length > 150 %}...{% endif %}</h3>
+                </div>
             </div>
-        </div>
-
-        <div class="new">
-            <div class="int">
-                Augmentation du SMIC au 1er Janvier 2014 - Tarif horaire : 9.53€ brut
-            </div>
-        </div>
-
-        <div class="new">
-            <div class="int">
-                Le nouveau bulletin d'adhésion 2014 est disponible
-            </div>
-        </div>
+        </a>
+        {% endfor %}
 
         <hr>
     </div>

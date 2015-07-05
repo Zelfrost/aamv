@@ -11,9 +11,9 @@
 
     {% for publishable in publishables %}
         <article>
-            <header>{{ publishable.title }}</header>
-            <section>{{ publishable.content|raw }}</section>
-            <footer>Par {{ publishable.author }}, le {{ publishable.createdAt|localizeddate('full', 'none') }}</footer>
+            <a href=""><header>{{ publishable.title }}</header></a>
+            <section>{{ publishable.content|raw|slice(0, 200) }} {% if publishable.content|length > 200 %}... <a href="">Lire la suite</a>{% endif %}</section>
+            <footer>Publiée par <a href="" class="author">{{ publishable.author.firstname }} {{ publishable.author.name }}</a>, le {{ publishable.createdAt|localizeddate('full', 'none') }}</footer>
         </article>
     {% endfor %}
 

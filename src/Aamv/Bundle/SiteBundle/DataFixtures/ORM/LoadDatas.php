@@ -14,10 +14,14 @@ class LoadDatas implements FixtureInterface
     {
         $user = new User();
         $user
-            ->setUsername("atom")
-            ->setPlainPassword("atom")
+            ->setUsername("ddeconinck")
+            ->setPlainPassword("12345")
+            ->setName('Deconinck')
+            ->setFirstname('Damien')
             ->setEmail("deconinck.damien@gmail.com")
-            ->setEnabled(true);
+            ->setEnabled(true)
+            ->addRole('ROLE_ADMIN')
+        ;
         $manager->persist($user);
 
         // News
@@ -25,7 +29,8 @@ class LoadDatas implements FixtureInterface
         $news
             ->setTitle('Une news comme une autre - Numéro 1')
             ->setContent('Une news avec du texte, des infos, du blabla sur les nouveautés :)')
-            ->setAuthor($user);
+            ->setAuthor($user)
+        ;
         $manager->persist($news);
 
         // Ads
@@ -33,7 +38,8 @@ class LoadDatas implements FixtureInterface
         $ads
             ->setTitle('Une annonce comme une autre - Numéro 1')
             ->setContent("Une annonce avec du texte, des infos, du blabla sur l'ass mat' :)")
-            ->setAuthor($user);
+            ->setAuthor($user)
+        ;
         $manager->persist($ads);
 
         // Enregistrement en base

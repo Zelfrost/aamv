@@ -30,19 +30,38 @@
 
 .new {
     float: left;
+    margin: 10px 1%;
 
-    width: 50%;
-    padding: 5px;
+    width: 48%;
+    height: 100px;
+    padding: 10px 15px;
+
+    background: #EEE;
+    border-bottom: 4px solid #FACA4A;
 
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-.new .int {
-    padding: 10px 15px;
 
-    background: #EEE;
-    border-bottom: 4px solid #FACA4A;
+.new .title {
+    height: 80px;
+    line-height: 80px;
+}
+
+.new h3 {
+    vertical-align: middle;
+    display: inline-block;
+
+    line-height: 1;
+    margin: 0;
+}
+
+#news a {
+    color: #493917;
+}
+#news a:hover {
+    color: #AF7702;
 }
 
 #newsletter {
