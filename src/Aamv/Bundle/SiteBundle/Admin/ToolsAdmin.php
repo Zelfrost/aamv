@@ -22,7 +22,8 @@ class ToolsAdmin extends Admin
     {
         $datagridMapper
             ->add('name')
-            ->add('fromAecf')
+            ->add('fromAamv')
+            ->add('realName')
         ;
     }
 
@@ -30,7 +31,8 @@ class ToolsAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('name')
-            ->add('fromAecf')
+            ->add('fromAamv')
+            ->add('realName')
         ;
     }
 

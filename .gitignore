@@ -41,3 +41,6 @@ log/
 tmp/
 web/app.php.info
 web/stats/
+
+# Fichiers uploadés
+web/public
