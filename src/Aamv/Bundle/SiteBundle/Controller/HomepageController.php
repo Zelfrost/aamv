@@ -15,10 +15,27 @@ class HomepageController extends AbstractController
             $page,
             $resultsPerPage
         );
+        $results['pagination']['route'] = 'aamv_site_homepage_news';
 
         return $this->render(
             'AamvSiteBundle:Homepage:index.html.twig',
             $results
+        );
+    }
+
+    public function newAction($id)
+    {
+        $new = $this->getEntityManager()
+            ->getRepository('AamvSiteBundle:News')
+            ->find($id);
+
+        if ($new === null) {
+            die('loupé !');
+        }
+
+        return $this->render(
+            'AamvSiteBundle:Homepage:new.html.twig',
+            array('new' => $new)
         );
     }
 }

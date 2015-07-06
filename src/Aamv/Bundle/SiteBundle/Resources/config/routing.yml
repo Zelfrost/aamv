@@ -7,6 +7,10 @@ aamv_site_homepage_news:
     path:     /news/{page}
     defaults: { _controller: AamvSiteBundle:Homepage:index }
 
+aamv_site_new:
+    path:     /new/{id}
+    defaults: { _controller: AamvSiteBundle:Homepage:new }
+
 # Pages Services
 aamv_site_services_ads:
     path:     /services/ads/{page}

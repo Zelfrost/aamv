@@ -11,10 +11,11 @@
     {% endif %}
 
     {% for p in range(max(pagination.page-4, 1), max(min(pagination.page + 4, pagination.pages_count), 1)) %}
-        <a {% if p == pagination.page %} class="current-page"{% endif %} 
-            href="{{ path(pagination.route, {'page': p}) }}">
-            {{ p }}
-        </a>
+        {% if p == pagination.page %}
+            <span class="current-page">{{ p }}</span>
+        {% else %}
+            <a href="{{ path(pagination.route, {'page': p}) }}">{{ p }}</a>
+        {% endif %}
     {% endfor %}
 
     {% if pagination.page < pagination.pages_count %}

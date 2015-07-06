@@ -170,6 +170,9 @@ nav li li a {
     color: #fff;
     text-decoration: none;
 }
+nav li li a:hover {
+    text-decoration: underline;
+}
 
 .int {
     padding: 20px 30px;
@@ -189,7 +192,7 @@ nav li li a {
 }
 
 #body h2 {
-    width: 60%;
+    width: 50%;
 
     display: inline-block;
     margin: 40px 0 10px 0;
@@ -302,4 +305,31 @@ footer a:hover {
 #back a:hover {
     text-decoration: none;
     background-color: rgba(240, 192, 64, 0.85);
+}
+
+#author {
+    position: relative;
+    left: -30px;
+    top: -10px;
+
+    width: 50%;
+    margin-bottom: 20px;
+    padding-top: 10px;
+    padding-right: 10px;
+
+    font-size: 0.85em;
+    text-align: right;
+    border-right: 2px solid rgba(250, 202, 74, 0.85);
+}
+
+#author p {
+    margin: 0;
+}
+
+#content table td {
+    padding: 10px 15px;
+}
+
+#content p {
+    margin: 5px;
 }

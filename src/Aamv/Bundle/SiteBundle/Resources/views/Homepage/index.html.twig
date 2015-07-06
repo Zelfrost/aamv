@@ -14,7 +14,7 @@
     <h2>News</h2>
     <div id="news">
         {% for new in publishables %}
-        <a href="">
+        <a href="{{ path('aamv_site_new', {'id': new.id}) }}">
             <div class="new">
                 <div class="title">
                     <h3>{{ new.title|raw|slice(0, 150) }} {% if new.title|length > 150 %}...{% endif %}</h3>
@@ -25,4 +25,6 @@
 
         <hr>
     </div>
+
+    {% include 'AamvDefaultBundle::pagination.html.twig' %}
 {% endblock %}
