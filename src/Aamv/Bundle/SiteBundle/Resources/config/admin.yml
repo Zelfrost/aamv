@@ -10,3 +10,14 @@ services:
         calls:
             - [ setTranslationDomain, [ AamvSiteBundle ] ]
             - [ setSecurityContext, [ @security.context ] ]
+    sonata.admin.tools:
+        class: Aamv\Bundle\SiteBundle\Admin\ToolsAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Tools" }
+        arguments:
+            - ~
+            - Aamv\Bundle\SiteBundle\Entity\Tools
+            - ~
+        calls:
+            - [ setTranslationDomain, [ AamvSiteBundle ] ]
+            - [ setSecurityContext, [ @security.context ] ]

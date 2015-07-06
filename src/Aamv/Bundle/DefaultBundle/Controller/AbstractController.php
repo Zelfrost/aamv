@@ -26,4 +26,9 @@ class AbstractController extends Controller
             ->getEntityManager()
             ->getRepository($entityName);
     }
+
+    public function redirectToUrl($url)
+    {
+        return $this->redirect($this->generateUrl($url));
+    }
 }

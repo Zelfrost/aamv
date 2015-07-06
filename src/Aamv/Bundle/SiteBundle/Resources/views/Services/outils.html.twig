@@ -9,63 +9,29 @@
 {% block body %}
     <h2>Outils</h2>
 
-    <p>Voici des outils mis à votre disposition gracieusement par le site "<a href="http://chezveronalice.pagesperso-orange.fr/">ChezVeronalice</a>", au format Excel :</p>
+    {% if tools.aamv|length > 0 %}
+        <p>Voici les outils que nous mettons à votre disposition :</p>
 
-    <ul>
-        <li>
-            Convertisseur Brut -> Net / Net -> Brut :
-            <a href=""><span class="glyphicon glyphicon-download"></span> Télécharger</a>
-        </li>
+        <ul>
+        {% for tool in tools.aamv %}
+            <li>
+                {{ tool.name }}{% if tool.updatedAt != null %} - mis à jour le <strong>{{ tool.updatedAt }}</strong>{% endif %}
+                <a href="/public/tools/aamv/{{ tool.realName }}"><span class="glyphicon glyphicon-download"></span> Télécharger</a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
 
-        <li>
-            Convertisseurs de minutes en centièmes :
-            <a href=""><span class="glyphicon glyphicon-download"></span> Télécharger</a>
-        </li>
+    {% if tools.veronalice|length > 0 %}
+        <p>Voici les outils mis à votre disposition gracieusement par le site "<a href="http://chezveronalice.pagesperso-orange.fr/">ChezVeronalice</a>" :</p>
 
-        <li>
-            Convertisseurs de jours de CP :
-            <a href=""><span class="glyphicon glyphicon-download"></span> Télécharger</a>
-        </li>
-
-        <li>
-            Calcul de la mensualisation (heures majorées, déductions, ...) :
-            <a href=""><span class="glyphicon glyphicon-download"></span> Télécharger</a>
-        </li>
-
-        <li>
-            Calculer la mensualisation d'un périscolaire :
-            <a href=""><span class="glyphicon glyphicon-download"></span> Télécharger</a>
-        </li>
-
-        <li>
-            Calculer la mensualisation d'un enseignant :
-            <a href=""><span class="glyphicon glyphicon-download"></span> Télécharger</a>
-        </li>
-
-        <li>
-            Calculer les congés payés en valeur jour :
-            <a href=""><span class="glyphicon glyphicon-download"></span> Télécharger</a>
-        </li>
-
-        <li>
-            Calculer la prime pour retrait d'enfant après 1 an d'ancienneté 1/120 :
-            <a href=""><span class="glyphicon glyphicon-download"></span> Télécharger</a>
-        </li>
-
-        <li>
-            Calculer votre déclaration d'impot (2014) :
-            <a href=""><span class="glyphicon glyphicon-download"></span> Télécharger</a>
-        </li>
-
-        <li>
-            Calculer votre déclaration d'impot (2014) :
-            <a href=""><span class="glyphicon glyphicon-download"></span> Télécharger</a>
-        </li>
-
-        <li>
-            Fiche de Régularisation (à la fin du contrat) :
-            <a href=""><span class="glyphicon glyphicon-download"></span> Télécharger</a>
-        </li>
-
-    </ul>
+        <ul>
+        {% for tool in tools.veronalice %}
+            <li>
+                {{ tool.name }}{% if tool.updatedAt != null %} - mis à jour le <strong>{{ tool.updatedAt }}</strong>{% endif %}
+                <a href="/public/tools/veronalice/{{ tool.realName }}"><span class="glyphicon glyphicon-download"></span> Télécharger</a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
 {% endblock %}

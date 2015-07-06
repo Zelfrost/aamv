@@ -30,7 +30,7 @@ class HomepageController extends AbstractController
             ->find($id);
 
         if ($new === null) {
-            die('loupé !');
+            return $this->redirectToUrl('aamv_site_homepage');
         }
 
         return $this->render(

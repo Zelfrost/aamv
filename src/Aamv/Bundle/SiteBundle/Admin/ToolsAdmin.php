@@ -7,44 +7,46 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 
-class NewsAdmin extends Admin
+class ToolsAdmin extends Admin
 {
-    private $securityContext;
-
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('title', 'text')
-            ->add('content', 'textarea', array('attr' => array('class' => 'ckeditor')))
+            ->add('name', 'text')
+            ->add('fromAamv', 'checkbox', array('required' => false))
+            ->add('file', 'file')
         ;
     }
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('title')
-            ->add('author')
-            ->add('createdAt')
+            ->add('name')
+            ->add('fromAecf')
         ;
     }
 
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('title')
-            ->add('author')
-            ->add('createdAt')
+            ->addIdentifier('name')
+            ->add('fromAecf')
         ;
     }
 
-    public function prePersist($news)
-    {
-        $news->setAuthor($this->getSecurityContext()->getToken()->getUser());
+    public function prePersist($tools) {
+        $this->manageFileUpload($tools);
     }
 
-    public function preUpdate($news)
-    {
-        $news->setUpdatedAt(new \DateTime());
+    public function preUpdate($tools) {
+        $tools->refreshUpdated();
+        $this->manageFileUpload($tools);
+    }
+
+    private function manageFileUpload($tools) {
+        if ($tools->getFile()) {
+            $tools->upload();
+        }
     }
 
     public function getSecurityContext()

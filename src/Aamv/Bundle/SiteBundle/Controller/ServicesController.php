@@ -27,7 +27,18 @@ class ServicesController extends AbstractController
 
     public function outilsAction()
     {
-        return $this->render('AamvSiteBundle:Services:outils.html.twig');
+        $aamvTools = $this->getRepository('AamvSiteBundle:Tools')
+            ->findAamvTools();
+        $veronaliceTools = $this->getRepository('AamvSiteBundle:Tools')
+            ->findVeronaliceTools();
+
+        return $this->render(
+            'AamvSiteBundle:Services:outils.html.twig',
+            array('tools' => array(
+                'aamv' => $aamvTools,
+                'veronalice' => $veronaliceTools,
+            ))
+        );
     }
 
     public function questionsReponsesAction()
