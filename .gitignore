@@ -25,7 +25,6 @@ app/phpunit.xml
 
 # Composer
 composer.phar
-composer.lock
 
 # Dossier projet phpStorm/NetBeans
 .idea/*
