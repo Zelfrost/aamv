@@ -1,28 +1,30 @@
-{% extends 'AamvDefaultBundle::base.html.twig' %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}AAMV{% endblock %}</title>
 
-{% block css %}
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/aamvdefault/css/bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/aamvdefault/css/defaults.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/aamvdefault/css/pagination.css') }}">
+
+    {% block css %}{% endblock css %}
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/aamvdefault/css/login.css') }}">
-{% endblock css %}
+</head>
 
-{% block body %}
-    <h2>Connexion</h2>
+<body>
+{% include 'AamvDefaultBundle::header.html.twig' %}
+{% include 'AamvDefaultBundle::nav.html.twig' %}
 
-    {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-
-    <div id="login">
-        <form action="{{ path("fos_user_security_check") }}" method="POST">
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-
-            <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" placeholder="Login" />
-
-            <input type="password" id="password" name="_password" required="required" placeholder="Password" />
-
-            <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-            <label for="remember_me">Mémoriser</label>
-
-            <input type="submit" id="_submit" name="_submit" value="Valider" />
-        </form>
+<div id="body">
+    <div class="int">
+        {% block fos_user_content %}{% endblock fos_user_content %}
+        {% block javascripts %}{% endblock %}
     </div>
-{% endblock body %}
+</div>
+
+{% include 'AamvDefaultBundle::footer.html.twig' %}
+</body>
+</html>
