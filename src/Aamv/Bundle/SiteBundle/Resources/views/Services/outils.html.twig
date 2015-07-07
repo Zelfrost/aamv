@@ -15,7 +15,7 @@
         <ul>
         {% for tool in tools.aamv %}
             <li>
-                {{ tool.name }}{% if tool.updatedAt != null %} - mis à jour le <strong>{{ tool.updatedAt }}</strong>{% endif %}
+                {{ tool.name }} - mis à jour le <strong>{{ tool.updatedAt|date('d/m/Y') }}</strong>
                 <a href="/public/tools/aamv/{{ tool.realName }}"><span class="glyphicon glyphicon-download"></span> Télécharger</a>
             </li>
         {% endfor %}
@@ -28,7 +28,7 @@
         <ul>
         {% for tool in tools.veronalice %}
             <li>
-                {{ tool.name }}{% if tool.updatedAt != null %} - mis à jour le <strong>{{ tool.updatedAt }}</strong>{% endif %}
+                {{ tool.name }} - mis à jour le <strong>{{ tool.updatedAt|date('d/m/Y') }}</strong>
                 <a href="/public/tools/veronalice/{{ tool.realName }}"><span class="glyphicon glyphicon-download"></span> Télécharger</a>
             </li>
         {% endfor %}

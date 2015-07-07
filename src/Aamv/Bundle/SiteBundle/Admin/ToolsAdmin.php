@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 
 class ToolsAdmin extends Admin
 {
@@ -14,7 +15,7 @@ class ToolsAdmin extends Admin
         $formMapper
             ->add('name', 'text')
             ->add('fromAamv', 'checkbox', array('required' => false))
-            ->add('file', 'file')
+            ->add('file', 'file', array('required' => false))
         ;
     }
 
@@ -36,18 +37,22 @@ class ToolsAdmin extends Admin
         ;
     }
 
-    public function prePersist($tools) {
-        $this->manageFileUpload($tools);
+    public function prePersist($tool) {
+        $this->manageFileUpload($tool);
     }
 
-    public function preUpdate($tools) {
-        $tools->refreshUpdated();
-        $this->manageFileUpload($tools);
+    public function preUpdate($tool) {
+        $tool->refreshUpdated();
+        $this->manageFileUpload($tool);
     }
 
-    private function manageFileUpload($tools) {
-        if ($tools->getFile()) {
-            $tools->upload();
+    public function postRemove($tool) {
+        $tool->remove();
+    }
+
+    private function manageFileUpload($tool) {
+        if ($tool->getFile()) {
+            $tool->upload();
         }
     }
 
