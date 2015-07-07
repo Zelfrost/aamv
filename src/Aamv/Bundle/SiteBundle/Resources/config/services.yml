@@ -2,3 +2,8 @@ services:
     aamv_site.publishables_getter:
         class:     Aamv\Bundle\SiteBundle\Publishables\Getter
         arguments: [ @doctrine.orm.entity_manager ]
+
+    aamv_user.registration.form.type:
+        class:    Aamv\Bundle\SiteBundle\Form\Type\RegistrationFormType
+        tags:
+            - { name: form.type, alias: aamv_user_registration }
