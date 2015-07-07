@@ -2,6 +2,7 @@
 
 namespace Aamv\Bundle\SiteBundle\Entity;
 
+use Symfony\Component\Filesystem\Filesystem;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -125,14 +126,33 @@ class Tools
             return;
         }
 
+        $file = $this->getFile();
+        $filename = substr(basename($file->getClientOriginalName(), $file->guessExtension()), 0, -1);
+        $filename = $filename.'-'.date('YmdHis').'.'.$file->guessExtension();
+
         $this->getFile()->move(
             __DIR__.'/../../../../../web/public/tools/'. ($this->isFromAamv()?'aamv':'veronalice').'/',
-            $this->getFile()->getClientOriginalName()
+            $filename
         );
 
-        $this->realName = $this->getFile()->getClientOriginalName();
+        $this->realName = $filename;
 
         $this->setFile(null);
+    }
+
+    public function remove()
+    {
+        if (null === $this->getRealName()) {
+            return;
+        }
+
+        $basePath = __DIR__.'/../../../../../web/public/tools/';
+        $path = $basePath.($this->isFromAamv()?'aamv':'veronalice').'/'.$this->getRealName();
+        $fs = new Filesystem();
+
+        if ($fs->exists($path)) {
+            $fs->remove($path);
+        }
     }
 
     public function refreshUpdated() {
