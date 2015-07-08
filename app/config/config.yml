@@ -83,5 +83,8 @@ fos_user:
     firewall_name: main
     user_class: Aamv\Bundle\SiteBundle\Entity\User
     registration:
+            confirmation:
+                    enabled:    true
+                    template:   FOSUserBundle:Registration:email.txt.twig
             form:
                 type: aamv_user_registration
