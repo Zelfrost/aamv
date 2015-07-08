@@ -210,7 +210,7 @@ nav li li a:hover {
     margin-top: 0;
 }
 
-#body hr {
+#body hr.clear {
     opacity: 0;
     margin: 0;
 
