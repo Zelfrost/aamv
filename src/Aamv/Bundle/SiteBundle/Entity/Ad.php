@@ -5,12 +5,12 @@ namespace Aamv\Bundle\SiteBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Ads
+ * Ad
  *
  * @ORM\Table(name="ads")
  * @ORM\Entity;
  */
-class Ads
+class Ad
 {
     /**
      * @var integer
@@ -78,7 +78,7 @@ class Ads
      * Set title
      *
      * @param string $title
-     * @return News
+     * @return Ad
      */
     public function setTitle($title)
     {
@@ -101,7 +101,7 @@ class Ads
      * Set content
      *
      * @param string $content
-     * @return News
+     * @return Ad
      */
     public function setContent($content)
     {
@@ -124,7 +124,7 @@ class Ads
      * Set author
      *
      * @param Aamv\Bundle\SiteBundle\Entity\User $author
-     * @return News
+     * @return Ad
      */
     public function setAuthor($author)
     {
@@ -147,7 +147,7 @@ class Ads
      * Set createdAt
      *
      * @param \DateTime $createdAt
-     * @return News
+     * @return Ad
      */
     public function setCreatedAt($createdAt)
     {
@@ -170,7 +170,7 @@ class Ads
      * Set updatedAt
      *
      * @param \DateTime $updatedAt
-     * @return News
+     * @return Ad
      */
     public function setUpdatedAt($updatedAt)
     {

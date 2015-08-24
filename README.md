@@ -1,5 +1,4 @@
-Site internet de l'AAMV
-=======================
+# Site de l'AAMV
 
 Voici le code source du site internet de l'aamv (Association des Assistantes Maternelles de Villeneuve d'ascq).
 Pour faire tourner le projet chez vous, rien de plus simple :
@@ -17,6 +16,7 @@ php app/console server:run
 ```
 
 Vous pourrez ainsi accéder à l'application via le port 8000 de votre machine :
+
 ```
 http://localhost:8000/
 ```

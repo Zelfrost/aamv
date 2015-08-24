@@ -31,7 +31,8 @@ class NewsAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('title')
+            ->addIdentifier('id')
+            ->add('title')
             ->add('author')
             ->add('createdAt')
         ;

@@ -11,7 +11,7 @@ class ServicesController extends AbstractController
         $resultsPerPage = $this->container->getParameter('ads.results_per_page');
 
         $results = $this->get('aamv_site.publishables_getter')->get(
-            'Ads',
+            'Ad',
             $page,
             $resultsPerPage
         );

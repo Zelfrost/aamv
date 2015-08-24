@@ -25,17 +25,17 @@ class HomepageController extends AbstractController
 
     public function newAction($id)
     {
-        $new = $this->getEntityManager()
+        $news = $this->getEntityManager()
             ->getRepository('AamvSiteBundle:News')
             ->find($id);
 
-        if ($new === null) {
+        if ($news === null) {
             return $this->redirectToUrl('aamv_site_homepage');
         }
 
         return $this->render(
-            'AamvSiteBundle:Homepage:new.html.twig',
-            array('new' => $new)
+            'AamvSiteBundle:Homepage:news.html.twig',
+            array('news' => $news)
         );
     }
 }

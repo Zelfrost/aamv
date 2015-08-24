@@ -9,7 +9,6 @@ class Getter
     protected $em;
 
     /**
-     * Constructeur de la classe Ads
      * @param EntityManager $em
      */
     public function __construct(EntityManager $em)

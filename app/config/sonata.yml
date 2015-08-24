@@ -6,3 +6,10 @@ sonata_block:
 
 sonata_admin:
     title: Aamv
+    templates:
+        layout: AamvSiteBundle::sonata_admin_base_layout.html.twig
+
+sonata_intl:
+    timezone:
+        locales:
+            fr:    Europe/Paris

@@ -17,3 +17,8 @@ then
     mkdir -p web/public/tools/aamv
     mkdir -p web/public/tools/veronalice
 fi
+
+if [ ! -d web/public/eventPictures ];
+then
+    mkdir -p web/public/eventPictures
+fi

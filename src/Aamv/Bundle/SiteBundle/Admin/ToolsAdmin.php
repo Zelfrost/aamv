@@ -31,26 +31,31 @@ class ToolsAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('name')
+            ->addIdentifier('id')
+            ->add('name')
             ->add('fromAamv')
             ->add('realName')
         ;
     }
 
-    public function prePersist($tool) {
+    public function prePersist($tool)
+    {
         $this->manageFileUpload($tool);
     }
 
-    public function preUpdate($tool) {
+    public function preUpdate($tool)
+    {
         $tool->refreshUpdated();
         $this->manageFileUpload($tool);
     }
 
-    public function postRemove($tool) {
+    public function postRemove($tool)
+    {
         $tool->remove();
     }
 
-    private function manageFileUpload($tool) {
+    private function manageFileUpload($tool)
+    {
         if ($tool->getFile()) {
             $tool->upload();
         }

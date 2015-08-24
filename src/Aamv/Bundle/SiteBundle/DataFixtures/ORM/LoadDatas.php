@@ -6,7 +6,7 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Aamv\Bundle\SiteBundle\Entity\News;
 use Aamv\Bundle\SiteBundle\Entity\User;
-use Aamv\Bundle\SiteBundle\Entity\Ads;
+use Aamv\Bundle\SiteBundle\Entity\Ad;
 
 class LoadDatas implements FixtureInterface
 {
@@ -25,7 +25,7 @@ class LoadDatas implements FixtureInterface
         $manager->persist($user);
 
         // News
-        $news = new News();
+        $news = new New();
         $news
             ->setTitle('Une news comme une autre - Numéro 1')
             ->setContent('Une news avec du texte, des infos, du blabla sur les nouveautés :)')
@@ -33,14 +33,14 @@ class LoadDatas implements FixtureInterface
         ;
         $manager->persist($news);
 
-        // Ads
-        $ads = new Ads();
-        $ads
+        // Ad
+        $ad = new Ad();
+        $ad
             ->setTitle('Une annonce comme une autre - Numéro 1')
             ->setContent("Une annonce avec du texte, des infos, du blabla sur l'ass mat' :)")
             ->setAuthor($user)
         ;
-        $manager->persist($ads);
+        $manager->persist($ad);
 
         // Enregistrement en base
         $manager->flush();

@@ -1,5 +1,0 @@
-services:
-    aamv_site.news.form:
-        class: Aamv\Bundle\SiteBundle\Form\Type\NewsFormType
-        tags:
-            - { name: form.type, alias: news_form }
