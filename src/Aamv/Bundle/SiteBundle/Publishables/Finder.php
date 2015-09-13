@@ -2,8 +2,6 @@
 
 namespace Aamv\Bundle\SiteBundle\Publishables;
 
-use Doctrine\ORM\Tools\Pagination\Paginator;
-
 class Finder
 {
     private $repository;
@@ -21,15 +19,5 @@ class Finder
 
         $result = $query->getOneOrNullResult();
         return $result[1];
-    }
-
-    public function findByPage($page, $resultsPerPage)
-    {
-        $query = $this->repository->createQueryBuilder('n')
-            ->orderBy('n.createdAt', 'DESC')
-            ->setFirstResult(($page - 1) * $resultsPerPage)
-            ->setMaxResults($resultsPerPage);
-
-        return new Paginator($query);
     }
 }

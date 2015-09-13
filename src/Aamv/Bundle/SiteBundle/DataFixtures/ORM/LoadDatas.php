@@ -25,7 +25,7 @@ class LoadDatas implements FixtureInterface
         $manager->persist($user);
 
         // News
-        $news = new New();
+        $news = new News();
         $news
             ->setTitle('Une news comme une autre - Numéro 1')
             ->setContent('Une news avec du texte, des infos, du blabla sur les nouveautés :)')

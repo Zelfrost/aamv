@@ -1,9 +1,31 @@
 services:
+    # cURL client for Buzz
+    buzz.client.curl:
+        class:  Buzz\Client\Curl
+        public: false
+        calls:
+            - [setVerifyPeer, [false]]
+
+    # Buzz browser
+    buzz.browser:
+        class:     Buzz\Browser
+        arguments: ['@buzz.client.curl']
+
     aamv_site.publishables_getter:
         class:     Aamv\Bundle\SiteBundle\Publishables\Getter
         arguments: [ @doctrine.orm.entity_manager ]
 
+    aamv_site.city_retriever:
+        class: Aamv\Bundle\SiteBundle\Retriever\City
+        arguments: [@buzz.browser, '%api_city_login%', '%api_city_key%']
+
+    aamv_site.city_from_api:
+        class: Aamv\Bundle\SiteBundle\Validator\Constraints\CityFromApiValidator
+        arguments: [@aamv_site.city_retriever]
+        tags:
+            - {name: validator.constraint_validator, alias: city_from_api}
+
     aamv_user.registration.form.type:
-        class:    Aamv\Bundle\SiteBundle\Form\Type\RegistrationFormType
+        class: Aamv\Bundle\SiteBundle\Form\Type\RegistrationFormType
         tags:
             - { name: form.type, alias: aamv_user_registration }

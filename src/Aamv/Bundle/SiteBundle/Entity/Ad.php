@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Ad
  *
  * @ORM\Table(name="ads")
- * @ORM\Entity;
+ * @ORM\Entity(repositoryClass="Aamv\Bundle\SiteBundle\Repository\AdsRepository")
  */
 class Ad
 {
@@ -42,6 +42,27 @@ class Ad
      * @ORM\JoinColumn(nullable=false, referencedColumnName="id")
      */
     private $author;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="disponibility_date", type="datetime")
+     */
+    private $disponibilityDate;
+
+    /**
+     * @var array
+     *
+     * @ORM\Column(name="wished_days", type="array")
+     */
+    private $wishedDays;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string")
+     */
+    private $type;
 
     /**
      * @var \DateTime
@@ -141,6 +162,75 @@ class Ad
     public function getAuthor()
     {
         return $this->author;
+    }
+
+    /**
+     * Set disponibilityDate
+     *
+     * @param \DateTime $disponibilityDate
+     * @return Ad
+     */
+    public function setDisponibilityDate($disponibilityDate)
+    {
+        $this->disponibilityDate = $disponibilityDate;
+
+        return $this;
+    }
+
+    /**
+     * Get disponibilityDate
+     *
+     * @return \DateTime 
+     */
+    public function getDisponibilityDate()
+    {
+        return $this->disponibilityDate;
+    }
+
+    /**
+     * Set wishedDays
+     *
+     * @param array $wishedDays
+     * @return Ad
+     */
+    public function setWishedDays($wishedDays)
+    {
+        $this->wishedDays = $wishedDays;
+
+        return $this;
+    }
+
+    /**
+     * Get wishedDays
+     *
+     * @return array 
+     */
+    public function getWishedDays()
+    {
+        return $this->wishedDays;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     * @return Ad
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string 
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**

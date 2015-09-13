@@ -12,9 +12,7 @@ vendor/*
 */cache/*
 web/uploads/*
 web/bundles/*
-web/css/*
-web/js/*
-!web/js/ckeditor
+web/vendor/*
 !app/cache/.gitkeep
 !app/logs/.gitkeep
 

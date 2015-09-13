@@ -7,8 +7,15 @@
 {% endblock css %}
 
 {% block body %}
-    <h2>{{ title }}</h2>
+    {% block page_title %}
+        <h2 class="main">{{ title }}</h2>
+    {% endblock page_title %}
 
+    {% block top_publications %}{% endblock top_publications %}
+
+    {% if publishables|length == 0 %}
+        <p class="nothing">Il n'y a rien ici pour le moment.</p>
+    {% endif %}
     {% for publishable in publishables %}
         <article>
             <a href=""><header>{{ publishable.title }}</header></a>

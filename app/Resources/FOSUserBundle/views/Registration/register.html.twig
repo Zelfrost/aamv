@@ -1,5 +1,23 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/select2/dist/css/select2.min.css') }}">
+{% endblock css %}
 
 {% block fos_user_content %}
-{% include "FOSUserBundle:Registration:register_content.html.twig" %}
+
+<h2 class="main">Inscription | <a href="/login">Déjà inscrit ?</a></h2>
+
+{{ form(form) }}
+
 {% endblock fos_user_content %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+    <script src="{{ asset('vendor/select2/dist/js/select2.min.js') }}"></script>
+    <script src="{{ asset('vendor/select2/dist/js/i18n/fr.js') }}"></script>
+    <script src="{{ asset('bundles/aamvsite/js/cities.js') }}"></script>
+{% endblock javascripts %}

@@ -1,11 +1,12 @@
+{% if pagination.pages_count > 1 %}
 <div id="pagination">
     {% if pagination.page > 1 %}
         {% if pagination.page > 2 %}
-            <a href="{{ path(pagination.route, {'page': 1}) }}">
+            <a href="{{ path(pagination.route, pagination.parameters|merge({'page': 1})) }}">
                 <<
             </a>
         {% endif %}
-        <a href="{{ path(pagination.route, {'page': pagination.page-1}) }}">
+        <a href="{{ path(pagination.route, pagination.parameters|merge({'page': pagination.page-1})) }}">
             <
         </a>
     {% endif %}
@@ -14,18 +15,19 @@
         {% if p == pagination.page %}
             <span class="current-page">{{ p }}</span>
         {% else %}
-            <a href="{{ path(pagination.route, {'page': p}) }}">{{ p }}</a>
+            <a href="{{ path(pagination.route, pagination.parameters|merge({'page': p})) }}">{{ p }}</a>
         {% endif %}
     {% endfor %}
 
     {% if pagination.page < pagination.pages_count %}
-        <a href="{{ path(pagination.route, {'page': pagination.page+1}) }}">
+        <a href="{{ path(pagination.route, pagination.parameters|merge({'page': pagination.page+1})) }}">
             >
         </a>
         {% if pagination.page < pagination.pages_count - 1 %}
-            <a href="{{ path(pagination.route, {'page': pagination.pages_count}) }}">
+            <a href="{{ path(pagination.route, pagination.parameters|merge({'page': pagination.pages_count})) }}">
                 >>
             </a>
         {% endif %}
     {% endif %}
 </div>
+{% endif %}

@@ -6,23 +6,54 @@ use Aamv\Bundle\DefaultBundle\Controller\AbstractController;
 
 class ServicesController extends AbstractController
 {
-    public function adsAction($page)
+    public function adsAction($type, $city, $page)
     {
         $resultsPerPage = $this->container->getParameter('ads.results_per_page');
+        if ('parents' === $type) {
+            $role = '%ROLE_PARENT%';
+        } else {
+            $role = '%ROLE_ASSISTANTE%';
+        }
+
+        $options = array(
+            'role' => array(
+                'value' => $role
+            )
+        );
+
+        if ($city !== 'none') {
+            $options['city'] = array(
+                'value' => $city
+            );
+        }
 
         $results = $this->get('aamv_site.publishables_getter')->get(
             'Ad',
             $page,
-            $resultsPerPage
+            $resultsPerPage,
+            $options
         );
 
-        $results['title']               = 'Petites annonces';
+        $results['title'] = 'Petites annonces';
+        $results['type'] = $type;
+        $results['city'] = $city;
+        $results['cities'] = $this->getRepository('AamvSiteBundle:User')->getCities('%ROLE_ASSISTANTE%');
+
         $results['pagination']['route'] = 'aamv_site_services_ads';
+        $results['pagination']['parameters'] = array(
+            'type' => $type,
+            'city' => $city
+        );
 
         return $this->render(
-            'AamvSiteBundle:Publishables:list.html.twig',
+            'AamvSiteBundle:Services:list_ad.html.twig',
             $results
         );
+    }
+
+    public function createAdsAction()
+    {
+        return new Response();
     }
 
     public function outilsAction()

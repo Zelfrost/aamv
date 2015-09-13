@@ -9,7 +9,7 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [ AamvSiteBundle ] ]
-            - [ setSecurityContext, [ @security.context ] ]
+            - [ setSecurityContext, [ @security.token_storage ] ]
     sonata.admin.tools:
         class: Aamv\Bundle\SiteBundle\Admin\ToolsAdmin
         tags:
@@ -20,7 +20,7 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [ AamvSiteBundle ] ]
-            - [ setSecurityContext, [ @security.context ] ]
+            - [ setSecurityContext, [ @security.token_storage ] ]
     sonata.admin.events:
         class: Aamv\Bundle\SiteBundle\Admin\EventsAdmin
         tags:
@@ -31,7 +31,7 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [ AamvSiteBundle ] ]
-            - [ setSecurityContext, [ @security.context ] ]
+            - [ setSecurityContext, [ @security.token_storage ] ]
     sonata.admin.event_pictures:
         class: Aamv\Bundle\SiteBundle\Admin\EventPicturesAdmin
         tags:
@@ -42,4 +42,4 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [ AamvSiteBundle ] ]
-            - [ setSecurityContext, [ @security.context ] ]
+            - [ setSecurityContext, [ @security.token_storage ] ]

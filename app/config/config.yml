@@ -34,6 +34,7 @@ twig:
     form:
         resources:
             - 'SonataCoreBundle:Form:datepicker.html.twig'
+            - "::form_theme.html.twig"
 
 # Assetic Configuration
 assetic:

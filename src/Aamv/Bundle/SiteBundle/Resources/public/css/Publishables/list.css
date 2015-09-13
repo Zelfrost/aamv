@@ -1,5 +1,5 @@
 article {
-    width: 90%;
+    width: 100%;
     margin: 50px 0 0;
 }
 
@@ -12,12 +12,12 @@ article header {
     font-size: 1.4em;
 
     background: none;
-    border-left: 2px solid #FACA4A;
-    border-bottom: 2px solid #FACA4A;
+    border-left: 2px solid #FFCE79;
+    border-bottom: 2px solid #FFCE79;
 }
 
 #body article a header {
-    color: #FACA4A;
+    color: #FFCE79;
     padding-left: 5px;
     transition: padding-left 0.5s;
 }
@@ -118,19 +118,20 @@ article section a {
 
 article footer {
     padding: 0;
-    width: 100%;
+    width: 90%;
     box-sizing: border-box;
 
     color: #444;
     font-size: 0.9em;
 
     background: none;
+    box-shadow: none;
 }
 
 #body a.author {
     float: none;
     font-weight: bold;
-    color: #FACA4A;
+    color: #FFCE79;
 }
 #body a.author:hover {
     cursor: pointer;

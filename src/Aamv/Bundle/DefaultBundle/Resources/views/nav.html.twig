@@ -2,13 +2,12 @@
     <ul>
         <li>Services
             <div class="sub"><ul>
-                <li><a href="{{ path('aamv_site_services_ads') }}">Petites annonces</a></li>
+                <li><a href="{{ path('aamv_site_services_ads', {type: 'assistantes'}) }}">Petites annonces</a></li>
                 <li><a href="{{ path('aamv_site_services_outils') }}">Outils pour les assistantes maternelles</a></li>
                 <li><a href="{{ path('aamv_site_services_questions_reponses') }}">Questions/Réponses</a></li>
                 <hr>
             </ul></div>
         </li>
-
         <li>Divers
             <div class="sub"><ul>
                 <li><a href="{{ path('aamv_site_divers_articles') }}">Articles détaillés</a></li>
@@ -17,7 +16,6 @@
                 <hr>
             </ul></div>
         </li>
-
         <li>L'association
             <div class="sub"><ul>
                 <li><a href="{{ path('aamv_site_association_presentation') }}">Qui sommes nous ?</a></li>
@@ -26,10 +24,15 @@
                 <hr>
             </ul></div>
         </li>
-
         <li><a href="{{ path('aamv_site_contacts') }}">Contacts</a></li>
-
         <li><a href="http://forum.aamv.net/">Forum</a></li>
+        <li>
+            {% if app.user is null %}
+                <a href="/login">Connexion / Inscription</a>
+            {% else %}
+                <a href="/logout">Déconnexion</a>
+            {% endif %}
+        </li>
 
         <hr>
     </ul>

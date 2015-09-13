@@ -1,0 +1,34 @@
+{% extends "AamvSiteBundle:Publishables:list.html.twig" %}
+
+{% block css %}
+    {{ parent() }}
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/aamvsite/css/Services/list_ad.css') }}">
+{% endblock css %}
+
+{% block page_title %}
+    <h2 class="main">Petites annonces | <a href="{{ path('aamv_site_services_ads_create') }}">Publier une annonce</a></h2>
+{% endblock page_title %}
+
+{% block top_publications %}
+    <div class="adsType">
+        <div><a {% if type == 'assistantes' %}class="current" {% endif %}href="{{ path('aamv_site_services_ads', {type: 'assistantes'}) }}">Annonces d'Assistantes Maternelles</a></div>
+        <div><a {% if type == 'parents' %}class="current" {% endif %}href="{{ path('aamv_site_services_ads', {type: 'parents'}) }}">Annonces de Parents</a></div>
+    </div>
+
+    <div class="adsCity">
+        <label for="city">Filtrer par ville :</label>
+        <select name="city" data-type="{{ type }}" class="form-control">
+            <option value="none" {% if city == 'none' %}selected="selected"{% endif %}>Villes disponible</option>
+            {% for cityValue in cities %}
+                <option value="{{ cityValue.city }}" {% if city == cityValue.city %}selected="selected"{% endif %}>{{ cityValue.city }}</option>
+            {% endfor %}
+        </select>
+    </div>
+{% endblock top_publications %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+    <script src="{{ asset('bundles/aamvsite/js/list_ad.js') }}"></script>
+{% endblock javascripts %}

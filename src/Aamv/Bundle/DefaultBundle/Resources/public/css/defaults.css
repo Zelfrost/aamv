@@ -19,7 +19,8 @@ a {
 }
 
 html, body {
-    height: 100%;
+    min-height: 100%;
+    box-sizing: border-box;
 }
 body {
     margin: 0;
@@ -37,14 +38,15 @@ body {
     margin: 30px 10% 0;
     padding: 0;
 
-    color: #FACA4A;
-    font-family: 'Dancing Script', cursive;
+    color: #FFCE79;
+    font-family: 'Indie Flower', cursive;
+    font-weight: bold;
 }
 #top img {
     position: absolute;
     top: 0px;
 
-    border: 5px solid #C98802;
+    border: 5px solid #7F673C;
     height: 70px;
 
     margin-top: 15px;
@@ -62,7 +64,7 @@ body {
     margin: 0 auto;
     padding: 0 20px;
 
-    text-shadow: -1px 0 #493201, 0 1px #493201, 1px 0 #493201, 0 -1px #493201;
+    text-shadow: -1px 0 #7F673C, 0 1px #7F673C, 1px 0 #7F673C, 0 -1px #7F673C;
 }
 #top h1 {
     display: inline-block;
@@ -74,13 +76,14 @@ body {
 
     text-align: center;
     font-size: 60px;
+    font-weight: bold;
 }
 #top hr {
     height: 1px;
     margin: 10px 0 0 0;
 
     border: none;
-    background: #493201;
+    background: #7F673C;
 }
 #top .small {
     display: inline-block;
@@ -89,7 +92,6 @@ body {
 
     text-align: center;
     font-size: 40px;
-    font-weight: bold;
 }
 
 nav {
@@ -102,8 +104,8 @@ nav {
     padding: 0;
 
     font-weight: bold;
-    background-color: #D2A341;
-    border-bottom: 1px solid #FACA4A;
+    background-color: #FFCE79;
+    border-bottom: 1px solid #CCA561;
 
     -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
        -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
@@ -133,7 +135,7 @@ nav li {
     display: inline-block;
     float: left;
 
-    width: 20%;
+    width: calc(100% / 6);
     padding: 20px 10px;
 
     color: #FFF;
@@ -153,7 +155,7 @@ nav li:hover {
     cursor: pointer;
 }
 nav > ul > li:hover {
-    background-color: #FACA4A;
+    background-color: #CCA561;
 }
 nav li:hover a {
     color: #FFF;
@@ -181,7 +183,7 @@ nav li ul {
     display: none;
     z-index: 0;
 
-    background-color: #FACA4A;
+    background-color: #CCA561;
 
     -webkit-box-shadow: none;
        -moz-box-shadow: none;
@@ -196,7 +198,7 @@ nav li li {
 }
 nav li li a {
     display: inline-block;
-    padding: 15px 15px;
+    padding: 20px 15px;
 
     color: #fff;
     text-decoration: none;
@@ -218,7 +220,9 @@ nav li li a:hover {
     margin: 0 auto;
 
     color: #444;
-    background-color: #FDFDFD;
+    background-color: #FFF;
+
+    font-size: 1.2em;
 
     -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
        -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
@@ -227,6 +231,11 @@ nav li li a:hover {
 }
 
 #body h2 {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+#body h2.main {
     width: 50%;
 
     display: inline-block;
@@ -236,12 +245,13 @@ nav li li a:hover {
     left: -30px;
 
     padding: 5px 20px;
-    background: rgba(250, 202, 74, 0.85);
+    background: #FFCE79;
 
     color: #FFF;
     text-align: right;
+    font-size: 1.6em;
 }
-#body h2:first-of-type {
+#body h2.main:first-of-type {
     margin-top: 0;
 }
 
@@ -260,8 +270,10 @@ nav li li a:hover {
     text-decoration: underline;
 }
 
-#body li {list-style-type: none;}
-#body li::before {
+#body li {
+    list-style-type: none;
+}
+#body .content li::before {
     content: "-- ";
     font-weight: bold;
 }
@@ -276,7 +288,7 @@ footer {
     margin: 10px 10% 0;
 
     color: #FAFAFA;
-    background-color: #402B01;
+    background-color: #7F7563;
 
     text-align: right;
 
@@ -324,18 +336,8 @@ footer a:hover {
 }
 
 #author {
-    position: relative;
-    left: -30px;
-    top: -10px;
-
-    width: 50%;
     margin-bottom: 20px;
-    padding-top: 10px;
-    padding-right: 10px;
-
-    font-size: 0.85em;
     text-align: right;
-    border-right: 2px solid rgba(250, 202, 74, 0.85);
 }
 
 #author p {
@@ -352,4 +354,27 @@ footer a:hover {
 
 .glyphicon {
     margin-right: 5px;
+}
+
+input[type="text"], input[type="password"], input[type="email"] {
+    padding: 20px 20px;
+}
+
+div > input[type="radio"]:not(:first-of-type) {
+    margin-left: 20px;
+}
+label.check-label {
+    font-weight: normal;
+}
+
+.btn {
+    font-size: 1.3em;
+}
+
+.nothing {
+    margin-top: 30px;
+}
+
+.select2 .select2-choice {
+    width: 100%;
 }

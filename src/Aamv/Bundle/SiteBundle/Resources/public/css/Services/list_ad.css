@@ -1,0 +1,50 @@
+.adsType {
+    width: 95%;
+    margin: 30px 2.5% 0;
+}
+
+.adsType div {
+    display: inline-block;
+    width: 49%;
+}
+
+.adsType a {
+    display: inline-block;
+    width: 80%;
+
+    margin: 0 10%;
+    padding: 5px 0;
+
+    text-align: center;
+    font-size: 1.2em;
+    color: #FFCE79;
+
+    border-top: 1px solid #FFCE79;
+
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+         -o-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+.adsType a.current {
+    background: #FAFAFA;
+}
+
+#body .adsType a:hover {
+    text-decoration: none;
+    background: #F4F4F4;
+}
+
+.current {
+    font-weight: bold;
+}
+
+.adsCity {
+    width: 100%;
+    margin: 50px 0 0;
+}
+
+h3 {
+    margin: 0;
+}

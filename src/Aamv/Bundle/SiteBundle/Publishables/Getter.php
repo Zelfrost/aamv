@@ -16,7 +16,7 @@ class Getter
         $this->em = $em;
     }
 
-    public function get($entityName, $page, $resultsPerPage)
+    public function get($entityName, $page, $resultsPerPage, $options = array())
     {
         $repository = $this->em
             ->getRepository(sprintf('AamvSiteBundle:%s', $entityName));
@@ -27,10 +27,11 @@ class Getter
 
         $pagination = array(
             'page'        => $page,
-            'pages_count' => ceil($publishableCount / $resultsPerPage)
+            'pages_count' => ceil($publishableCount / $resultsPerPage),
+            'parameters'  => array()
         );
 
-        $publishables = $finder->findByPage($page, $resultsPerPage);
+        $publishables = $repository->findByPage($page, $resultsPerPage, $options);
 
         return array('publishables' => $publishables, 'pagination' => $pagination);
     }

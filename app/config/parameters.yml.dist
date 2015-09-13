@@ -11,3 +11,7 @@ parameters:
     mailer_password:   ~
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    # You login and key from the site http://www.citysearch-api.com/
+    api_city_login: your_login
+    api_city_key: your_key
