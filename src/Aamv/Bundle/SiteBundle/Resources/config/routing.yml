@@ -20,15 +20,15 @@ aamv_site_new:
     defaults: { _controller: AamvSiteBundle:Homepage:new }
 
 # Pages Services
-aamv_site_services_ads_create:
-    path:     /services/ads/create
-    defaults: { _controller: AamvSiteBundle:Services:createAds }
-
 aamv_site_services_ads:
     path:     /services/ads/{type}/{city}/{page}
     defaults: { _controller: AamvSiteBundle:Services:ads, page: 1, city: none }
     options:
         expose: true
+
+aamv_site_services_ad_create:
+    path:     /services/ad/create
+    defaults: { _controller: AamvSiteBundle:Services:createAd }
 
 aamv_site_services_outils:
     path:     /services/outils

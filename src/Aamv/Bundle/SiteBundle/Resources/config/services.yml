@@ -11,6 +11,11 @@ services:
         class:     Buzz\Browser
         arguments: ['@buzz.client.curl']
 
+    aamv_user.form.registration:
+        class: Aamv\Bundle\SiteBundle\Form\Type\RegistrationFormType
+        tags:
+            - { name: form.type, alias: aamv_user_registration }
+
     aamv_site.publishables_getter:
         class:     Aamv\Bundle\SiteBundle\Publishables\Getter
         arguments: [ @doctrine.orm.entity_manager ]
@@ -19,13 +24,17 @@ services:
         class: Aamv\Bundle\SiteBundle\Retriever\City
         arguments: [@buzz.browser, '%api_city_login%', '%api_city_key%']
 
+    aamv_site.role_retriever:
+        class: Aamv\Bundle\SiteBundle\Retriever\Role
+        arguments: [@security.context]
+
     aamv_site.city_from_api:
         class: Aamv\Bundle\SiteBundle\Validator\Constraints\CityFromApiValidator
         arguments: [@aamv_site.city_retriever]
         tags:
             - {name: validator.constraint_validator, alias: city_from_api}
 
-    aamv_user.registration.form.type:
-        class: Aamv\Bundle\SiteBundle\Form\Type\RegistrationFormType
+    aamv_site.form.ad_create:
+        class: Aamv\Bundle\SiteBundle\Form\Type\AdType
         tags:
-            - { name: form.type, alias: aamv_user_registration }
+            - { name: form.type, alias: aamv_site_create_ad }

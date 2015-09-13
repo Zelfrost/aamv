@@ -2,7 +2,9 @@
 
 namespace Aamv\Bundle\SiteBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Aamv\Bundle\DefaultBundle\Controller\AbstractController;
+use Aamv\Bundle\SiteBundle\Form\Type\AdFormType;
 
 class ServicesController extends AbstractController
 {
@@ -51,9 +53,28 @@ class ServicesController extends AbstractController
         );
     }
 
-    public function createAdsAction()
+    public function createAdAction(Request $request)
     {
-        return new Response();
+        $manager = $this->get('doctrine')->getManager();
+        $user = $this->getUser();
+
+        $form = $this->createForm('aamv_site_create_ad');
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $ad = $form->getData();
+            $ad->setAuthor($user);
+
+            $manager->persist($ad);
+            $manager->flush();
+
+            return $this->redirect($this->generateUrl('aamv_site_services_ads', array('type' => $this->get('aamv_site.role_retriever')->getNameFromUser($user))));
+        }
+
+        return $this->render(
+            'AamvSiteBundle:Services:create_ad.html.twig',
+            array('form' => $form->createView())
+        );
     }
 
     public function outilsAction()
