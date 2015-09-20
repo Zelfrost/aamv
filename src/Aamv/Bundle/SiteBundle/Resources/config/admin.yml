@@ -2,7 +2,7 @@ services:
     sonata.admin.news:
         class: Aamv\Bundle\SiteBundle\Admin\NewsAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Content", label: "News" }
+            - { name: sonata.admin, manager_type: orm, group: "Contenu", label: "News" }
         arguments:
             - ~
             - Aamv\Bundle\SiteBundle\Entity\News
@@ -13,7 +13,7 @@ services:
     sonata.admin.tools:
         class: Aamv\Bundle\SiteBundle\Admin\ToolsAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Tools" }
+            - { name: sonata.admin, manager_type: orm, group: "Contenu", label: "Outils" }
         arguments:
             - ~
             - Aamv\Bundle\SiteBundle\Entity\Tools
@@ -21,10 +21,21 @@ services:
         calls:
             - [ setTranslationDomain, [ AamvSiteBundle ] ]
             - [ setSecurityContext, [ @security.token_storage ] ]
+    sonata.admin.disponibilities:
+        class: Aamv\Bundle\SiteBundle\Admin\DisponibilitiesAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Informations", label: "Disponibilités" }
+        arguments:
+            - ~
+            - Aamv\Bundle\SiteBundle\Entity\Disponibility
+            - ~
+        calls:
+            - [ setTranslationDomain, [ AamvSiteBundle ] ]
+            - [ setSecurityContext, [ @security.token_storage ] ]
     sonata.admin.events:
         class: Aamv\Bundle\SiteBundle\Admin\EventsAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Events" }
+            - { name: sonata.admin, manager_type: orm, group: "Evénements", label: "Evénements" }
         arguments:
             - ~
             - Aamv\Bundle\SiteBundle\Entity\Event
@@ -35,7 +46,7 @@ services:
     sonata.admin.event_pictures:
         class: Aamv\Bundle\SiteBundle\Admin\EventPicturesAdmin
         tags:
-            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Event Pictures" }
+            - { name: sonata.admin, manager_type: orm, group: "Evénements", label: "Photos d'évènements" }
         arguments:
             - ~
             - Aamv\Bundle\SiteBundle\Entity\EventPicture

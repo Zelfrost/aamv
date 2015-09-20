@@ -44,7 +44,8 @@ class AdType extends AbstractType
                 'label' => 'Type de garde :',
                 'choices' => array(
                     'day' => 'Journée',
-                    'night' => 'Nuit'
+                    'half' => 'Demi journée',
+                    'school' => 'Périscolaire'
                 ),
                 'expanded' => false,
                 'multiple' => false,

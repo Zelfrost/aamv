@@ -3,9 +3,17 @@
 }
 
 form > div > div {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
-form a {
+form div:not(#register) > a {
     float: right;
+}
+form div#register {
+    margin: 0;
+}
+form div#register a {
+    display: inline-block;
+    width: 100%;
+    text-align: right;
 }

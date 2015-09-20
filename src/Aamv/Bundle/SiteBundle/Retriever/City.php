@@ -49,4 +49,24 @@ class City
 
         return $citiesList;
     }
+
+    public function getNeighborhoods($city)
+    {
+        return array(
+            'Annappes' => 'Annappes',
+            'Ascq' => 'Ascq',
+            'Babylone' => 'Babylone',
+            'Breucq' => 'Breucq',
+            'Chateau' => 'Chateau',
+            'Cousinerie' => 'Cousinerie',
+            'Flers Bourg' => 'Flers Bourg',
+            'Haute Borne' => 'Haute Borne',
+            'Hotel de ville' => 'Hotel de ville',
+            'Les Pres' => 'Les Pres',
+            'Pont de bois' => 'Pont de bois',
+            'Recueil' => 'Recueil',
+            'Résidence' => 'Résidence',
+            'Triolo' => 'Triolo',
+        );
+    }
 }

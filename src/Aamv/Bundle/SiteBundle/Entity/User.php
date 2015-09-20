@@ -35,6 +35,16 @@ class User extends BaseUser
      */
     private $city;
 
+    /**
+     * @ORM\Column(name="neighborhood", type="string", length=255, nullable = true)
+     */
+    private $neighborhood;
+
+    /**
+     * @ORM\Column(name="phone_number", type="string", length=10)
+     */
+    private $phoneNumber;
+
     public function setName($name)
     {
         $this->name = $name;
@@ -71,6 +81,30 @@ class User extends BaseUser
         return $this->city;
     }
 
+    public function setNeighborhood($neighborhood)
+    {
+        $this->neighborhood = $neighborhood;
+
+        return $this;
+    }
+
+    public function getNeighborhood()
+    {
+        return $this->neighborhood;
+    }
+
+    public function setPhoneNumber($phoneNumber)
+    {
+        $this->phoneNumber = $phoneNumber;
+
+        return $this;
+    }
+
+    public function getPhoneNumber()
+    {
+        return $this->phoneNumber;
+    }
+
     public function addRole($role)
     {
         $this->roles[] = $role;
@@ -105,7 +139,11 @@ class User extends BaseUser
             $this->roles[] = 'ROLE_PARENT';
         } else {
             $this->roles[] = 'ROLE_ASSISTANTE';
-            $this->roles[] = 'ROLE_ADMIN';
         }
+    }
+
+    public function getFullname()
+    {
+        return $this->firstname . " " . $this->name;
     }
 }

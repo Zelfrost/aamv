@@ -1,3 +1,53 @@
+article {
+    width: 70%;
+    padding: 30px 20px;
+    margin: 20px 15% 0;
+
+    background-color: #FBFBFB;
+    border: 1px solid #F7F7F7;
+}
+
+article:hover {
+    background-color: #F3F3F3;
+    border: 1px solid #EBEBEB;
+}
+
+article header {
+    height: auto;
+    padding-left: 4px;
+
+    color: #FFF;
+    font-weight: bold;
+    font-size: 1.4em;
+
+    background: none;
+    border-bottom: 2px solid #FFCE79;
+}
+
+#body a header {
+    color: #FFCE79;
+}
+#body a footer {
+    margin: 10px 0 0;
+}
+
+#body a:nth-child(even) header {
+    padding-left: 5px;
+}
+
+#body a:nth-child(even) footer {
+    padding-right: 5px;
+}
+
+#body a:nth-child(odd) header {
+    text-align: right;
+    padding-right: 5px;
+}
+#body a:nth-child(odd) footer {
+    text-align: left;
+    padding-left: 5px;
+}
+
 .adsType {
     width: 95%;
     margin: 30px 2.5% 0;
@@ -40,11 +90,31 @@
     font-weight: bold;
 }
 
-.adsCity {
-    width: 100%;
-    margin: 50px 0 0;
+.type, .city, .neighborhood {
+    width: 60%;
+    margin-top: 20px;
 }
 
-h3 {
-    margin: 0;
+#body hr {
+    width: 80%;
+    margin: 70px 10%;
+    color: #AAA;
+    background-color: #AAA;
+    border-color: #AAA;
+}
+
+#body article footer {
+    padding: 0;
+    width: 100%;
+    box-sizing: border-box;
+
+    color: #444;
+    font-size: 0.9em;
+
+    background: none;
+    box-shadow: none;
+}
+
+#body a:hover {
+    text-decoration: none;
 }

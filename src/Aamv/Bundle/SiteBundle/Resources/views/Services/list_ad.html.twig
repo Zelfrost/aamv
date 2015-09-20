@@ -1,4 +1,6 @@
-{% extends "AamvSiteBundle:Publishables:list.html.twig" %}
+{% extends "AamvDefaultBundle::base.html.twig" %}
+
+{% block title %}{{ title }} - {{ parent() }}{% endblock %}
 
 {% block css %}
     {{ parent() }}
@@ -6,26 +8,51 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/aamvsite/css/Services/list_ad.css') }}">
 {% endblock css %}
 
-{% block page_title %}
-    <h2 class="main">Petites annonces | <a href="{{ path('aamv_site_services_ad_create') }}">Publier une annonce</a></h2>
-{% endblock page_title %}
+{% block body %}
+    <h2 class="main">Petites annonces</h2>
 
-{% block top_publications %}
-    <div class="adsType">
-        <div><a {% if type == 'assistantes' %}class="current" {% endif %}href="{{ path('aamv_site_services_ads', {type: 'assistantes'}) }}">Annonces d'Assistantes Maternelles</a></div>
-        <div><a {% if type == 'parents' %}class="current" {% endif %}href="{{ path('aamv_site_services_ads', {type: 'parents'}) }}">Annonces de Parents</a></div>
+    <div class="type">
+        <label for="type">Annonces publiées par :</label>
+        <select name="type" class="form-control">
+            <option value="assistantes" {% if type == 'assistantes' %}selected="selected"{% endif %}>Assistantes Maternelles</option>
+            <option value="parents" {% if type == 'parents' %}selected="selected"{% endif %}>Parents</option>
+        </select>
     </div>
 
-    <div class="adsCity">
-        <label for="city">Filtrer par ville :</label>
-        <select name="city" data-type="{{ type }}" class="form-control">
+    <div class="city">
+        <label for="city">Ville :</label>
+        <select name="city" class="form-control">
             <option value="none" {% if city == 'none' %}selected="selected"{% endif %}>Villes disponible</option>
             {% for cityValue in cities %}
                 <option value="{{ cityValue.city }}" {% if city == cityValue.city %}selected="selected"{% endif %}>{{ cityValue.city }}</option>
             {% endfor %}
         </select>
     </div>
-{% endblock top_publications %}
+
+    <div class="neighborhood">
+        <label for="neighborhood">Quartier :</label>
+        <select name="neighborhood" class="form-control">
+            <option value="none" {% if neighborhood == 'none' %}selected="selected"{% endif %}>Quartier disponible</option>
+            {% for neighborhoodValue in neighborhoods %}
+                <option value="{{ neighborhoodValue.neighborhood }}" {% if neighborhood == neighborhoodValue.neighborhood %}selected="selected"{% endif %}>{{ neighborhoodValue.neighborhood }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <hr>
+
+    {% if publishables|length == 0 %}
+        <p class="nothing">Il n'y a rien ici pour le moment.</p>
+    {% endif %}
+    {% for publishable in publishables %}
+        <a href="{{ path('aamv_site_services_ad_show', {id: publishable.id}) }}"><article>
+            <header>{{ publishable.title }}</header>
+            <footer>Publiée par {{ publishable.author.firstname }} {{ publishable.author.name }}, le {{ publishable.createdAt|localizeddate('full', 'none') }}</footer>
+        </article></a>
+    {% endfor %}
+
+    {% include 'AamvDefaultBundle::pagination.html.twig' %}
+{% endblock body %}
 
 {% block javascripts %}
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>

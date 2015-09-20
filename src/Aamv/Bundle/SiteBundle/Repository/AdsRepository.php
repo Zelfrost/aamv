@@ -22,6 +22,11 @@ class AdsRepository extends EntityRepository
                 ->setParameter('city', $options['city']['value']);
         }
 
+        if (isset($options['neighborhood'])) {
+            $query->andWhere('u.neighborhood = :neighborhood')
+                ->setParameter('neighborhood', $options['neighborhood']['value']);
+        }
+
         return new Paginator($query);
     }
 }

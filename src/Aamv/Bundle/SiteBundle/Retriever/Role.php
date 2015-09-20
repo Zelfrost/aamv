@@ -15,4 +15,9 @@ class Role
     {
         return $this->context->isGranted($user, 'ROLE_PARENT') ? 'parents' : 'assistantes';
     }
+
+    public function getRoleFromName($name)
+    {
+        return $name === 'parents' ? '%ROLE_PARENT%' : "%ROLE_ASSISTANTE%";
+    }
 }

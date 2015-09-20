@@ -13,6 +13,7 @@ services:
 
     aamv_user.form.registration:
         class: Aamv\Bundle\SiteBundle\Form\Type\RegistrationFormType
+        arguments: [ @aamv_site.city_retriever ]
         tags:
             - { name: form.type, alias: aamv_user_registration }
 

@@ -9,6 +9,13 @@ use Symfony\Component\Form\FormEvents;
 
 class RegistrationFormType extends AbstractType
 {
+    private $cityRetriever;
+
+    public function __construct($cityRetriever)
+    {
+        $this->cityRetriever = $cityRetriever;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', 'text', array(
@@ -16,6 +23,9 @@ class RegistrationFormType extends AbstractType
             ))
             ->add('firstname', 'text', array(
                 'label' => 'Prénom :'
+            ))
+            ->add('phoneNumber', 'text', array(
+                'label' => 'Numéro de téléphone :'
             ))
             ->add('baseRole', 'choice', array(
                 'choices' => array(
@@ -28,10 +38,18 @@ class RegistrationFormType extends AbstractType
             ))
             ->add('city', 'choice', array(
                 'label' => 'Ville :',
-                'expanded' => false,
-                'multiple' => false,
                 'attr' => array(
                     'class' => "select2 form-control"
+                )
+            ))
+            ->add('neighborhood', 'choice', array(
+                'label' => 'Quartier (seulement si vous êtes de Villeneuve d\'Ascq) :',
+                'required' => false,
+                'choices' =>  array_merge(array(
+                    null => 'Choisissez un quartier',
+                ), $this->cityRetriever->getNeighborhoods("Villeneuve-d'Ascq")),
+                'attr' => array(
+                    'class' => "form-control"
                 )
             ))
             ->add('submit', 'submit', array(
@@ -46,16 +64,24 @@ class RegistrationFormType extends AbstractType
             $data = $event->getData();
 
             $form->remove('city');
+            $form->remove('neighborhood');
             $form->remove('submit');
             $form->add('city', 'choice', array(
                 'label' => 'Ville :',
-                'expanded' => false,
-                'multiple' => false,
                 'attr' => array(
                     'class' => "select2 form-control"
                 ),
                 'choices' => array(
                     $data['city'] => $data['city'],
+                )
+            ))
+            ->add('neighborhood', 'choice', array(
+                'label' => "Quartier (seulement si vous êtes de Villeneuve d'Ascq) :",
+                'choices' => array_merge(array(
+                    null => 'Choisissez un quartier',
+                ), $this->cityRetriever->getNeighborhoods("Villeneuve-d'Ascq")),
+                'attr' => array(
+                    'class' => "form-control"
                 )
             ))
             ->add('submit', 'submit', array(

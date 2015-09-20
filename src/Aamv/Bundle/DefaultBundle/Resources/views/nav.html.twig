@@ -1,38 +1,49 @@
 <nav>
     <ul>
-        <li>Services
-            <div class="sub"><ul>
+        <li class="has-submenu">Services
+            <div><ul>
                 <li><a href="{{ path('aamv_site_services_ads', {type: 'assistantes'}) }}">Petites annonces</a></li>
-                <li><a href="{{ path('aamv_site_services_outils') }}">Outils pour les assistantes maternelles</a></li>
-                <li><a href="{{ path('aamv_site_services_questions_reponses') }}">Questions/Réponses</a></li>
+                <li><a href="{{ path('aamv_site_services_ads', {type: 'assistantes'}) }}">Disponibilité des assistantes</a></li>
+                <li><a href="{{ path('aamv_site_services_outils') }}">Les outils</a></li>
                 <hr>
             </ul></div>
         </li>
-        <li>Divers
-            <div class="sub"><ul>
-                <li><a href="{{ path('aamv_site_divers_articles') }}">Articles détaillés</a></li>
+        <li class="has-submenu">Divers
+            <div><ul>
+                <li><a href="{{ path('aamv_site_divers_articles') }}">Tout savoir sur ...</a></li>
+                <li><a href="{{ path('aamv_site_services_questions_reponses') }}">Questions/Réponses</a></li>
                 <li><a href="{{ path('aamv_site_divers_adresses') }}">Bonnes adresses</a></li>
                 <li><a href="{{ path('aamv_site_divers_sites_utiles') }}">Sites utiles</a></li>
                 <hr>
             </ul></div>
         </li>
-        <li>L'association
-            <div class="sub"><ul>
+        <li class="has-submenu">L'association
+            <div><ul>
                 <li><a href="{{ path('aamv_site_association_presentation') }}">Qui sommes nous ?</a></li>
+                <li><a href="{{ path('aamv_site_contacts') }}">Nous rejoindre</a></li>
                 <li><a href="{{ path('aamv_site_association_photos') }}">Photos</a></li>
                 <li><a href="{{ path('aamv_site_association_parle') }}">On en parle</a></li>
                 <hr>
             </ul></div>
         </li>
         <li><a href="{{ path('aamv_site_contacts') }}">Contacts</a></li>
-        <li><a href="http://forum.aamv.net/">Forum</a></li>
-        <li>
-            {% if app.user is null %}
-                <a href="/login">Connexion / Inscription</a>
-            {% else %}
-                <a href="/logout">Déconnexion</a>
-            {% endif %}
+        {% if app.user %}
+        <li class="has-submenu">Gérer mon compte
+            <div><ul>
+                <li><a href="">Modifier mon compte</a></li>
+                <li><a href="">Gérer mes annonces</a></li>
+                <li><a href="">Formulaire de disponibilité</a></li>
+                {% if 'ROLE_ADMIN' in app.user.roles %}
+                    <li><a href="/admin">Administration</a></li>
+                {% endif %}
+                <hr>
+            </ul></div>
         </li>
+        <li><a href="/logout">Déconnexion</a></li>
+        {% else %}
+            <li><a href="/register">Inscription</a></li>
+            <li><a href="/login">Connexion</a></li>
+        {% endif %}
 
         <hr>
     </ul>

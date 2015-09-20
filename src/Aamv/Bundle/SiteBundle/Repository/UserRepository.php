@@ -16,6 +16,20 @@ class UserRepository extends EntityRepository
             ->distinct()
             ->getQuery();
 
-        return $cities = $cities->getResult();
+        return $cities->getResult();
+    }
+
+    public function getNeighborhoods($type)
+    {
+        $neighborhoods = $this->createQueryBuilder('u')
+            ->select('u.neighborhood')
+            ->where('u.roles LIKE :role')
+            ->andWhere('u.neighborhood IS NOT NULL')
+            ->setParameter('role', $type)
+            ->orderBy('u.neighborhood', 'ASC')
+            ->distinct()
+            ->getQuery();
+
+        return $neighborhoods->getResult();
     }
 }
