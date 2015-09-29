@@ -100,6 +100,11 @@ class ServicesController extends AbstractController
         );
     }
 
+    public function disponibilitiesAction()
+    {
+        return $this->render('AamvSiteBundle:Services:disponibilites.html.twig');
+    }
+
     public function outilsAction()
     {
         $aamvTools = $this->getRepository('AamvSiteBundle:Tools')
@@ -114,10 +119,5 @@ class ServicesController extends AbstractController
                 'veronalice' => $veronaliceTools,
             ))
         );
-    }
-
-    public function questionsReponsesAction()
-    {
-        return $this->render('AamvSiteBundle:Services:questions_reponses.html.twig');
     }
 }

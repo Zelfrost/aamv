@@ -16,18 +16,18 @@
     </head>
     
     <body>
-        {% include 'AamvDefaultBundle::header.html.twig' %}
-        {% include 'AamvDefaultBundle::nav.html.twig' %}
+        <div class="container">
+            {% include 'AamvDefaultBundle::header.html.twig' %}
+            {% include 'AamvDefaultBundle::nav.html.twig' %}
 
-        <div id="body">
-            <div class="int">
+            <div id="body" class="col-md-12">
                 {% block body %}{% endblock %}
             </div>
+
+            {% include 'AamvDefaultBundle::footer.html.twig' %}
+
+            <script src="{{ asset('vendor/jquery/dist/jquery.min.js') }}"></script>
+            {% block javascripts %}{% endblock %}
         </div>
-
-        {% include 'AamvDefaultBundle::footer.html.twig' %}
-
-        <script src="{{ asset('vendor/jquery/dist/jquery.min.js') }}"></script>
-        {% block javascripts %}{% endblock %}
     </body>
 </html>

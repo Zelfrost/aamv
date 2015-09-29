@@ -127,10 +127,10 @@ class User extends BaseUser
     public function getBaseRole()
     {
         if (in_array('ROLE_PARENT', $this->roles)) {
-            return 'ROLE_PARENT';
+            return 'parent';
         }
 
-        return 'ROLE_ASSISTANTE';
+        return 'assistante';
     }
 
     public function setBaseRole($baseRole)

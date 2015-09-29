@@ -11,13 +11,18 @@ class AssociationController extends AbstractController
         return $this->render('AamvSiteBundle:Association:presentation.html.twig');
     }
 
+    public function joinAction()
+    {
+        return $this->render('AamvSiteBundle:Association:join.html.twig');
+    }
+
     public function photosAction()
     {
         return $this->render('AamvSiteBundle:Association:photos.html.twig');
     }
 
-    public function parleAction()
+    public function aboutUsAction()
     {
-        return $this->render('AamvSiteBundle:Association:parle.html.twig');
+        return $this->render('AamvSiteBundle:Association:about_us.html.twig');
     }
 }

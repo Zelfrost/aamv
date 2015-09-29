@@ -10,7 +10,7 @@ composer install
 bower install
 php app/console assets:install
 
-php app/console doctrine:database:create
+# php app/console doctrine:database:create
 php app/console doctrine:schema:update --force
 
 if [ ! -d web/public/tools ];

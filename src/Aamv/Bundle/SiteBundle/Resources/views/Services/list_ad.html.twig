@@ -41,17 +41,28 @@
 
     <hr>
 
-    {% if publishables|length == 0 %}
-        <p class="nothing">Il n'y a rien ici pour le moment.</p>
-    {% endif %}
-    {% for publishable in publishables %}
-        <a href="{{ path('aamv_site_services_ad_show', {id: publishable.id}) }}"><article>
-            <header>{{ publishable.title }}</header>
-            <footer>Publiée par {{ publishable.author.firstname }} {{ publishable.author.name }}, le {{ publishable.createdAt|localizeddate('full', 'none') }}</footer>
-        </article></a>
-    {% endfor %}
+    <div id="ads" class="col-md-12">
+        {% if publishables|length == 0 %}
+            <p class="nothing">Il n'y a rien ici pour le moment.</p>
+        {% endif %}
+
+        {% for publishable in publishables %}
+            {% if loop.index is odd %}
+            <div class="row">
+                <div class="col-md-6">
+                    <p>tutu</p>
+                </div>
+            {% else %}
+                <div class="col-md-6">
+                    <p>tutu</p>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
 
     {% include 'AamvDefaultBundle::pagination.html.twig' %}
+</div>
 {% endblock body %}
 
 {% block javascripts %}
