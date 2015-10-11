@@ -65,6 +65,13 @@ class Ad
     private $type;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="view_count", type="integer")
+     */
+    private $viewCount = 0;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="created_at", type="datetime")
@@ -231,6 +238,42 @@ class Ad
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Increment view count
+     *
+     * @param integer $inc
+     * @return Ad
+     */
+    public function addView($inc = 1)
+    {
+        $this->viewCount += $inc;
+
+        return $this;
+    }
+
+    /**
+     * Set viewCount
+     *
+     * @param integer $viewCount
+     * @return Ad
+     */
+    public function setViewCount($viewCount)
+    {
+        $this->viewCount = $viewCount;
+
+        return $this;
+    }
+
+    /**
+     * Get viewCount
+     *
+     * @return integer 
+     */
+    public function getViewCount()
+    {
+        return $this->viewCount;
     }
 
     /**

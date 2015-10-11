@@ -48,7 +48,7 @@ class ServicesController extends AbstractController
         $results['neighborhood'] = $neighborhood;
         $results['neighborhoods'] = $this->getRepository('AamvSiteBundle:User')->getNeighborhoods($role);
 
-        $results['pagination']['route'] = 'aamv_site_services_ads';
+        $results['pagination']['route'] = 'aamv_site_services_ads_list';
         $results['pagination']['parameters'] = array(
             'type' => $type,
             'city' => $city
@@ -60,35 +60,18 @@ class ServicesController extends AbstractController
         );
     }
 
-    public function createAdAction(Request $request)
-    {
-        $manager = $this->get('doctrine')->getManager();
-        $user = $this->getUser();
-
-        $form = $this->createForm('aamv_site_create_ad');
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $ad = $form->getData();
-            $ad->setAuthor($user);
-
-            $manager->persist($ad);
-            $manager->flush();
-
-            return $this->redirect($this->generateUrl('aamv_site_services_ads', array('type' => $this->get('aamv_site.role_retriever')->getNameFromUser($user))));
-        }
-
-        return $this->render(
-            'AamvSiteBundle:Services:create_ad.html.twig',
-            array('form' => $form->createView())
-        );
-    }
-
     public function showAdAction($id)
     {
         $ad = $this->getEntityManager()
             ->getRepository('AamvSiteBundle:Ad')
             ->find($id);
+
+        if (null === $this->getUser() || ($ad->getAuthor()->getId() !== $this->getUser()->getId())) {
+            $ad->addView();
+
+            $this->getEntityManager()
+                ->flush();
+        }
 
         if ($ad === null) {
             return $this->redirectToUrl('aamv_site_homepage');

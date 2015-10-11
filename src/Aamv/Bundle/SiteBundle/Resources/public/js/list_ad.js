@@ -1,19 +1,19 @@
 $(document).ready(function() {
     $('.type select').change(function() {
-        window.location.href = Routing.generate('aamv_site_services_ads', {
+        window.location.href = Routing.generate('aamv_site_services_ads_list', {
             type: $(this).val()
         });
     });
 
     $('.city select').change(function() {
-        window.location.href = Routing.generate('aamv_site_services_ads', {
+        window.location.href = Routing.generate('aamv_site_services_ads_list', {
             type: $('.type select').val(),
             city: $(this).val()
         });
     });
 
     $('.neighborhood select').change(function() {
-        window.location.href = Routing.generate('aamv_site_services_ads', {
+        window.location.href = Routing.generate('aamv_site_services_ads_list', {
             type: $('.type select').val(),
             city: $('.city select').val(),
             neighborhood: $(this).val(),

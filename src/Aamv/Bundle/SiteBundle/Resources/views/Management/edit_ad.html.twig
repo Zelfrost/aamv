@@ -1,0 +1,32 @@
+{% extends "AamvDefaultBundle::base.html.twig" %}
+
+{% block title %}Modifier une annonce - {{ parent() }}{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/aamvsite/css/Services/create_ad.css') }}">
+{% endblock css %}
+
+{% block body %}
+    <h2 class="main">Modifier une annonce</h2>
+
+    {% for flash in app.session.flashbag.get('management.ads.success') %}
+        <div class="alert alert-success">{{ flash }}</div>
+    {% endfor %}
+
+    {% if ad.author == app.user %}
+        <div class="alert alert-info">Voir cette <a href="{{ path('aamv_site_services_ads_show', {id: ad.id}) }}">annonce</a>.</div>
+    {% endif %}
+
+    {{ form_start(form) }}
+        {{ form_row(form.title) }}
+        {{ form_row(form.content) }}
+        {{ form_row(form.disponibilityDate, {'date_pattern': '<span style="display: none;">{{ day }}</span> {{ month }} <span class="delim">/</span> {{ year }}'}) }}
+        {{ form_row(form.wishedDays) }}
+        {{ form_row(form.type) }}
+        {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script>
+{% endblock javascripts %}

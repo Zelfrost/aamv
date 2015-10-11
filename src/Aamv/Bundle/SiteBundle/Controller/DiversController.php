@@ -16,7 +16,7 @@ class DiversController extends AbstractController
         return $this->render('AamvSiteBundle:Services:questions_reponses.html.twig');
     }
 
-    public function adressesAction()
+    public function addressesAction()
     {
         return $this->render('AamvSiteBundle:Divers:adresses.html.twig');
     }

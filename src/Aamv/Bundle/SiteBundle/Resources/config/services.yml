@@ -17,6 +17,12 @@ services:
         tags:
             - { name: form.type, alias: aamv_user_registration }
 
+    aamv_user.form.profile:
+        class: Aamv\Bundle\SiteBundle\Form\Type\ProfileFormType
+        arguments: [ @aamv_site.city_retriever ]
+        tags:
+            - { name: form.type, alias: aamv_user_profile }
+
     aamv_site.publishables_getter:
         class:     Aamv\Bundle\SiteBundle\Publishables\Getter
         arguments: [ @doctrine.orm.entity_manager ]

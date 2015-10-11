@@ -9,6 +9,10 @@
 {% block body %}
     <h2>{{ ad.title }}</h2>
 
+    {% if ad.author == app.user %}
+        <div class="alert alert-info">Modifier cette <a href="{{ path('aamv_site_manage_ads_edit', {id: ad.id}) }}">annonce</a>.</div>
+    {% endif %}
+
     <div>
         <h3>Informations générales</h3>
         <div id="infos" class="col-md-12">

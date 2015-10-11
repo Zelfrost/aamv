@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
-class RegistrationFormType extends AbstractType
+class ProfileFormType extends AbstractType
 {
     private $cityRetriever;
 
@@ -40,7 +40,8 @@ class RegistrationFormType extends AbstractType
             ->add('city', 'choice', array(
                 'label' => 'Ville :',
                 'attr' => array(
-                    'class' => "select2 form-control"
+                    'class' => "select2 form-control",
+                    'data-value' => $builder->getData()->getCity()
                 )
             ))
             ->add('neighborhood', 'choice', array(
@@ -60,6 +61,8 @@ class RegistrationFormType extends AbstractType
                 )
             ));
 
+        $builder->remove('current_password', 'password');
+
         $builder->addEventListener(FormEvents::PRE_SUBMIT, function(FormEvent $event) {
             $form = $event->getForm();
             $data = $event->getData();
@@ -70,7 +73,8 @@ class RegistrationFormType extends AbstractType
             $form->add('city', 'choice', array(
                 'label' => 'Ville :',
                 'attr' => array(
-                    'class' => "select2 form-control"
+                    'class' => "select2 form-control",
+                    'data-value' => $data['city']
                 ),
                 'choices' => array(
                     $data['city'] => $data['city'],
@@ -96,11 +100,11 @@ class RegistrationFormType extends AbstractType
 
     public function getParent()
     {
-        return 'fos_user_registration';
+        return 'fos_user_profile';
     }
 
     public function getName()
     {
-        return 'aamv_user_registration';
+        return 'aamv_user_profile';
     }
 }

@@ -26,3 +26,4 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin, role: ROLE_ADMIN }
         - { path: ^/services/ads/create, roles: [ROLE_ASSISTANTE, ROLE_PARENT] }
+        - { path: ^/manage, roles: [ROLE_ASSISTANTE, ROLE_PARENT] }

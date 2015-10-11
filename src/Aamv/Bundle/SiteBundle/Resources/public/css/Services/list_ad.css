@@ -95,26 +95,6 @@ article header {
     margin-top: 20px;
 }
 
-#body hr {
-    width: 80%;
-    margin: 70px 10%;
-    color: #AAA;
-    background-color: #AAA;
-    border-color: #AAA;
-}
-
-#body article footer {
-    padding: 0;
-    width: 100%;
-    box-sizing: border-box;
-
-    color: #444;
-    font-size: 0.9em;
-
-    background: none;
-    box-shadow: none;
-}
-
-#body a:hover {
-    text-decoration: none;
+.table {
+    margin-top: 30px;
 }

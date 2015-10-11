@@ -4,4 +4,45 @@
 
 {% block body %}
     <h2 class="main">Gérer mes annonces</h2>
+
+    {% for flash in app.session.flashbag.get('management.ads.error') %}
+        <div class="alert alert-danger">{{ flash }}</div>
+    {% endfor %}
+
+    {% for flash in app.session.flashbag.get('management.ads.success') %}
+        <div class="alert alert-success">{{ flash }}</div>
+    {% endfor %}
+
+    {% if ads|length == 0 %}
+        <div class="alert alert-warning">Vous n'avez encore posté aucune annonce.</div>
+    {% endif %}
+
+    <div class="alert alert-info"><a href="{{ path('aamv_site_manage_ads_create') }}">Cliquez ici</a> pour poster une annonce.</div>
+
+    <div id="ads" class="col-md-12">
+        {% if ads|length > 0 %}
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Titre de l'annonce</th>
+                        <th>Nombre de vues</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ad in ads %}
+                    <tr>
+                        <td>{{ ad.title }}</td>
+                        <td>{{ ad.viewCount }} vue{% if ad.viewCount > 1 %}s{% endif %}</td>
+                        <td>
+                            <a class="btn btn-default" href="{{ path('aamv_site_services_ads_show', {id: ad.id}) }}">Voir l'annonce</a>
+                            <a class="btn btn-default" href="{{ path('aamv_site_manage_ads_edit', {id: ad.id}) }}">Editer l'annonce</a>
+                            <a class="btn btn-default" href="{{ path('aamv_site_manage_ads_delete', {id: ad.id}) }}">Supprimer l'annonce</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
 {% endblock %}

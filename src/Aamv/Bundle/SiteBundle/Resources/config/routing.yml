@@ -19,19 +19,17 @@ aamv_site_new:
     defaults: { _controller: AamvSiteBundle:Homepage:new }
 
 # Services
-aamv_site_services_ads:
+aamv_site_services_ads_show:
+    path:     /services/ads/{id}
+    defaults: { _controller: AamvSiteBundle:Services:showAd }
+    requirements:
+        id: \d+
+
+aamv_site_services_ads_list:
     path:     /services/ads/{type}/{city}/{neighborhood}/{page}
     defaults: { _controller: AamvSiteBundle:Services:ads, page: 1, city: none, neighborhood: none }
     options:
         expose: true
-
-aamv_site_services_ad_create:
-    path:     /services/ad/create
-    defaults: { _controller: AamvSiteBundle:Services:createAd }
-
-aamv_site_services_ad_show:
-    path:     /services/ad/{id}
-    defaults: { _controller: AamvSiteBundle:Services:showAd }
 
 aamv_site_services_disponibilities:
     path:     /services/disponibilities
@@ -73,7 +71,7 @@ aamv_site_association_photos:
 
 aamv_site_association_about_us:
     path:     /association/about_us
-    defaults: { _controller: AamvSiteBundle:Association:about_us }
+    defaults: { _controller: AamvSiteBundle:Association:aboutUs }
 
 # Contacts
 aamv_site_contacts:
@@ -88,6 +86,18 @@ aamv_site_manage_account:
 aamv_site_manage_ads:
     path:     /manage/ads
     defaults: { _controller: AamvSiteBundle:Management:ads }
+
+aamv_site_manage_ads_create:
+    path:     /manage/ads/create
+    defaults: { _controller: AamvSiteBundle:Management:createAd }
+
+aamv_site_manage_ads_edit:
+    path:     /manage/ads/edit/{id}
+    defaults: { _controller: AamvSiteBundle:Management:editAd }
+
+aamv_site_manage_ads_delete:
+    path:     /manage/ads/delete/{id}
+    defaults: { _controller: AamvSiteBundle:Management:deleteAd }
 
 aamv_site_manage_disponibilities:
     path:     /manage/disponibilities
