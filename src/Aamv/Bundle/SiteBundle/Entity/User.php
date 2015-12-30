@@ -124,24 +124,6 @@ class User extends BaseUser
         return $this->roles;
     }
 
-    public function getBaseRole()
-    {
-        if (in_array('ROLE_PARENT', $this->roles)) {
-            return 'parent';
-        }
-
-        return 'assistante';
-    }
-
-    public function setBaseRole($baseRole)
-    {
-        if ($baseRole == 'parent') {
-            $this->roles[] = 'ROLE_PARENT';
-        } else {
-            $this->roles[] = 'ROLE_ASSISTANTE';
-        }
-    }
-
     public function getFullname()
     {
         return $this->firstname . " " . $this->name;

@@ -11,13 +11,12 @@ class ServicesController extends AbstractController
     public function adsAction($type, $city, $neighborhood, $page)
     {
         $resultsPerPage = $this->container->getParameter('ads.results_per_page');
-        $role = $this->get('aamv_site.role_retriever')->getRoleFromName($type);
-
-        $options = array(
-            'role' => array(
-                'value' => $role
-            )
+        $role = sprintf(
+            '%%%s%%',
+            $this->get('aamv_site.role_retriever')->getRoleFromName($type)
         );
+
+        $options = array('role' => array('value' => $role));
 
         if ($city !== 'none') {
             $options['city'] = array(

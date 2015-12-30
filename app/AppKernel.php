@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\IntlBundle\SonataIntlBundle(),
+            new Mindfire\Bundle\ExpiryFieldBundle\MindfireExpiryFieldBundle(),
 
             new Aamv\Bundle\DefaultBundle\AamvDefaultBundle(),
             new Aamv\Bundle\SiteBundle\AamvSiteBundle(),

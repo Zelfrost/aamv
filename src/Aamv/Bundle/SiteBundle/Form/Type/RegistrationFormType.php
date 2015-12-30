@@ -28,11 +28,12 @@ class RegistrationFormType extends AbstractType
             ->add('phoneNumber', 'text', array(
                 'label' => 'Numéro de téléphone :'
             ))
-            ->add('baseRole', 'choice', array(
+            ->add('role', 'choice', array(
                 'choices' => array(
                     'assistante' => 'Assistante Maternelle',
                     'parent' => 'Parent'
                 ),
+                'mapped' => false,
                 'label' => 'Vous êtes :',
                 'expanded' => true,
                 'multiple' => false
@@ -50,7 +51,7 @@ class RegistrationFormType extends AbstractType
                     null => 'Choisissez un quartier',
                 ), $this->cityRetriever->getNeighborhoods("Villeneuve-d'Ascq")),
                 'attr' => array(
-                    'class' => "form-control"
+                    'class' => "form-control neighborhood"
                 )
             ))
             ->add('submit', 'submit', array(

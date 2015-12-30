@@ -247,6 +247,7 @@ nav li li a:hover {
 
 #body h3 {
     color: #79B9FF;
+    margin-bottom: 20px;
 }
 
 #body hr.clear {
@@ -268,7 +269,7 @@ nav li li a:hover {
     margin-left: 20px;
 }
 
-#body ul li {
+#body ul:not(.with-type) li {
     list-style-type: none;
 }
 #body .content li::before {
@@ -350,7 +351,7 @@ footer a:hover {
     padding: 10px 15px;
 }
 
-#content p {
+#content p, .content p {
     margin: 5px;
 }
 
@@ -433,4 +434,12 @@ blockquote {
 #body .alert-info a {
     font-weight: bold;
     color: #31708f;
+}
+
+.img-bloc img {
+    width: 100%;
+}
+
+.row.spaced {
+    margin-top: 20px;
 }

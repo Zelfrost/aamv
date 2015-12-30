@@ -7,8 +7,6 @@
 {% endblock css %}
 
 {% block body %}
-    <h2>{{ ad.title }}</h2>
-
     {% if ad.author == app.user %}
         <div class="alert alert-info">Modifier cette <a href="{{ path('aamv_site_manage_ads_edit', {id: ad.id}) }}">annonce</a>.</div>
     {% endif %}
@@ -44,7 +42,7 @@
                         {% else %}Non précisé{% endif %}
                     </p>
                 </div>
-                {% if ad.author.baseRole == "ROLE_PARENT" %}
+                {% if "ROLE_PARENT" in ad.author.roles %}
                 <div class="row">
                     <label>Horaires :</label>
                     <p>{{ ad.schedule }}</p>
@@ -77,7 +75,7 @@
     </div>
 
     <div>
-        <h3>Texte de l'annonce</h3>
+        <h3>{{ ad.title }}</h3>
         <div id='content' class="col-md-12">
             {{ ad.content|raw }}
         </div>

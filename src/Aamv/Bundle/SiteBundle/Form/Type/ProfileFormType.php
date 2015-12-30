@@ -28,15 +28,6 @@ class ProfileFormType extends AbstractType
             ->add('phoneNumber', 'text', array(
                 'label' => 'Numéro de téléphone :'
             ))
-            ->add('baseRole', 'choice', array(
-                'choices' => array(
-                    'assistante' => 'Assistante Maternelle',
-                    'parent' => 'Parent'
-                ),
-                'label' => 'Vous êtes :',
-                'expanded' => true,
-                'multiple' => false
-            ))
             ->add('city', 'choice', array(
                 'label' => 'Ville :',
                 'attr' => array(
