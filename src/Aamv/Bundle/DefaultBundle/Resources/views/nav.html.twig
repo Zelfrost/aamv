@@ -1,9 +1,18 @@
 <nav class="navbar">
     <ul>
+        <li class="has-submenu">L'association
+            <div><ul>
+                <li><a href="{{ path('aamv_site_association_presentation') }}">Qui sommes nous ?</a></li>
+                <li><a href="{{ path('aamv_site_association_photos') }}">Photos</a></li>
+                <li><a href="{{ path('aamv_site_association_about_us') }}">On en parle</a></li>
+                <li><a href="/public/adhesion-formulaire.docx">Télécharger notre bulletin d'adhésion</a></li>
+                <hr>
+            </ul></div>
+        </li>
         <li class="has-submenu">Services
             <div><ul>
                 <li><a href="{{ path('aamv_site_services_ads_list', {type: 'assistantes'}) }}">Petites annonces</a></li>
-                <li><a href="{{ path('aamv_site_services_ads_list', {type: 'assistantes'}) }}">Disponibilité des assistantes</a></li>
+                <li><a href="{{ path('aamv_site_services_ads_list', {type: 'assistantes'}) }}">Disponibilité des assistantes maternelles</a></li>
                 <li><a href="{{ path('aamv_site_services_outils') }}">Les outils</a></li>
                 <hr>
             </ul></div>
@@ -27,15 +36,6 @@
                 <li><a href="{{ path('aamv_site_divers_questions_reponses') }}">Questions/Réponses</a></li>
                 <li><a href="{{ path('aamv_site_divers_addresses') }}">Bonnes adresses</a></li>
                 <li><a href="{{ path('aamv_site_divers_sites') }}">Sites utiles</a></li>
-                <hr>
-            </ul></div>
-        </li>
-        <li class="has-submenu">L'association
-            <div><ul>
-                <li><a href="{{ path('aamv_site_association_presentation') }}">Qui sommes nous ?</a></li>
-                <li><a href="{{ path('aamv_site_association_join') }}">Nous rejoindre</a></li>
-                <li><a href="{{ path('aamv_site_association_photos') }}">Photos</a></li>
-                <li><a href="{{ path('aamv_site_association_about_us') }}">On en parle</a></li>
                 <hr>
             </ul></div>
         </li>

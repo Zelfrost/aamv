@@ -18,6 +18,6 @@ class Role
 
     public function getRoleFromName($name)
     {
-        return $name === 'parents' ? '%ROLE_PARENT%' : "%ROLE_ASSISTANTE%";
+        return $name === 'parent' ? 'ROLE_PARENT' : "ROLE_ASSISTANTE";
     }
 }

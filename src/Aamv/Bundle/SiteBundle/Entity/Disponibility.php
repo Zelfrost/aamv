@@ -31,6 +31,13 @@ class Disponibility
     /**
      * @var \DateTime
      *
+     * @ORM\Column(name="start_at", type="datetime")
+     */
+    private $startAt;
+
+    /**
+     * @var \DateTime
+     *
      * @ORM\Column(name="end_at", type="datetime")
      */
     private $endAt;
@@ -74,6 +81,29 @@ class Disponibility
     public function getNumberOfChildren()
     {
         return $this->numberOfChildren;
+    }
+
+    /**
+     * Set startAt
+     *
+     * @param \DateTime $startAt
+     * @return News
+     */
+    public function setStartAt($startAt)
+    {
+        $this->startAt = $startAt;
+
+        return $this;
+    }
+
+    /**
+     * Get startAt
+     *
+     * @return \DateTime 
+     */
+    public function getStartAt()
+    {
+        return $this->startAt;
     }
 
     /**

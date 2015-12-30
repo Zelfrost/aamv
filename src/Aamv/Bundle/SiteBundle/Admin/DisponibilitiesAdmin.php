@@ -24,7 +24,18 @@ class DisponibilitiesAdmin extends Admin
                 }
             ))
             ->add('numberOfChildren', 'number')
-            ->add('endAt', 'sonata_type_date_picker', array('format' => 'dd/MM/yyyy'))
+            ->add('startAt', 'text', array(
+                'attr' => array(
+                    'class' => 'month-picker',
+                    'placeholder' => 'mm/aaaa'
+                )
+            ))
+            ->add('endAt', 'sonata_type_date_picker', array(
+                'format' => 'dd/MM/yyyy',
+                'attr' => array(
+                    'placeholder' => 'jj/mm/aaaa'
+                )
+            ))
         ;
     }
 

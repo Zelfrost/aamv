@@ -11,6 +11,10 @@
 {% block body %}
     <h2 class="main">Petites annonces</h2>
 
+    {% if app.user %}
+        <div class="alert alert-info"><a href="{{ path('aamv_site_manage_ads_create') }}">Cliquez ici</a> pour poster une annonce.</div>
+    {% endif %}
+
     <div class="type">
         <label for="type">Annonces publiées par :</label>
         <select name="type" class="form-control">

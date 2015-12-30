@@ -77,6 +77,7 @@ doctrine:
 swiftmailer:
     transport: "%mailer_transport%"
     host:      "%mailer_host%"
+    port:      "%mailer_port%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
@@ -87,8 +88,11 @@ fos_user:
     firewall_name: main
     user_class: Aamv\Bundle\SiteBundle\Entity\User
     registration:
-            confirmation:
-                    enabled:    true
-                    template:   FOSUserBundle:Registration:email.txt.twig
-            form:
-                type: aamv_user_registration
+        confirmation:
+            enabled:  true
+            template: FOSUserBundle:Registration:email.txt.twig
+            from_email:
+                sender_name: AAMV
+                address: inscription@aamv.net
+        form:
+            type: aamv_user_registration
