@@ -1,0 +1,61 @@
+{% extends "AppBundle:Base:base.html.twig" %}
+
+{% block title %}News - Administration - {{ parent() }}{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/Admin/base.css') }}">
+{% endblock css %}
+
+{% block body %}
+    <h2><a href="{{ path('admin') }}">Administration</a> / News</h2>
+
+    {% for flash in app.session.flashbag.get('admin.news.error') %}
+        <div class="alert alert-danger">{{ flash }}</div>
+    {% endfor %}
+
+    {% for flash in app.session.flashbag.get('admin.news.success') %}
+        <div class="alert alert-success">{{ flash }}</div>
+    {% endfor %}
+
+    {% if news|length == 0 %}
+        <div class="alert alert-warning">Il n'y a encore aucune news sur le site.</div>
+    {% endif %}
+
+    <div class="alert alert-info"><a href="{{ path('admin_news_create') }}">Cliquez ici</a> pour poster une news.</div>
+
+    {% if news|length > 0 %}
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Titre</th>
+                    <th>Contenu</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for new in news %}
+                    <tr>
+                        <td>{{ new.id }}</td>
+                        <td>{{ new.title }}</td>
+                        <td>{{ new.content|striptags|slice(0, 50) }}{% if new.content|striptags|length > 50 %} ... {% endif %}</td>
+                        <td>
+                            <a href="{{ path('homepage_new', {"id": new.id}) }}" class="btn btn-info">Voir</a>
+                            <a href="{{ path('admin_news_edit', {"id": new.id}) }}" class="btn btn-success">Editer</a>
+                            <form method="POST" class="remove" action="{{ path('admin_news_delete', {"id": new.id}) }}">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-danger btn-normal">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('vendor/jquery-confirm/jquery.confirm.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/Admin/default.js') }}"></script>
+{% endblock javascripts %}

@@ -1,0 +1,21 @@
+{% extends "AppBundle:Base:base.html.twig" %}
+
+{% block title %}News - Administration - {{ parent() }}{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/Homepage/index.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/select2/dist/css/select2.min.css') }}">
+{% endblock css %}
+
+{% block body %}
+    <h2><a href="{{ path('admin') }}">Administration</a> / <a href="{{ path('admin_news') }}">Disponibilités</a> / Ajouter</h2>
+
+    {{ form(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+    <script src="{{ asset('vendor/select2/dist/js/select2.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/cities.js') }}"></script>
+{% endblock javascripts %}

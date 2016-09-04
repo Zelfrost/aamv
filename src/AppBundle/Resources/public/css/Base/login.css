@@ -1,0 +1,28 @@
+#login {
+    width: 40%;
+}
+
+form > div > div {
+    margin-top: 10px;
+}
+
+form div:not(#register) > a {
+    float: right;
+}
+form div#register {
+    margin: 0;
+}
+form div#register a {
+    display: inline-block;
+    width: 100%;
+    text-align: right;
+}
+
+form #register_role .radio {
+    float: left;
+}
+
+form #register_role .radio+.radio {
+    margin-top: 10px;
+    margin-left: 20px;
+}

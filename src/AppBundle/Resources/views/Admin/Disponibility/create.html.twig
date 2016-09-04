@@ -1,0 +1,23 @@
+{% extends "AppBundle:Base:base.html.twig" %}
+
+{% block title %}Disponibilités - Administration - {{ parent() }}{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/Admin/Disponibility/create.css') }}">
+{% endblock css %}
+
+{% block body %}
+    <h2><a href="{{ path('admin') }}">Administration</a> / <a href="{{ path('admin_disponibilities') }}">Disponibilités</a> / Ajouter</h2>
+
+    {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_label(form.childminder) }}
+            <div><a href="{{ path('admin_person_create') }}">Ajouter une assistante maternelle ?</a></div>
+            {{ form_widget(form.childminder) }}
+            {{ form_errors(form.childminder) }}
+        </div>
+        {{ form_row(form.numberOfChildren) }}
+        {{ form_row(form.period) }}
+        {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+{% endblock %}

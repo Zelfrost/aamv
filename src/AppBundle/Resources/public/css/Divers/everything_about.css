@@ -1,0 +1,43 @@
+.fold-panel {
+    margin-bottom: 15px;
+    padding: 0 15px;
+
+    border: 1px solid #79B9FF;
+    border-radius: 30px;
+}
+
+h3 {
+    font-size: 1.2em;
+}
+
+.fold-panel:hover {
+    cursor: pointer;
+}
+
+#body h3 a {
+    color: #79B9FF;
+}
+#body h3 a:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.content {
+    display: none;
+    padding: 10px 20px;
+    border-top: 1px solid #79B9FF;
+}
+
+.content i {
+    color: #FFCE79;
+}
+
+.spaced {
+    padding-left: 30px;
+    padding-top: 5px;
+}
+
+#body .top-spaced {
+    display: inline-block;
+    margin-top: 10px;
+}

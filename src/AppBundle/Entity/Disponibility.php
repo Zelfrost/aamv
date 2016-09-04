@@ -1,0 +1,124 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Disponibility
+ *
+ * @ORM\Table(name="disponibility")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\DisponibilityRepository")
+ */
+class Disponibility
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+    */
+    private $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="number_of_children", type="integer")
+     */
+    private $numberOfChildren;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="period", type="string", length=500)
+     */
+    private $period;
+
+    /**
+     * @var Childminder
+     *
+     * @ORM\ManyToOne(targetEntity="Person")
+     * @ORM\JoinColumn(nullable=false, referencedColumnName="id")
+     */
+    private $childminder;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set numberOfChildren
+     *
+     * @param int $numberOfChildren
+     * @return $this
+     */
+    public function setNumberOfChildren($numberOfChildren)
+    {
+        $this->numberOfChildren = $numberOfChildren;
+
+        return $this;
+    }
+
+    /**
+     * Get numberOfChildren
+     *
+     * @return int 
+     */
+    public function getNumberOfChildren()
+    {
+        return $this->numberOfChildren;
+    }
+
+    /**
+     * Set period
+     *
+     * @param string $period
+     * @return $this
+     */
+    public function setPeriod($period)
+    {
+        $this->period = $period;
+
+        return $this;
+    }
+
+    /**
+     * Get period
+     *
+     * @return string 
+     */
+    public function getPeriod()
+    {
+        return $this->period;
+    }
+
+    /**
+     * Set childminder
+     *
+     * @param AppBundle\Entity\Person $childminder
+     * @return $this
+     */
+    public function setChildminder(Person $childminder)
+    {
+        $this->childminder = $childminder;
+
+        return $this;
+    }
+
+    /**
+     * Get childminder
+     *
+     * @return AppBundle\Entity\Person 
+     */
+    public function getChildminder()
+    {
+        return $this->childminder;
+    }
+}

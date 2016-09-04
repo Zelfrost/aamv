@@ -1,0 +1,8 @@
+.form-group:first-of-type label {
+    margin-bottom: 0;
+}
+
+.form-group a {
+    display: inline-block;
+    margin-bottom: 5px;
+}

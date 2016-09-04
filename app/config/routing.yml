@@ -1,21 +1,9 @@
-# Aamv Site
-aamv_site:
-    resource: "@AamvSiteBundle/Resources/config/routing.yml"
-    prefix:   /
-
-fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
-
-# FOS js Routing
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
-# Admin Part
-admin:
-    resource: '@SonataAdminBundle/Resources/config/routing/sonata_admin.xml'
-    prefix: /admin
+aamv_security:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
 
-_sonata_admin:
-    resource: .
-    type: sonata_admin
-    prefix: /admin
+logout:
+    path: /logout

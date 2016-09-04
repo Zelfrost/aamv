@@ -25,7 +25,7 @@ bin/install
 Vous pouvez ensuite lancer un serveur php via :
 
 ```bash
-php app/console server:run
+php bin/console server:run
 ```
 
 Vous pourrez ainsi accéder à l'application via le port 8000 de votre machine :

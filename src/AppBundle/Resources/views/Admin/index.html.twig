@@ -1,0 +1,21 @@
+{% extends "AppBundle:Base:base.html.twig" %}
+
+{% block title %}Administration - {{ parent() }}{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/Homepage/index.css') }}">
+{% endblock css %}
+
+{% block body %}
+    <h2>Administration</h2>
+
+    <p>Bienvenue sur l'interface d'administration du site AAMV.</p>
+    <p>Que souhaitez vous faire?</p>
+
+    <ul>
+        <li><a href="{{ path('admin_news') }}">Gérer les news</a></li>
+        <li><a href="{{ path('admin_disponibilities') }}">Gérer les disponibilités</a></li>
+        <li><a href="{{ path('admin_tools') }}">Gérer les outils</a></li>
+        <li><a href="{{ path('admin_users') }}">Gérer les utilisateurs</a></li>
+    </ul>
+{% endblock %}
