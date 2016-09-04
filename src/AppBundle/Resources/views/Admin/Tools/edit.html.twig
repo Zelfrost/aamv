@@ -1,0 +1,17 @@
+{% extends "AppBundle:Base:base.html.twig" %}
+
+{% block title %}Outils - Administration - {{ parent() }}{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/Homepage/index.css') }}">
+{% endblock css %}
+
+{% block body %}
+    <h2><a href="{{ path('admin') }}">Administration</a> / <a href="{{ path('admin_tools') }}">Outils</a> / {{ tool.id }}</h2>
+
+    {{ form(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script>
+{% endblock javascripts %}

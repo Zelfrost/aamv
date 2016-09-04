@@ -1,0 +1,45 @@
+{% extends "AppBundle:Base:base.html.twig" %}
+
+{% block title %}Les outils - {{ parent() }}{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/Services/tools.css') }}">
+{% endblock css %}
+
+{% block body %}
+    <h2 class="main">Les outils</h2>
+
+    {% if tools.aamv|length > 0 %}
+        <h3>Voici les outils que nous mettons à votre disposition :</h3>
+
+        <div class="col-md-12">
+        {% for tool in tools.aamv %}
+            <div class="row">
+                <div class="col-md-10">
+                    {{ tool.name }} - mis à jour le <strong>{{ tool.updatedAt|date('d/m/Y') }}</strong>
+                </div>
+                <div class="col-md-2">
+                    <a href="/public/tools/aamv/{{ tool.realName }}"><span class="glyphicon glyphicon-download"></span> Télécharger</a>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if tools.veronalice|length > 0 %}
+        <h3>Voici les outils mis à votre disposition gracieusement par le site "<a href="http://chezveronalice.pagesperso-orange.fr/">ChezVeronalice</a>" :</h3>
+
+        <div class="col-md-12">
+        {% for tool in tools.veronalice %}
+            <div class="row">
+                <div class="col-md-10">
+                    {{ tool.name }} - mis à jour le <strong>{{ tool.updatedAt|date('d/m/Y') }}</strong>
+                </div>
+                <div class="col-md-2">
+                    <a href="/public/tools/veronalice/{{ tool.realName }}"><span class="glyphicon glyphicon-download"></span> Télécharger</a>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}

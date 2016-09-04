@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}AAMV{% endblock %}</title>
+
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/Base/defaults.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/Base/pagination.css') }}">
+        <link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Asap:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+        {% block css %}{% endblock css %}
+    </head>
+    
+    <body>
+        <div class="container">
+            {% include 'AppBundle:Base:header.html.twig' %}
+            {% include 'AppBundle:Base:nav.html.twig' %}
+
+            <div id="body" class="col-md-12">
+                {% block body %}{% endblock %}
+            </div>
+
+            {% include 'AppBundle:Base:footer.html.twig' %}
+
+            <script src="{{ asset('vendor/jquery/dist/jquery.min.js') }}"></script>
+            {% block javascripts %}{% endblock %}
+        </div>
+    </body>
+</html>

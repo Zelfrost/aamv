@@ -1,0 +1,52 @@
+<nav class="navbar">
+    <ul>
+        <li class="has-submenu">L'association
+            <div><ul>
+                <li><a href="{{ path('association_presentation') }}">Qui sommes nous ?</a></li>
+                {# <li><a href="{{ path('association_pictures') }}">Photos</a></li> #}
+                <li><a href="{{ path('association_about_us') }}">On en parle</a></li>
+                <li><a href="/public/adhesion-formulaire.docx">Télécharger notre bulletin d'adhésion</a></li>
+                <li><a href="{{ path('association_contacts') }}">Nous contacter</a></li>
+                <hr>
+            </ul></div>
+        </li>
+        <li class="has-submenu">Services
+            <div><ul>
+                <li><a href="{{ path('services_ads') }}">Petites annonces</a></li>
+                <li><a href="{{ path('services_disponibilities') }}">Disponibilité des assistantes maternelles</a></li>
+                <li><a href="{{ path('services_tools') }}">Les outils</a></li>
+                <hr>
+            </ul></div>
+        </li>
+        {% if app.user %}
+        <li class="has-submenu">Gérer mon compte
+            <div><ul>
+                <li><a href="{{ path('manage_account') }}">Modifier mon compte</a></li>
+                <li><a href="{{ path('manage_ads') }}">Gérer mes annonces</a></li>
+                <li><a href="/public/disponibilites.doc">Formulaire de disponibilité</a></li>
+                {% if 'ROLE_ADMIN' in app.user.roles %}
+                    <li><a href="{{ path('admin') }}">Administration</a></li>
+                {% endif %}
+                <hr>
+            </ul></div>
+        </li>
+        {% endif %}
+        <li class="has-submenu">Divers
+            <div><ul>
+                <li><a href="{{ path('divers_everything_about') }}">Tout savoir sur ...</a></li>
+                <li><a href="{{ path('divers_questions_answers') }}">Questions/Réponses</a></li>
+                <li><a href="{{ path('divers_addresses') }}">Bonnes adresses</a></li>
+                <li><a href="{{ path('divers_sites') }}">Sites utiles</a></li>
+                <hr>
+            </ul></div>
+        </li>
+        {% if app.user %}
+        <li><a href="{{ path('logout') }}">Déconnexion</a></li>
+        {% else %}
+            <li><a href="{{ path('register') }}">Inscription</a></li>
+            <li><a href="{{ path('login') }}">Connexion</a></li>
+        {% endif %}
+
+        <hr>
+    </ul>
+</nav>

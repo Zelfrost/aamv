@@ -1,0 +1,62 @@
+{% extends "AppBundle:Base:base.html.twig" %}
+
+{% block title %}Disponibilités - Administration - {{ parent() }}{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/Admin/base.css') }}">
+{% endblock css %}
+
+{% block body %}
+    <h2><a href="{{ path('admin') }}">Administration</a> / Disponibilités</h2>
+
+    {% for flash in app.session.flashbag.get('admin.disponibility.error') %}
+        <div class="alert alert-danger">{{ flash }}</div>
+    {% endfor %}
+
+    {% for flash in app.session.flashbag.get('admin.disponibility.success') %}
+        <div class="alert alert-success">{{ flash }}</div>
+    {% endfor %}
+
+    {% if disponibilities|length == 0 %}
+        <div class="alert alert-warning">Il n'y a encore aucune disponibilité sur le site.</div>
+    {% endif %}
+
+    <div class="alert alert-info"><a href="{{ path('admin_disponibility_create') }}">Cliquez ici</a> pour ajouter des disponibilités.</div>
+
+    {% if disponibilities|length > 0 %}
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Assistante maternelle</th>
+                    <th>Nombre d'enfants</th>
+                    <th>Période</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for disponibility in disponibilities %}
+                    <tr>
+                        <td>{{ disponibility.id }}</td>
+                        <td>{{ disponibility.childminder.fullname }}</td>
+                        <td>{{ disponibility.numberOfChildren }}</td>
+                        <td>{{ disponibility.period }}</td>
+                        <td>
+                            <a href="{{ path('admin_disponibility_edit', {"id": disponibility.id}) }}" class="btn btn-success">Editer</a>
+                            <form method="POST" class="remove" action="{{ path('admin_disponibility_delete', {"id": disponibility.id}) }}">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-danger btn-normal">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('vendor/jquery-confirm/jquery.confirm.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/app/js/Admin/default.js') }}"></script>
+{% endblock javascripts %}

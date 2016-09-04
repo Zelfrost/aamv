@@ -1,0 +1,25 @@
+{% extends "AppBundle:Base:base.html.twig" %}
+
+{% block title %}Accueil - {{ parent() }}{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/Homepage/index.css') }}">
+{% endblock css %}
+
+{% block body %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="alert alert-info">Modifier cette <a href="{{ path('admin_news_edit', {id: news.id}) }}">news</a>.</div>
+    {% endif %}
+
+    <h2>{{ news.title }}</h2>
+
+    <div id='content'>
+        {{ news.content|raw }}
+    </div>
+    
+    <div id="author">
+        <p>Publiée le <strong>{{ news.createdAt|localizeddate('long', 'none', 'fr') }}</strong> à <strong>{{ news.createdAt|date('h:i') }}</strong></p>
+        {% if news.updatedAt != null %}<p>Modifiée le <strong>{{ news.updatedAt|localizeddate('long', 'none', 'fr') }}</strong> à <strong>{{ news.updatedAt|date('h:i') }}</strong></p>{% endif %}
+        <p>Par <a href="">{{ news.author.firstname }} {{ news.author.name }}</a></p>
+    </div>
+{% endblock %}

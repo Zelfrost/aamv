@@ -1,5 +1,0 @@
-#!/bin/bash
-
-set -e
-
-bin/phpcs --standard=PSR2 src/Aamv/Bundle/SiteBundle

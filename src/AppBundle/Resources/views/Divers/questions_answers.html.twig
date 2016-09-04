@@ -1,0 +1,46 @@
+{% extends "AppBundle:Base:base.html.twig" %}
+
+{% block title %}Questions/Réponses - {{ parent() }}{% endblock title %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/Divers/questions_answers.css') }}">
+{% endblock css %}
+
+{% block body %}
+    <h2 class="main">Questions/Réponses</h2>
+
+    <div>
+        <p class="question"><span class="glyphicon glyphicon-hand-right"></span>Je suis assistante maternelle, je souhaite passer une annonce, mais j'habite dans un autre département, et mon code postal n'apparait pas. Que faire?</p>
+        <p>Les "Petites Annonces" des A.M. ne sont <u>que</u> pour les Assistantes Maternelles membres de l'association AAMV (à jour de cotisations) du Nord/Pas de Calais et les Parents. Vous ne pouvez donc pas mettre votre annonce.</p>
+
+        <hr>
+
+        <p class="question"><span class="glyphicon glyphicon-hand-right"></span>Si j'ai bien lu, les annonces que passent les Assistantes Maternelles sont gratuites?</p>
+        <p>Les annonces passées sous la rubrique "Annonces Assistantes Maternelles" sont GRATUITES <u>uniquement</u> pour les offres de disponibilités des Assistantes Maternelles (emploi). En aucun cas, cette rubrique n'est faite pour acheter ou vendre du matériel.</p>
+
+        <hr>
+
+        <p class="question"><span class="glyphicon glyphicon-hand-right"></span>Si j'ai bien lu, les annonces que passent les Parents sont gratuites?</p>
+        <p>Les annonces passées dans la rubrique "Annonces Parents" sont GRATUITES <u>uniquement</u> pour les parents qui recherchent une Assistante Maternelle pour la garde de leur enfant. En aucun cas, cette rubrique n'est faite pour acheter ou vendre du matériel.</p>
+
+        <hr>
+
+        <p class="question"><span class="glyphicon glyphicon-hand-right"></span>Suis-je obligé(e) de m'inscrire pour passer une annonce?</p>
+        <p>Oui, la seule facon de valider une annonce est de s'inscrire sur le site. Il vous sera demandé votre nom, une adresse e-mail valide, et votre ville - code postal. Après cette inscription, un e-mail vous sera envoyé (dans les 5 minutes), qui vous demandera de valider votre inscription. Sachez que ces données ne seront JAMAIS transmises à un tiers.</p>
+
+        <hr>
+
+        <p class="question"><span class="glyphicon glyphicon-hand-right"></span>Je veux vendre ma voiture, mais rien n'est indiqué pour cela?</p>
+        <p>Toutes les petites annonces du site sont orientées "Petite Enfance". Toute annonce qui ne respectera pas la charte sera irrémédiablement supprimée.</p>
+
+        <hr>
+
+        <p class="question"><span class="glyphicon glyphicon-hand-right"></span>Je viens de passer une annonce. Combien de temps restera-t-elle sur le site?</p>
+        <p>Par défaut une annonce reste sur le site pendant un mois (valeur par défaut). Mais vous pouvez régler cette durée à 2 ou 3 mois. Après cette date de fin de validité, l'annonce sera automatiquement supprimée.</p>
+
+        <hr>
+
+        <p class="question"><span class="glyphicon glyphicon-hand-right"></span>Je veux supprimer mon compte et toutes mes annonces. Puis-le faire?</p>
+        <p>Oui, dans votre espace membre, dans la rubrique "Modifier vos infos". Il vous suffit de cliquer sur "Supprimer mon compte et toutes mes annonces". C'est irrémédiable, tout sera supprimé, sans possibilité de revenir en arriere.</p>
+    </div>
+{% endblock body %}

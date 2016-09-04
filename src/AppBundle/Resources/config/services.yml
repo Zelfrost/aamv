@@ -1,0 +1,60 @@
+services:
+    password_encoder.legacy:
+        class: AppBundle\Service\PasswordEncoder\Legacy
+        arguments: ['@doctrine.orm.entity_manager']
+
+    buzz.client.curl:
+        class:  Buzz\Client\Curl
+        public: false
+        calls:
+            - [ setVerifyPeer, [ false ] ]
+
+    buzz.browser:
+        class:     Buzz\Browser
+        arguments: ['@buzz.client.curl']
+
+    form.register:
+        class: AppBundle\Form\Type\RegisterType
+        arguments: [ '@city_retriever' ]
+        tags:
+            - { name: form.type }
+
+    form.tool:
+        class: AppBundle\Form\Type\ToolType
+        tags:
+            - { name: form.type }
+
+    form.person:
+        class: AppBundle\Form\Type\PersonType
+        arguments: [ '@city_retriever' ]
+        tags:
+            - { name: form.type }
+
+    form.profile:
+        class: AppBundle\Form\Type\ProfileType
+        arguments: [ '@city_retriever' ]
+        tags:
+            - { name: form.type }
+
+    form.login:
+        class: AppBundle\Form\Type\LoginType
+        tags:
+            - { name: form.type }
+
+    city_retriever:
+        class: AppBundle\Service\Retriever\City
+        arguments: [ '@buzz.browser', '%api_city_login%', '%api_city_key%' ]
+
+    role_retriever:
+        class: AppBundle\Service\Retriever\Role
+        arguments: [ '@security.authorization_checker' ]
+
+    publishables_getter:
+        class:     AppBundle\Publishables\Getter
+        arguments: [ '@doctrine.orm.entity_manager' ]
+
+    city_from_api:
+        class: AppBundle\Service\Validator\Constraints\CityFromApiValidator
+        arguments: [ '@city_retriever' ]
+        tags:
+            - { name: validator.constraint_validator, alias: city_from_api }

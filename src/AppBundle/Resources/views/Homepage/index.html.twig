@@ -1,0 +1,27 @@
+{% extends "AppBundle:Base:base.html.twig" %}
+
+{% block title %}Accueil - {{ parent() }}{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/Homepage/index.css') }}">
+{% endblock css %}
+
+{% block body %}
+    <h2 class="main">News</h2>
+
+    <div id="news">
+        {% for new in publishables %}
+        <a href="{{ path('homepage_new', {'id': new.id}) }}">
+            <div class="new">
+                <div class="title">
+                    <h3>{{ new.title|raw|slice(0, 150) }} {% if new.title|length > 150 %}...{% endif %}</h3>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+
+        <hr class="clear">
+    </div>
+
+    {% include 'AppBundle:Base:pagination.html.twig' %}
+{% endblock %}
