@@ -14,12 +14,22 @@ class HomepageController extends Controller
      */
     public function indexAction($page = 1)
     {
-        $results = $this->get('publishables_getter')->get(News::class, $page, 10);
-        $results['pagination']['route'] = 'homepage_news';
+        $repository = $this->getDoctrine()->getRepository('AppBundle\Entity\News');
+
+        $pagination = array(
+            'page'        => $page,
+            'pages_count' => ceil($repository->count() / 10),
+            'parameters'  => array()
+        );
+
+        $news = $repository->search($page);
+
+        $options = array('news' => $news, 'pagination' => $pagination);
+        $options['pagination']['route'] = 'homepage_news';
 
         return $this->render(
             'AppBundle:Homepage:index.html.twig',
-            $results
+            $options
         );
     }
 

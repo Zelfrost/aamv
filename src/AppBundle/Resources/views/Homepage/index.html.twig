@@ -7,10 +7,14 @@
 {% endblock css %}
 
 {% block body %}
+    {% for flash in app.session.flashbag.get('management.legacy_password.success') %}
+        <div class="alert alert-success">{{ flash }}</div>
+    {% endfor %}
+
     <h2 class="main">News</h2>
 
     <div id="news">
-        {% for new in publishables %}
+        {% for new in news %}
         <a href="{{ path('homepage_new', {'id': new.id}) }}">
             <div class="new">
                 <div class="title">

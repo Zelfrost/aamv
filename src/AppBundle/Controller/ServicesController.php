@@ -22,12 +22,9 @@ class ServicesController extends Controller
      */
     public function adsNewAction($type = "none", $city = "none", $neighborhood = "none", $page = 1)
     {
-        $roleRetriever = $this->get('role_retriever');
-        $type = ($type === "none")
-            ? ($this->getUser() === null)
-                ? 'assistante'
-                : $roleRetriever->getOppositeNameFromUser($this->getUser()->getRoles())
-            : $type;
+        $roleRetriever = $this->get('retriever.role');
+
+        $type = $type === "none" ? $roleRetriever->getOppositeNameFromUser() : $type;
         $role = $roleRetriever->getRoleFromName($type);
 
         $ads = $this->getDoctrine()

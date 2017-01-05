@@ -1,9 +1,19 @@
 #!/bin/bash
 
-composer install
+# Dependencies installation
+composer install --no-progress --no-interaction
 
 bower install
 php bin/console assets:install
+
+rm -rf app/cache/{dev,prod,test}
+if [ ! -f app/config/parameters.yml ]; then
+    if [ -f app/config/parameters.yml.local ]; then
+        cp app/config/parameters.yml.local app/config/parameters.yml
+    else
+        cp app/config/parameters.yml.dist app/config/parameters.yml
+    fi
+fi
 
 # php bin/console doctrine:database:create
 php bin/console doctrine:schema:update --force

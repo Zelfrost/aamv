@@ -29,27 +29,4 @@ class AdRepository extends EntityRepository
 
         return new Paginator($query);
     }
-
-    public function findByPage($page, $resultsPerPage, $options)
-    {
-        $query = $this->createQueryBuilder('n')
-            ->join('n.author', 'u')
-            ->where('u.roles LIKE :role')
-            ->setParameter('role', $options['role']['value'])
-            ->orderBy('n.createdAt', 'DESC')
-            ->setFirstResult(($page - 1) * $resultsPerPage)
-            ->setMaxResults($resultsPerPage);
-
-        if (isset($options['city'])) {
-            $query->andWhere('u.city = :city')
-                ->setParameter('city', $options['city']['value']);
-        }
-
-        if (isset($options['neighborhood'])) {
-            $query->andWhere('u.neighborhood = :neighborhood')
-                ->setParameter('neighborhood', $options['neighborhood']['value']);
-        }
-
-        return new Paginator($query);
-    }
 }

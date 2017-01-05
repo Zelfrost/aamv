@@ -7,6 +7,7 @@
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <link rel="stylesheet" type="text/css" href="{{ asset('vendor/bootstrap/dist/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('vendor/jquery-ui/themes/base/jquery-ui.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/Base/defaults.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/Base/pagination.css') }}">
         <link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
@@ -27,6 +28,14 @@
             {% include 'AppBundle:Base:footer.html.twig' %}
 
             <script src="{{ asset('vendor/jquery/dist/jquery.min.js') }}"></script>
+            <script src="{{ asset('vendor/jquery-ui/jquery-ui.min.js') }}"></script>
+
+            {% if app.session.getFlashBag.has('authentication.legacy') and app.session.getFlashBag.get('authentication.legacy') == true %}
+                <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+                <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+                <script src="{{ asset('bundles/app/js/base.js') }}"></script>
+            {% endif %}
+
             {% block javascripts %}{% endblock %}
         </div>
     </body>

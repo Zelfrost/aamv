@@ -7,13 +7,24 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class NewsRepository extends EntityRepository
 {
-    public function findByPage($page, $resultsPerPage, $options)
+    public function search($page)
     {
         $query = $this->createQueryBuilder('n')
             ->orderBy('n.createdAt', 'DESC')
-            ->setFirstResult(($page - 1) * $resultsPerPage)
-            ->setMaxResults($resultsPerPage);
+            ->setFirstResult(($page - 1) * 10)
+            ->setMaxResults(10);
 
         return new Paginator($query);
+    }
+
+    public function count()
+    {
+        $query = $this->createQueryBuilder('n')
+            ->select('count(n.id)')
+            ->getQuery();
+
+        $counts = $query->getSingleResult();
+
+        return $counts[1];
     }
 }

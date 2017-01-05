@@ -3,16 +3,10 @@
 namespace AppBundle\Service\PasswordEncoder;
 
 use Symfony\Component\Security\Core\Encoder\BasePasswordEncoder;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 
-class Legacy extends BasePasswordEncoder
+class LegacyPasswordEncoder extends BasePasswordEncoder
 {
-    private $manager;
-
-    public function __construct($manager)
-    {
-        $this->manager = $manager;
-    }
-
     public function encodePassword($raw, $salt)
     {
         if ($this->isPasswordTooLong($raw)) {

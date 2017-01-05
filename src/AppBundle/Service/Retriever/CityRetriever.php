@@ -2,10 +2,21 @@
 
 namespace AppBundle\Service\Retriever;
 
-class City
+class CityRetriever
 {
+    /**
+     * @var Buzz\Browser
+     */
     private $browser;
+
+    /**
+     * @var string
+     */
     private $login;
+
+    /**
+     * @var string
+     */
     private $key;
 
     public function __construct($browser, $login, $key)
@@ -36,9 +47,15 @@ class City
 
         $cities = json_decode($this->browser->get($url)->getContent(), true);
 
+        if (!is_array($cities) || !array_key_exists('results', $cities)) {
+            return [];
+        }
+
         $citiesList = array();
         foreach ($cities['results'] as $city) {
-            $citiesList[] = array('id' => $city['ville'], 'text' => $city['ville']);
+            if (array_key_exists('ville', $city)) {
+                $citiesList[] = array('id' => $city['ville'], 'text' => $city['ville']);
+            }
         }
 
         return $citiesList;
