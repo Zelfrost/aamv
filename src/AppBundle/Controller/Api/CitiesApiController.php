@@ -14,7 +14,7 @@ class CitiesApiController extends Controller
      */
     public function getAction($name)
     {
-        $cities = $this->get('city_retriever')->retrieve($name);
+        $cities = $this->get('retriever.city')->retrieve($name);
 
         return new JsonResponse($cities);
     }

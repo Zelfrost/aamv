@@ -19,6 +19,20 @@ class CityFromApiValidator extends ConstraintValidator
         $cities = $this->cityRetriever->retrieve($entity->getCity());
         if (count($cities) === 0) {
             $this->context->buildViolation($constraint->cityMessage)->addViolation();
+
+            return;
+        }
+
+        $exists = false;
+
+        foreach ($cities as $city) {
+            if ($city['text'] === $entity->getCity()) {
+                $exists = true;
+            }
+        }
+
+        if (!$exists) {
+            $this->context->buildViolation($constraint->cityMessage)->addViolation();
         }
     }
 }

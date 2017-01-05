@@ -431,3 +431,14 @@ blockquote {
 .popover {
     color: #333;
 }
+
+.ui-dialog .ui-dialog-title {
+    color: #316FB2;
+}
+
+.ui-dialog button.confirm {
+    background-color: #316FB2;
+
+    color: #FFF;
+    font-weight: bold;
+}

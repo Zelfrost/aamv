@@ -11,7 +11,7 @@ use AppBundle\Service\Validator\Constraints;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"person" = "Person", "user" = "User"})
- * @Constraints\CityFromApi
+ * @Constraints\CityFromApiConstraint
  */
 class Person
 {

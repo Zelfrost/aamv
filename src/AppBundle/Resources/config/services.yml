@@ -1,13 +1,22 @@
 services:
+    listener.legacy_authentication:
+        class: AppBundle\Listener\LegacyAuthenticationListener
+        arguments: ['@security.token_storage', '@session', '@security.password_encoder', '@doctrine']
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login }
+
+    converter.csv_to_array:
+        class: AppBundle\Service\Converter\CsvToArrayConverter
+
     password_encoder.legacy:
-        class: AppBundle\Service\PasswordEncoder\Legacy
+        class: AppBundle\Service\PasswordEncoder\LegacyPasswordEncoder
         arguments: ['@doctrine.orm.entity_manager']
 
     buzz.client.curl:
         class:  Buzz\Client\Curl
         public: false
         calls:
-            - [ setVerifyPeer, [ false ] ]
+            - ['setVerifyPeer', [false]]
 
     buzz.browser:
         class:     Buzz\Browser
@@ -15,7 +24,7 @@ services:
 
     form.register:
         class: AppBundle\Form\Type\RegisterType
-        arguments: [ '@city_retriever' ]
+        arguments: ['@retriever.city']
         tags:
             - { name: form.type }
 
@@ -26,13 +35,12 @@ services:
 
     form.person:
         class: AppBundle\Form\Type\PersonType
-        arguments: [ '@city_retriever' ]
+        arguments: ['@retriever.city']
         tags:
             - { name: form.type }
 
     form.profile:
         class: AppBundle\Form\Type\ProfileType
-        arguments: [ '@city_retriever' ]
         tags:
             - { name: form.type }
 
@@ -41,20 +49,32 @@ services:
         tags:
             - { name: form.type }
 
-    city_retriever:
-        class: AppBundle\Service\Retriever\City
-        arguments: [ '@buzz.browser', '%api_city_login%', '%api_city_key%' ]
+    form.change_password:
+        class: AppBundle\Form\Type\ChangePasswordType
+        arguments: [ '@security.password_encoder' ]
+        tags:
+            - { name: form.type }
 
-    role_retriever:
-        class: AppBundle\Service\Retriever\Role
-        arguments: [ '@security.authorization_checker' ]
+    retriever.city:
+        class: AppBundle\Service\Retriever\CityRetriever
+        arguments: ['@buzz.browser', '%api_city_login%', '%api_city_key%']
 
-    publishables_getter:
-        class:     AppBundle\Publishables\Getter
-        arguments: [ '@doctrine.orm.entity_manager' ]
+    retriever.role:
+        class: AppBundle\Service\Retriever\RoleRetriever
+        arguments: ['@security.authorization_checker']
+
+    retriever.publishable:
+        class: AppBundle\Service\Retriever\PublishableRetriever
+        arguments: ['@doctrine.orm.entity_manager']
 
     city_from_api:
         class: AppBundle\Service\Validator\Constraints\CityFromApiValidator
-        arguments: [ '@city_retriever' ]
+        arguments: ['@retriever.city']
         tags:
             - { name: validator.constraint_validator, alias: city_from_api }
+
+    mailer.registration:
+        class: AppBundle\Service\Mailer\RegistrationMailer
+        arguments: ['@twig', '@mailer']
+        calls:
+            - ['setLogger', ['@logger']]

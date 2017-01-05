@@ -14,13 +14,6 @@ use Symfony\Component\Form\FormEvents;
 
 class ProfileType extends AbstractType
 {
-    private $cityRetriever;
-
-    public function __construct($cityRetriever)
-    {
-        $this->cityRetriever = $cityRetriever;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -34,7 +27,8 @@ class ProfileType extends AbstractType
                 'label' => 'Email'
             ))
             ->add('phoneNumber', TextType::class, array(
-                'label' => 'Numéro de téléphone'
+                'label' => 'Numéro de téléphone',
+                'required' => false
             ))
             ->add('submit', SubmitType::class, array(
                 'label' => 'Confirmer',

@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-class CityFromApi extends Constraint
+class CityFromApiConstraint extends Constraint
 {
     public $cityMessage = "Vous devez entrer votre ville en utilisant la liste.";
 

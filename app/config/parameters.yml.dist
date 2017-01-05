@@ -1,9 +1,10 @@
 parameters:
+    locale:            fr
     database_host:     127.0.0.1
-    database_port:     ~
-    database_name:     symfony
-    database_user:     root
-    database_password: ~
+    database_port:     null
+    database_name:     null
+    database_user:     null
+    database_password: null
     mailer_transport:  smtp
     mailer_host:       127.0.0.1
     mailer_port:       null

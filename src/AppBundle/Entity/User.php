@@ -13,13 +13,17 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User extends Person implements UserInterface, EncoderAwareInterface
 {
+    const ROLE_ADMIN = 'ROLE_ADMIN';
+    const ROLE_PARENT = 'ROLE_PARENT';
+    const ROLE_ASSISTANTE = 'ROLE_ASSISTANTE';
+
     /**
-     * @ORM\Column(type="string", length=25, unique=true)
+     * @ORM\Column(type="string", length=64, unique=true)
      */
     private $username;
 
     /**
-     * @Assert\Length(max=4096)
+     * @Assert\Length(max="4096")
      */
     private $plainPassword;
 
@@ -41,11 +45,16 @@ class User extends Person implements UserInterface, EncoderAwareInterface
     /**
      * @ORM\Column(name="is_active", type="boolean")
      */
-    private $isActive;
+    private $active;
+
+    /**
+     * @var string
+     */
+    private $currentPassword;
 
     public function __construct()
     {
-        $this->isActive = true;
+        $this->active = false;
     }
 
     public function setUsername($username)
@@ -73,6 +82,7 @@ class User extends Person implements UserInterface, EncoderAwareInterface
     public function setPassword($password)
     {
         $this->password = $password;
+        $this->legacyPassword = null;
 
         return $this;
     }
@@ -128,10 +138,39 @@ class User extends Person implements UserInterface, EncoderAwareInterface
 
     public function getEncoderName()
     {
-        if (null !== $this->getLegacyPassword()) {
+        if ($this->isLegacy()) {
             return 'legacy';
         }
 
-        return null;
+        return 'default';
+    }
+
+    public function isLegacy()
+    {
+        return $this->legacyPassword !== null ? true : false;
+    }
+
+    public function setCurrentPassword($currentPassword)
+    {
+        $this->currentPassword = $currentPassword;
+
+        return $this;
+    }
+
+    public function getCurrentPassword()
+    {
+        return $this->currentPassword;
+    }
+
+    public function isActive()
+    {
+        return $this->active();
+    }
+
+    public function setActive($active)
+    {
+        $this->active = $active;
+
+        return $this;
     }
 }

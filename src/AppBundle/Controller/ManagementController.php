@@ -4,15 +4,50 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Ad;
 use AppBundle\Form\Type\AdType;
+use AppBundle\Form\Type\ChangePasswordType;
 use AppBundle\Form\Type\ProfileType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ManagementController extends Controller
 {
     /**
-     * @Route(path="/manage/account", name="manage_account")
+     * @Route(path="/manage/password", name="manage_password")
+     */
+    public function changePasswordAction(Request $request)
+    {
+        $user = $this->getUser();
+
+        $form = $this->createForm(ChangePasswordType::class, $user);
+        $form->handleRequest($request);
+
+
+        if (!$form->isValid()) {
+            return $this->render('AppBundle:Management:password.html.twig', array(
+                'form' => $form->createView()
+            ));
+        }
+
+        $password = $this->get('security.password_encoder')
+            ->encodePassword($user, $user->getPlainPassword());
+        $user->setPassword($password);
+
+        $this->getDoctrine()
+            ->getManager()
+            ->flush();
+
+        $this->get('session')->getFlashBag()->add(
+            'management.legacy_password.success',
+            'Votre nouveau mot de passe a bien été enregistré'
+        );
+
+        return $this->redirect($this->generateUrl('homepage'));
+    }
+
+    /**
+     * @Route(path="/manage/account", options={"expose" = true}, name="manage_account")
      */
     public function accountAction(Request $request)
     {
