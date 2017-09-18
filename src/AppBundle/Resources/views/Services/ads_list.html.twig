@@ -1,0 +1,78 @@
+{% extends "AppBundle:Base:base.html.twig" %}
+
+{% block title %}Petites annonces - {{ parent() }}{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/Services/list.css') }}">
+{% endblock css %}
+
+{% block body %}
+    <h2 class="main">Petites annonces</h2>
+
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <div class="alert alert-info"><a href="{{ path('manage_ad_create') }}">Cliquez ici</a> pour poster une annonce.</div>
+    {% endif %}
+
+    {% if ads|length == 0 %}
+        <p class="nothing">Il n'y a rien ici pour le moment.</p>
+    {% else %}
+        <div class="city">
+            <label for="city">Ville :</label>
+            <select name="city" class="form-control">
+                <option value="none" {% if city == 'none' %}selected="selected"{% endif %}>Villes disponible</option>
+                {% for cityValue in cities %}
+                    <option value="{{ cityValue }}" {% if city == cityValue %}selected="selected"{% endif %}>{{ cityValue }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="neighborhood">
+            <label for="neighborhood">Quartier :</label>
+            <select name="neighborhood" class="form-control">
+                <option value="none" {% if neighborhood == 'none' %}selected="selected"{% endif %}>Quartier disponible</option>
+                {% for neighborhoodValue in neighborhoods %}
+                    <option value="{{ neighborhoodValue }}" {% if neighborhood == neighborhoodValue %}selected="selected"{% endif %}>{{ neighborhoodValue }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div id="ads" data-type="{{ type }}">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Titre de l'annonce</th>
+                        {% if type == 'assistantes' %}
+                            <th>Assistante</th>
+                        {% else %}
+                            <th>Parent</th>
+                        {% endif %}
+                        <th>Disponibilité</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ad in ads %}
+                    <tr>
+                        <td>{{ ad.title }}</td>
+                        <td>{{ ad.author.firstname }} {{ ad.author.name }}</td>
+                        <td>{{ ad.disponibilityDate|date('m/Y') }}</td>
+                        <td>
+                            <a class="btn btn-default" href="{{ path('services_ad', {id: ad.id}) }}">Voir l'annonce</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+
+    {% include 'AppBundle:Base:pagination.html.twig' %}
+
+    <a href="{{ path('services_ads_index') }}">Retour</a>
+{% endblock body %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+    <script src="{{ asset('bundles/app/js/list_ad.js') }}"></script>
+{% endblock javascripts %}

@@ -2,8 +2,9 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Service\Validator\Constraints;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="person")
@@ -12,6 +13,7 @@ use AppBundle\Service\Validator\Constraints;
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"person" = "Person", "user" = "User"})
  * @Constraints\CityFromApiConstraint
+ * @Assert\UniqueEntity(fields={"email"})
  */
 class Person
 {

@@ -9,72 +9,27 @@
 {% block body %}
     <h2 class="main">Petites annonces</h2>
 
-    {% if app.user %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         <div class="alert alert-info"><a href="{{ path('manage_ad_create') }}">Cliquez ici</a> pour poster une annonce.</div>
     {% endif %}
 
-    <div class="type">
-        <label for="type">Annonces publiées par :</label>
-        <select name="type" class="form-control">
-            <option value="assistante" {% if type == 'assistante' %}selected="selected"{% endif %}>Assistantes Maternelles</option>
-            <option value="parent" {% if type == 'parent' %}selected="selected"{% endif %}>Parents</option>
-        </select>
-    </div>
+    {% if is_granted('ROLE_MEMBER') %}
+        <div class="ads-type"><a href="{{ path('services_ads_list', {'type': 'parent'}) }}" class="btn">Annonces de parents</a></div>
+    {% else %}
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title">Attention</h3>
+            </div>
+            <div class="panel-body">
+                <p>Les annonces de parents sont réservées aux assistantes maternelles faisant partie de l'association.</p>
+                <p>Si vous êtes déjà inscrit en tant que membre de l'association, <a href="{{ path('login') }}">connectez-vous</a>.</p>
+                <p>Si vous souhaitez rejoindre l'association et voir les annonces de parents, il vous faut remplir ce <a href="/public/adhesion-formulaire.docx">formulaire d'adhésion</a></p>
+            </div>
+        </div>
+    {% endif %}
 
-    <div class="city">
-        <label for="city">Ville :</label>
-        <select name="city" class="form-control">
-            <option value="none" {% if city == 'none' %}selected="selected"{% endif %}>Villes disponible</option>
-            {% for cityValue in cities %}
-                <option value="{{ cityValue }}" {% if city == cityValue %}selected="selected"{% endif %}>{{ cityValue }}</option>
-            {% endfor %}
-        </select>
-    </div>
 
-    <div class="neighborhood">
-        <label for="neighborhood">Quartier :</label>
-        <select name="neighborhood" class="form-control">
-            <option value="none" {% if neighborhood == 'none' %}selected="selected"{% endif %}>Quartier disponible</option>
-            {% for neighborhoodValue in neighborhoods %}
-                <option value="{{ neighborhoodValue }}" {% if neighborhood == neighborhoodValue %}selected="selected"{% endif %}>{{ neighborhoodValue }}</option>
-            {% endfor %}
-        </select>
-    </div>
-
-    <div id="ads">
-        {% if ads|length == 0 %}
-            <p class="nothing">Il n'y a rien ici pour le moment.</p>
-        {% else %}
-            <table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th>Titre de l'annonce</th>
-                        {% if type == 'assistantes' %}
-                            <th>Assistante</th>
-                        {% else %}
-                            <th>Parent</th>
-                        {% endif %}
-                        <th>Disponibilité</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for ad in ads %}
-                    <tr>
-                        <td>{{ ad.title }}</td>
-                        <td>{{ ad.author.firstname }} {{ ad.author.name }}</td>
-                        <td>{{ ad.disponibilityDate|date('m/Y') }}</td>
-                        <td>
-                            <a class="btn btn-default" href="{{ path('services_ad', {id: ad.id}) }}">Voir l'annonce</a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% endif %}
-    </div>
-
-    {% include 'AppBundle:Base:pagination.html.twig' %}
+    <div class="ads-type"><a href="{{ path('services_ads_list', {'type': 'assistante'}) }}" class="btn">Annonces d'assistantes maternelles</a></div>
 {% endblock body %}
 
 {% block javascripts %}

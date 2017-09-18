@@ -39,7 +39,6 @@ class RegistrationMailer implements LoggerAwareInterface
         try {
             $this->mailer->send($message);
         } catch (\Exception $e) {
-            die($e->getMessage());
             $this->logger->error($e->getMessage());
         }
     }

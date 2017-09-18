@@ -27,4 +27,16 @@ class DisponibilityRepository extends EntityRepository
 
         return new Paginator($query);
     }
+
+    public function getCities()
+    {
+        return $this->createQueryBuilder('d')
+            ->select('c.city, c.neighborhood')
+            ->join('d.childminder', 'c')
+            ->groupBy('c.city, c.neighborhood')
+            ->orderBy('c.city', 'ASC')
+            ->getQuery()
+            ->getScalarResult()
+        ;
+    }
 }

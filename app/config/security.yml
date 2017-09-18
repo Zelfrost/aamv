@@ -6,15 +6,19 @@ security:
             id: password_encoder.legacy
 
     role_hierarchy:
-        ROLE_PARENT:      ROLE_PARENT
-        ROLE_ASSISTANTE:  ROLE_ASSISTANTE
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_PARENT:    ROLE_PARENT
+        ROLE_ASSISTANT: ROLE_ASSISTANT
+        ROLE_MEMBER:    ROLE_MEMBER
+        ROLE_ADMIN:
+            - ROLE_PARENT
+            - ROLE_ASSISTANT
+            - ROLE_MEMBER
 
     providers:
         user:
             entity:
                 class: AppBundle:User
-                property: username
+                property: email
 
     firewalls:
         dev:
@@ -27,7 +31,7 @@ security:
             form_login:
                 login_path: login
                 check_path: login
-                username_parameter: login[_username]
+                username_parameter: login[_email]
                 password_parameter: login[_password]
             logout:
                 invalidate_session: true
@@ -40,5 +44,6 @@ security:
 
     access_control:
         - { path: ^/admin, role: ROLE_ADMIN }
-        - { path: ^/services/ads/create, roles: [ROLE_ASSISTANTE, ROLE_PARENT] }
-        - { path: ^/manage, roles: [ROLE_ASSISTANTE, ROLE_PARENT] }
+        - { path: ^/services/ads/parent, role: ROLE_MEMBER }
+        - { path: ^/services/ads/create, roles: [ROLE_ASSISTANT, ROLE_PARENT] }
+        - { path: ^/manage, roles: [ROLE_ASSISTANT, ROLE_PARENT] }

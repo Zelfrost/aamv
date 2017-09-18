@@ -15,11 +15,11 @@ class RoleRetriever
 
     public function getRoleFromName($name)
     {
-        return $name === 'assistante' ? User::ROLE_ASSISTANTE : User::ROLE_PARENT;
+        return $name === 'assistante' ? User::ROLE_ASSISTANT : User::ROLE_PARENT;
     }
 
     public function getOppositeNameFromUser()
     {
-        return $this->authorizationChecker->isGranted(User::ROLE_ASSISTANTE) ? 'parent' : 'assistante';
+        return $this->authorizationChecker->isGranted(User::ROLE_ASSISTANT) ? 'parent' : 'assistante';
     }
 }

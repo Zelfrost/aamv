@@ -38,14 +38,20 @@ class ImportLegacyUsersCommand extends ContainerAwareCommand
         $progress->start();
 
         foreach ($data as $userData) {
+            $results = [];
+            preg_match('/^.+ - ([0-9]{5})/', $userData['usr_1'], $results);
+            $postalCode = $results[1];
+
+            $cities = $this->getContainer()->get('retriever.city')->retrieve($postalCode);
+            $city = str_replace($postalCode . ' ', '', $cities[0]['id']);
+
             $user = new User();
-            $user->setUsername($userData['email']);
             $user->setPassword('');
-            $user->setRoles(['ROLE_ASSISTANTE']);
+            $user->setRoles(['ROLE_ASSISTANT']);
             $user->setLegacyPassword($userData['legacy_password']);
             $user->setName($userData['name']);
             $user->setFirstname($userData['firstname']);
-            $user->setCity('');
+            $user->setCity($city);
             $user->setNeighborhood(null);
             $user->setPhoneNumber(null);
             $user->setEmail($userData['email']);
@@ -54,6 +60,8 @@ class ImportLegacyUsersCommand extends ContainerAwareCommand
 
             $progress->advance();
         }
+
+        $output->writeLn('');
 
         $em->flush();
     }

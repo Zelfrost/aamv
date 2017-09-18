@@ -13,14 +13,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User extends Person implements UserInterface, EncoderAwareInterface
 {
-    const ROLE_ADMIN = 'ROLE_ADMIN';
-    const ROLE_PARENT = 'ROLE_PARENT';
-    const ROLE_ASSISTANTE = 'ROLE_ASSISTANTE';
-
-    /**
-     * @ORM\Column(type="string", length=64, unique=true)
-     */
-    private $username;
+    const ROLE_PARENT    = 'ROLE_PARENT';
+    const ROLE_ASSISTANT = 'ROLE_ASSISTANT';
+    const ROLE_MEMBER    = 'ROLE_MEMBER';
+    const ROLE_ADMIN     = 'ROLE_ADMIN';
 
     /**
      * @Assert\Length(max="4096")
@@ -54,19 +50,12 @@ class User extends Person implements UserInterface, EncoderAwareInterface
 
     public function __construct()
     {
-        $this->active = false;
-    }
-
-    public function setUsername($username)
-    {
-        $this->username = $username;
-
-        return $this;
+        $this->active = true;
     }
 
     public function getUsername()
     {
-        return $this->username;
+        return $this->getEmail();
     }
 
     public function setPlainPassword($password)

@@ -12,49 +12,37 @@ class CityRetriever
     /**
      * @var string
      */
-    private $login;
-
-    /**
-     * @var string
-     */
     private $key;
 
-    public function __construct($browser, $login, $key)
+    public function __construct($browser, $key)
     {
         $this->browser = $browser;
-        $this->login = $login;
         $this->key = $key;
     }
 
     public function retrieve($name)
     {
-        $baseUrl = 'http://www.citysearch-api.com/fr/city?login=%s&apikey=%s&cp=%d';
-        $postalCode = 59;
+        $url = str_replace(' ', '%20', sprintf(
+            'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=%s&key=%s&regions=locality&langage=fr&components=country:fr',
+            $name,
+            $this->key
+        ));
 
-        if (is_numeric($name)) {
-            $postalCode = (int) $name;
-        } else {
-            $baseUrl .= '&ville=%s';
-        }
 
-        $url = sprintf(
-            $baseUrl,
-            $this->login,
-            $this->key,
-            $postalCode,
-            $name
-        );
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
-        $cities = json_decode($this->browser->get($url)->getContent(), true);
+        $cities = json_decode(curl_exec($ch), true);
 
-        if (!is_array($cities) || !array_key_exists('results', $cities)) {
+        if (!is_array($cities) || !array_key_exists('predictions', $cities)) {
             return [];
         }
 
         $citiesList = array();
-        foreach ($cities['results'] as $city) {
-            if (array_key_exists('ville', $city)) {
-                $citiesList[] = array('id' => $city['ville'], 'text' => $city['ville']);
+        foreach ($cities['predictions'] as $city) {
+            if (array_key_exists('description', $city)) {
+                $citiesList[] = array('id' => $city['description'], 'text' => $city['description']);
             }
         }
 

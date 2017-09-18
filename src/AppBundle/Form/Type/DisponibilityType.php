@@ -29,7 +29,7 @@ class DisponibilityType extends AbstractType
                             ->expr()
                             ->isNull('u.roles')
                         )
-                        ->setParameter('role', '%ASSISTANTE%')
+                        ->setParameter('role', '%ROLE_ASSISTANT%')
                         ->orderBy('p.name', 'ASC')
                         ->addOrderBy('p.firstname', 'ASC')
                     ;
