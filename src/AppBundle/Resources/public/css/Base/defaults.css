@@ -217,7 +217,7 @@ nav li li a:hover {
 //     margin-top: 0;
 // }
 
-#body h3 {
+#body h3:not(.panel-title) {
     color: #79B9FF;
     margin-bottom: 20px;
 }
@@ -326,9 +326,7 @@ footer a:hover {
 }
 
 #content {
-    margin-left: 30px;
-    padding-left: 20px;
-    border-left: 3px solid #316FB2;
+    margin-left: 0px;
 }
 
 #content table td {
@@ -441,4 +439,11 @@ blockquote {
 
     color: #FFF;
     font-weight: bold;
+}
+
+.bg-danger, .bg-warning {
+    margin-bottom: 10px;
+    padding: 10px;
+
+    color: #666;
 }

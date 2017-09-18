@@ -7,7 +7,6 @@ use AppBundle\Form\Type\LoginType;
 use AppBundle\Form\Type\RegisterType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class SecurityController extends Controller
@@ -35,7 +34,6 @@ class SecurityController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
-
 
             $this->get('session')->getFlashBag()->add(
                 'admin.register.success',

@@ -24,16 +24,13 @@ class RegisterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class, array(
-                'label' => 'Login'
+            ->add('email', TextType::class, array(
+                'label' => 'Email'
             ))
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
                 'first_options'  => array('label' => 'Mot de passe'),
                 'second_options' => array('label' => 'Confirmer le mot de passe'),
-            ))
-            ->add('email', TextType::class, array(
-                'label' => 'Email'
             ))
             ->add('name', TextType::class, array(
                 'label' => 'Nom'
@@ -67,7 +64,7 @@ class RegisterType extends AbstractType
                 'required' => false,
                 'choices' =>  array_merge(array(
                     null => 'Choisissez un quartier',
-                ), $this->cityRetriever->getNeighborhoods("Villeneuve-d'Ascq")),
+                ), $this->cityRetriever->getNeighborhoods("Villeneuve-d'Ascq, France")),
                 'attr' => array(
                     'class' => "form-control neighborhood"
                 )
@@ -100,9 +97,9 @@ class RegisterType extends AbstractType
                 'label' => "Quartier (seulement si vous êtes de Villeneuve d'Ascq)",
                 'choices' => array_merge(array(
                     null => 'Choisissez un quartier',
-                ), $this->cityRetriever->getNeighborhoods("Villeneuve-d'Ascq")),
+                ), $this->cityRetriever->getNeighborhoods("Villeneuve-d'Ascq, France")),
                 'attr' => array(
-                    'class' => "form-control"
+                    'class' => "form-control neighborhood"
                 )
             ))
             ->add('submit', SubmitType::class, array(

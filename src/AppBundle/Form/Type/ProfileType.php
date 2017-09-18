@@ -14,6 +14,13 @@ use Symfony\Component\Form\FormEvents;
 
 class ProfileType extends AbstractType
 {
+    private $cityRetriever;
+
+    public function __construct($cityRetriever)
+    {
+        $this->cityRetriever = $cityRetriever;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -30,12 +37,75 @@ class ProfileType extends AbstractType
                 'label' => 'Numéro de téléphone',
                 'required' => false
             ))
+            ->add('city', ChoiceType::class, array(
+                'label' => 'Ville',
+                'attr' => array(
+                    'class' => 'select2 city form-control',
+                ),
+                'choices' => array(
+                    $options['data']->getCity() => $options['data']->getCity()
+                )
+            ))
+            ->add('neighborhood', ChoiceType::class, array(
+                'label' => 'Quartier (seulement si vous êtes de Villeneuve d\'Ascq)',
+                'required' => false,
+                'choices' =>  array_merge(array(
+                    'Choisissez un quartier' => null,
+                ), $this->cityRetriever->getNeighborhoods("Villeneuve-d'Ascq, France")),
+                'attr' => array(
+                    'class' => "form-control neighborhood"
+                )
+            ))
+            ->add('submit', SubmitType::class, array(
+                'label' => 'Confirmer',
+                'attr' => array(
+                    'class' => 'btn btn-block btn-success'
+                )
+            ))
+        ;
+
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, function(FormEvent $event) {
+            $form = $event->getForm();
+            $data = $event->getData();
+
+            $form->remove('city');
+            $form->remove('neighborhood');
+            $form->remove('submit');
+
+            if (array_key_exists('city', $data)) {
+                $form->add('city', ChoiceType::class, array(
+                    'label' => 'Ville',
+                    'attr' => array(
+                        'class' => "select2 city form-control"
+                    ),
+                    'choices' => array(
+                        $data['city'] => $data['city'],
+                    )
+                ));
+            } else {
+                $form->add('city', ChoiceType::class, array(
+                    'label' => 'Ville',
+                    'attr' => array(
+                        'class' => "select2 city form-control"
+                    )
+                ));
+            }
+
+            $form->add('neighborhood', ChoiceType::class, array(
+                'label' => "Quartier (seulement si vous êtes de Villeneuve d'Ascq)",
+                'choices' => array_merge(array(
+                    'Choisissez un quartier' => null,
+                ), $this->cityRetriever->getNeighborhoods("Villeneuve-d'Ascq, France")),
+                'attr' => array(
+                    'class' => "form-control neighborhood"
+                )
+            ))
             ->add('submit', SubmitType::class, array(
                 'label' => 'Confirmer',
                 'attr' => array(
                     'class' => 'btn btn-block btn-success'
                 )
             ));
-        ;
+        });
     }
 }

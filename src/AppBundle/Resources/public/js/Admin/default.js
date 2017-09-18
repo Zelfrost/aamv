@@ -1,5 +1,6 @@
 $('document').ready(function() {
     $('form.remove').submit(function(e) {
+        var that = this;
         e.preventDefault();
 
         $.confirm({
@@ -9,7 +10,7 @@ $('document').ready(function() {
             confirmButtonClass: "btn-info",
             cancelButtonClass: "btn-danger",
             confirm: function() {
-                $('form.remove').unbind('submit').submit();
+                $(that).unbind('submit').submit();
             }
         });
     });

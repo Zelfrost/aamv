@@ -41,6 +41,7 @@ services:
 
     form.profile:
         class: AppBundle\Form\Type\ProfileType
+        arguments: ['@retriever.city']
         tags:
             - { name: form.type }
 
@@ -57,7 +58,7 @@ services:
 
     retriever.city:
         class: AppBundle\Service\Retriever\CityRetriever
-        arguments: ['@buzz.browser', '%api_city_login%', '%api_city_key%']
+        arguments: ['@buzz.browser', '%api_city_key%']
 
     retriever.role:
         class: AppBundle\Service\Retriever\RoleRetriever

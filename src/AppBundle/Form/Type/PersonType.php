@@ -48,7 +48,7 @@ class PersonType extends AbstractType
                 'required' => false,
                 'choices' =>  array_merge(array(
                     null => 'Choisissez un quartier',
-                ), $this->cityRetriever->getNeighborhoods("Villeneuve-d'Ascq")),
+                ), $this->cityRetriever->getNeighborhoods("Villeneuve-d'Ascq, France")),
                 'attr' => array(
                     'class' => "form-control neighborhood"
                 )
@@ -58,7 +58,8 @@ class PersonType extends AbstractType
                 'attr' => array(
                     'class' => 'btn btn-block btn-success'
                 )
-            ));
+            ))
+        ;
 
         $builder->addEventListener(FormEvents::PRE_SUBMIT, function(FormEvent $event) {
             $form = $event->getForm();
@@ -91,9 +92,9 @@ class PersonType extends AbstractType
                 'label' => "Quartier (seulement si vous êtes de Villeneuve d'Ascq)",
                 'choices' => array_merge(array(
                     null => 'Choisissez un quartier',
-                ), $this->cityRetriever->getNeighborhoods("Villeneuve-d'Ascq")),
+                ), $this->cityRetriever->getNeighborhoods("Villeneuve-d'Ascq, France")),
                 'attr' => array(
-                    'class' => "form-control"
+                    'class' => "form-control neighborhood"
                 )
             ))
             ->add('submit', SubmitType::class, array(

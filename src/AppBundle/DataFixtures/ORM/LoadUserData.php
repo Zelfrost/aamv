@@ -18,46 +18,55 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $encoder = $this->container->get('security.password_encoder');
 
         $admin = new User();
-        $admin->setUsername('admin');
         $admin->setPassword($encoder->encodePassword($admin, 'admin'));
         $admin->setRoles([User::ROLE_ADMIN]);
         $admin->setActive(true);
         $admin->setName('Admin');
-        $admin->setFirstname('Super');
-        $admin->setEmail('admin.super@itsalie.com');
+        $admin->setFirstname('Random');
+        $admin->setEmail('admin@aamv.net');
         $admin->setPhoneNumber('0600000000');
         $admin->setCity('Nowhere');
 
         $assistante = new User();
-        $assistante->setUsername('assistante');
         $assistante->setPassword($encoder->encodePassword($assistante, 'assistante'));
-        $assistante->setRoles([User::ROLE_ASSISTANTE]);
+        $assistante->setRoles([User::ROLE_ASSISTANT, User::ROLE_MEMBER]);
         $assistante->setActive(true);
-        $assistante->setName('Deconinck');
-        $assistante->setFirstname('Damien');
-        $assistante->setEmail('deconinck.damien@gmail.com');
+        $assistante->setName('Assistant');
+        $assistante->setFirstname('Random');
+        $assistante->setEmail('assistante@aamv.net');
         $assistante->setPhoneNumber('0600000000');
         $assistante->setCity('Lille');
 
+        $notMember = new User();
+        $notMember->setPassword($encoder->encodePassword($notMember, 'not-member'));
+        $notMember->setRoles([User::ROLE_ASSISTANT]);
+        $notMember->setActive(true);
+        $notMember->setName('Not member');
+        $notMember->setFirstname('Random');
+        $notMember->setEmail('not-member@aamv.net');
+        $notMember->setPhoneNumber('0600000000');
+        $notMember->setCity('Lille');
+
         $parent = new User();
-        $parent->setUsername('parent');
         $parent->setPassword($encoder->encodePassword($parent, 'parent'));
         $parent->setRoles([User::ROLE_PARENT]);
         $parent->setActive(true);
-        $parent->setName('Ratour');
-        $parent->setFirstname('Simon');
-        $parent->setEmail('ratour.simon@itsalie.com');
-        $parent->setPhoneNumber('0000000000');
+        $parent->setName('Parent');
+        $parent->setFirstname('Random');
+        $parent->setEmail('parent@aamv.net');
+        $parent->setPhoneNumber('0600000000');
         $parent->setCity('Lille');
 
         $manager->persist($admin);
         $manager->persist($assistante);
+        $manager->persist($notMember);
         $manager->persist($parent);
 
         $manager->flush();
 
         $this->addReference('admin', $admin);
         $this->addReference('assistante', $assistante);
+        $this->addReference('not-member', $notMember);
         $this->addReference('parent', $parent);
     }
 

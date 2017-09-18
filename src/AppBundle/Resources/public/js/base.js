@@ -1,6 +1,8 @@
 $(document).ready(function() {
     $('<div></div>').appendTo('body')
-        .html('Votre ')
+        .html('Votre compte a été automatiquement importé depuis l\'ancien site.\n\
+            Il vous est donc conseillé de vérifier que toutes vos données sont exactes.\n\
+            Souhaitez-vous vous rendre sur votre page de profil afin de vérifier vos données?')
         .dialog({
             modal: true,
             title: 'Bienvenue sur le nouveau site de l\'AAMV !',
@@ -17,7 +19,7 @@ $(document).ready(function() {
                     }
                 },
                 {
-                    'text': 'Pas maintenant',
+                    'text': 'Non, pas maintenant',
                     'click': function() {
                         $(this).dialog('close');
                     }

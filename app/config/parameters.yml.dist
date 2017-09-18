@@ -1,5 +1,4 @@
 parameters:
-    locale:            fr
     database_host:     127.0.0.1
     database_port:     null
     database_name:     null
@@ -12,6 +11,5 @@ parameters:
     mailer_password:   ~
     secret:            ThisTokenIsNotSoSecretChangeIt
 
-    # You login and key from the site http://www.citysearch-api.com/
-    api_city_login: your_login
+    # You key for the Google city API
     api_city_key: your_key

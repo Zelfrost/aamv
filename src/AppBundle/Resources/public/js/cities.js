@@ -19,13 +19,14 @@ $(document).ready(function() {
 
     $('form.city').empty().append('<option selected value="'+city+'">'+city+'</option>').val(city).trigger('change');
 
-    if ($('.select2').val() !== "Villeneuve-d'Ascq") {
+    if ($('.select2').val() !== "Villeneuve-d'Ascq, France") {
         $('.form-control.neighborhood').closest('div').hide();
+        $('.form-control.neighborhood').val(null);
         $('.form-control.neighborhood').prop('required', false);
     }
 
     $('.select2').change(function() {
-        if ($(this).val() === "Villeneuve-d'Ascq") {
+        if ($(this).val() === "Villeneuve-d'Ascq, France") {
             $('.form-control.neighborhood').closest('div').show();
             $('.form-control.neighborhood').prop('required', true);
         } else {

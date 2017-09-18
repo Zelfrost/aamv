@@ -46,6 +46,13 @@ class Tool
     /**
      * @var Datetime
      *
+     * @ORM\Column(name="createdAt", type="datetime", nullable=true)
+     */
+    private $createdAt;
+
+    /**
+     * @var Datetime
+     *
      * @ORM\Column(name="updatedAt", type="datetime", nullable=true)
      */
     private $updatedAt;
@@ -54,6 +61,11 @@ class Tool
      * @var UploadedFile
      */
     private $file;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
     public function getId()
     {
@@ -80,6 +92,18 @@ class Tool
     public function setRealName($realName)
     {
         $this->realName = $realName;
+
+        return $this;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\Datetime $createdAt)
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

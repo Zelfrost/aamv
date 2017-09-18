@@ -15,18 +15,37 @@ class AdRepository extends EntityRepository
             ->setParameter('role', '%'.$role.'%')
             ->orderBy('n.createdAt', 'DESC')
             ->setFirstResult(($page - 1) * 10)
-            ->setMaxResults(10);
+            ->setMaxResults(10)
+        ;
 
         if ("none" !== $city) {
-            $query->andWhere('u.city = :city')
-                ->setParameter('city', $city);
+            $query
+                ->andWhere('u.city = :city')
+                ->setParameter('city', $city)
+            ;
         }
 
         if ("none" !== $neighborhood) {
-            $query->andWhere('u.neighborhood = :neighborhood')
-                ->setParameter('neighborhood', $neighborhood);
+            $query
+                ->andWhere('u.neighborhood = :neighborhood')
+                ->setParameter('neighborhood', $neighborhood)
+            ;
         }
 
         return new Paginator($query);
+    }
+
+    public function getCities($role)
+    {
+        return $this->createQueryBuilder('n')
+            ->select('u.city, u.neighborhood')
+            ->join('n.author', 'u')
+            ->where('u.roles LIKE :role')
+            ->setParameter('role', '%'.$role.'%')
+            ->groupBy('u.city, u.neighborhood')
+            ->orderBy('u.city', 'ASC')
+            ->getQuery()
+            ->getScalarResult()
+        ;
     }
 }

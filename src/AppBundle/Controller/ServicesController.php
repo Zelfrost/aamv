@@ -15,59 +15,73 @@ class ServicesController extends Controller
 {
     /**
      * @Route(
-     *      path="/services/ads/{type}/{city}/{neighborhood}/{page}",
+     *      path="/services/ads",
      *      options={"expose" = true},
-     *      name="services_ads"
+     *      name="services_ads_index"
      * )
      */
-    public function adsNewAction($type = "none", $city = "none", $neighborhood = "none", $page = 1)
+    public function adsIndexAction()
     {
-        $roleRetriever = $this->get('retriever.role');
+        return $this->render('AppBundle:Services:ads.html.twig');
+    }
 
-        $type = $type === "none" ? $roleRetriever->getOppositeNameFromUser() : $type;
-        $role = $roleRetriever->getRoleFromName($type);
-
-        $ads = $this->getDoctrine()
+    /**
+     * @Route(
+     *      path="/services/ads/{type}/{city}/{neighborhood}/{page}",
+     *      options={"expose" = true},
+     *      name="services_ads_list"
+     * )
+     */
+    public function adsListAction($type, $city = "none", $neighborhood = "none", $page = 1)
+    {
+        $role = $this->get('retriever.role')->getRoleFromName($type);
+        $repository = $this->getDoctrine()
             ->getManager()
             ->getRepository(Ad::class)
-            ->search($role, $city, $neighborhood, $page);
+        ;
+
+        $ads = $repository->search(
+            $role,
+            $city,
+            $neighborhood,
+            $page
+        );
+
+        $citiesData = $repository->getCities($role);
 
         $cities = array();
-        foreach ($ads as $ad) {
-            $adCity = $ad->getAuthor()->getCity();
-            if (! in_array($adCity, $cities)) {
-                $cities[] = $adCity;
-            }
-        }
-
         $neighborhoods = array();
-        foreach ($ads as $ad) {
-            $adNeighborhood = $ad->getAuthor()->getNeighborhood();
-            if (! in_array($adNeighborhood, $neighborhoods)) {
-                $neighborhoods[] = $adNeighborhood;
+
+        foreach ($citiesData as $cityData) {
+            if (!in_array($cityData['city'], $cities)) {
+                $cities[] = $cityData['city'];
+            }
+
+            if (!in_array($cityData['neighborhood'], $neighborhoods)) {
+                $neighborhoods[] = $cityData['neighborhood'];
             }
         }
 
-        $pagesCount = ceil($ads->count() / 10);
-
-        $parameters = array(
+        $parameters = [
             'ads' => $ads,
             'type' => $type,
             'city' => $city,
             'cities' => $cities,
             'neighborhood' => $neighborhood,
             'neighborhoods' => $neighborhoods,
-            'pagination' => array(
-                'route' => 'service_ads',
+            'pagination' => [
+                'route' => 'services_ads_list',
                 'page' => $page,
-                'pages_count' => $pagesCount,
-                'parameters' => array(
+                'pages_count' => $ads->count() / 10,
+                'parameters' => [
                     'type' => $type,
-                )
-            )
-        );
+                    'city' => $city,
+                    'neighborhood' => $neighborhood,
+                ]
+            ]
+        ];
 
-        return $this->render('AppBundle:Services:ads.html.twig', $parameters);
+        return $this->render('AppBundle:Services:ads_list.html.twig', $parameters);
     }
 
     /**
@@ -102,23 +116,26 @@ class ServicesController extends Controller
      */
     public function disponibilitiesAction($city = "none", $neighborhood = "none", $page = 1)
     {
-        $disponibilities = $this->getDoctrine()
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
             ->getRepository(Disponibility::class)
-            ->search($city, $neighborhood, $page);
+        ;
+
+        $disponibilities = $repository->search($city, $neighborhood, $page);
+
+        $citiesData = $repository->getCities();
 
         $cities = array();
-        foreach ($disponibilities as $disponibility) {
-            $disponibilityCity = $disponibility->getChildminder()->getCity();
-            if (! in_array($disponibilityCity, $cities)) {
-                $cities[] = $disponibilityCity;
-            }
-        }
-
         $neighborhoods = array();
-        foreach ($disponibilities as $disponibility) {
-            $disponibilityNeighborhood = $disponibility->getChildminder()->getNeighborhood();
-            if (! in_array($disponibilityNeighborhood, $neighborhoods)) {
-                $neighborhoods[] = $disponibilityNeighborhood;
+
+        foreach ($citiesData as $cityData) {
+            if (!in_array($cityData['city'], $cities)) {
+                $cities[] = $cityData['city'];
+            }
+
+            if (!in_array($cityData['neighborhood'], $neighborhoods)) {
+                $neighborhoods[] = $cityData['neighborhood'];
             }
         }
 
