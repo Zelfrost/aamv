@@ -38,31 +38,52 @@ class ImportLegacyUsersCommand extends ContainerAwareCommand
         $progress->start();
 
         foreach ($data as $userData) {
-            $results = [];
-            preg_match('/^.+ - ([0-9]{5})/', $userData['usr_1'], $results);
-            $postalCode = $results[1];
+            if ($userData['usr_1'] === '') {
+                $city = '';
+            } else {
+                $city = '';
+                $results = [];
+                preg_match('/^.+ - ([0-9]{5})/', $userData['usr_1'], $results);
 
-            $cities = $this->getContainer()->get('retriever.city')->retrieve($postalCode);
-            $city = str_replace($postalCode . ' ', '', $cities[0]['id']);
+                $postalCode = $results[1];
+
+                try {
+                    $cities = $this->getContainer()->get('retriever.city')->retrieve($postalCode);
+                } catch (\Exception $e) {
+                    var_dump($e->getMessage());
+
+                    break;
+                }
+
+                $city = str_replace($postalCode . ' ', '', $cities[0]['id']);
+            }
+
+            if (substr_count($userData['name'], ' ') === 1) {
+                $name = explode(' ', $userData['name'])[0];
+                $firstName = explode(' ', $userData['name'])[1];
+            } else {
+                $name = $userData['name'];
+                $firstName = '';
+            }
 
             $user = new User();
             $user->setPassword('');
-            $user->setRoles(['ROLE_ASSISTANT']);
+            $user->setRoles([$userData['usr_2']]);
             $user->setLegacyPassword($userData['legacy_password']);
-            $user->setName($userData['name']);
-            $user->setFirstname($userData['firstname']);
+            $user->setName($name);
+            $user->setFirstname($firstName);
             $user->setCity($city);
             $user->setNeighborhood(null);
             $user->setPhoneNumber(null);
             $user->setEmail($userData['email']);
 
             $em->persist($user);
+            $em->flush();
 
             $progress->advance();
         }
 
         $output->writeLn('');
 
-        $em->flush();
     }
 }

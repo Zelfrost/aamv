@@ -33,7 +33,12 @@ class CityRetriever
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 
-        $cities = json_decode(curl_exec($ch), true);
+        $response = curl_exec($ch);
+        $cities = json_decode($response, true);
+
+        if (array_key_exists('error_message', $cities)) {
+            throw new \Exception($cities['error_message']);
+        }
 
         if (!is_array($cities) || !array_key_exists('predictions', $cities)) {
             return [];
