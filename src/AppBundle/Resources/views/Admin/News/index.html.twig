@@ -38,7 +38,7 @@
                     <tr>
                         <td>{{ new.id }}</td>
                         <td>{{ new.title }}</td>
-                        <td>{{ new.content|striptags|slice(0, 50) }}{% if new.content|striptags|length > 50 %} ... {% endif %}</td>
+                        <td>{{ new.content|striptags|slice(0, 50)|raw }}{% if new.content|striptags|length > 50 %} ... {% endif %}</td>
                         <td>
                             <a href="{{ path('homepage_new', {"id": new.id}) }}" class="btn btn-info">Voir</a>
                             <a href="{{ path('admin_news_edit', {"id": new.id}) }}" class="btn btn-success">Editer</a>

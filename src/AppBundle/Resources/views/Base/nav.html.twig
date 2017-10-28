@@ -23,9 +23,11 @@
             <div><ul>
                 <li><a href="{{ path('manage_account') }}">Modifier mon compte</a></li>
                 <li><a href="{{ path('manage_password') }}">Modifier mon mot de passe</a></li>
-                <li><a href="{{ path('manage_ads') }}">Gérer mes annonces</a></li>
-                <li><a href="/public/disponibilites.doc">Formulaire de disponibilité</a></li>
-                {% if 'ROLE_ADMIN' in app.user.roles %}
+                {% if is_granted('ROLE_PARENT') or is_granted('ROLE_MEMBER') %}
+                    <li><a href="{{ path('manage_ads') }}">Gérer mes annonces</a></li>
+                    <li><a href="/public/disponibilites.doc">Formulaire de disponibilité</a></li>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
                     <li><a href="{{ path('admin') }}">Administration</a></li>
                 {% endif %}
                 <hr>
