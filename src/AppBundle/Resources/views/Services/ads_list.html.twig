@@ -9,7 +9,7 @@
 {% block body %}
     <h2 class="main">Petites annonces</h2>
 
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') and (is_granted('ROLE_PARENT') or is_granted('ROLE_MEMBER')) %}
         <div class="alert alert-info"><a href="{{ path('manage_ad_create') }}">Cliquez ici</a> pour poster une annonce.</div>
     {% endif %}
 
@@ -41,7 +41,7 @@
                 <thead>
                     <tr>
                         <th>Titre de l'annonce</th>
-                        {% if type == 'assistantes' %}
+                        {% if type == 'assistante' %}
                             <th>Assistante</th>
                         {% else %}
                             <th>Parent</th>

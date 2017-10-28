@@ -9,20 +9,22 @@
 {% block body %}
     <h2 class="main">Petites annonces</h2>
 
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') and (is_granted('ROLE_PARENT') or is_granted('ROLE_MEMBER')) %}
         <div class="alert alert-info"><a href="{{ path('manage_ad_create') }}">Cliquez ici</a> pour poster une annonce.</div>
     {% endif %}
 
     {% if is_granted('ROLE_MEMBER') %}
         <div class="ads-type"><a href="{{ path('services_ads_list', {'type': 'parent'}) }}" class="btn">Annonces de parents</a></div>
-    {% else %}
+    {% elseif not is_granted('ROLE_PARENT') %}
         <div class="panel panel-warning">
             <div class="panel-heading">
                 <h3 class="panel-title">Attention</h3>
             </div>
             <div class="panel-body">
                 <p>Les annonces de parents sont réservées aux assistantes maternelles faisant partie de l'association.</p>
-                <p>Si vous êtes déjà inscrit en tant que membre de l'association, <a href="{{ path('login') }}">connectez-vous</a>.</p>
+                {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <p>Si vous êtes déjà inscrit en tant que membre de l'association, <a href="{{ path('login') }}">connectez-vous</a>.</p>
+                {% endif %}
                 <p>Si vous souhaitez rejoindre l'association et voir les annonces de parents, il vous faut remplir ce <a href="/public/adhesion-formulaire.docx">formulaire d'adhésion</a></p>
             </div>
         </div>

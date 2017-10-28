@@ -46,7 +46,7 @@ class CityRetriever
 
         $citiesList = array();
         foreach ($cities['predictions'] as $city) {
-            if (array_key_exists('description', $city)) {
+            if (array_key_exists('description', $city) && in_array('locality', $city['types'])) {
                 $citiesList[] = array('id' => $city['description'], 'text' => $city['description']);
             }
         }

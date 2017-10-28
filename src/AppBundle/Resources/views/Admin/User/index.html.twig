@@ -22,13 +22,26 @@
     {% endif %}
 
     {% if users|length > 0 %}
+        <div class="role">
+            <label for="role">Filtrer :</label>
+            <select name="role" class="form-control">
+                <option value="none" {% if pagination.role == 'none' %}selected="selected"{% endif %}>Filtres possibles</option>
+                <option value="parent" {% if pagination.role == 'parent' %}selected="selected"{% endif %}>Liste des parents</option>
+                <option value="assistant" {% if pagination.role == 'assistante' %}selected="selected"{% endif %}>Liste des assistantes</option>
+                <option value="member" {% if pagination.role == 'member' %}selected="selected"{% endif %}>Liste des assistantes adhérentes</option>
+                <option value="not-member" {% if pagination.role == 'not-member' %}selected="selected"{% endif %}>Liste des assistantes non adhérentes</option>
+            </select>
+        </div>
+
+        <br>
+
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
                     <th>Id</th>
                     <th>Nom</th>
-                    <th>Téléphone</th>
                     <th>Mail</th>
+                    <th>Role</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -37,11 +50,29 @@
                     <tr>
                         <td>{{ user.id }}</td>
                         <td>{{ user.fullname }}</td>
-                        <td>{{ user.phoneNumber }}</td>
                         <td>{{ user.email }}</td>
+                        <td>
+                            {% if 'ROLE_MEMBER' in user.roles %}
+                                <form method="POST" class="change" action="{{ path('admin_user_change', {"id": user.id}) }}">
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <input type="hidden" name="role" value="{{ pagination.role }}">
+                                    <input type="hidden" name="page" value="{{ pagination.page }}">
+                                    <button class="btn btn-info btn-normal">Supprimer des membres de l'association</button>
+                                </form>
+                            {% elseif 'ROLE_ASSISTANT' in user.roles %}
+                                <form method="POST" class="change" action="{{ path('admin_user_change', {"id": user.id}) }}">
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <input type="hidden" name="role" value="{{ pagination.role }}">
+                                    <input type="hidden" name="page" value="{{ pagination.page }}">
+                                    <button class="btn btn-success btn-normal">Ajouter comme membre de l'association</button>
+                                </form>
+                            {% endif %}
+                        </td>
                         <td>
                             <form method="POST" class="remove" action="{{ path('admin_user_delete', {"id": user.id}) }}">
                                 <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="role" value="{{ pagination.role }}">
+                                <input type="hidden" name="page" value="{{ pagination.page }}">
                                 <button class="btn btn-danger btn-normal">Supprimer</button>
                             </form>
                         </td>
@@ -50,10 +81,15 @@
             </tbody>
         </table>
     {% endif %}
+
+    {% include 'AppBundle:Base:pagination.html.twig' %}
 {% endblock %}
 
 {% block javascripts %}
     <script src="{{ asset('vendor/jquery-confirm/jquery.confirm.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('bundles/app/js/Admin/default.js') }}"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+    <script src="{{ asset('bundles/app/js/Admin/users.js') }}"></script>
 {% endblock javascripts %}

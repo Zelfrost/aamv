@@ -72,7 +72,7 @@ class ServicesController extends Controller
             'pagination' => [
                 'route' => 'services_ads_list',
                 'page' => $page,
-                'pages_count' => $ads->count() / 10,
+                'pages_count' => ceil($ads->count() / 10),
                 'parameters' => [
                     'type' => $type,
                     'city' => $city,
