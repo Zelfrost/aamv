@@ -48,6 +48,13 @@ class User extends Person implements UserInterface, EncoderAwareInterface
      */
     private $currentPassword;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password_reinitialization_code", type="string", nullable=true)
+     */
+    private $passwordReinitializationCode;
+
     public function __construct()
     {
         $this->active = true;
@@ -159,6 +166,18 @@ class User extends Person implements UserInterface, EncoderAwareInterface
     public function setActive($active)
     {
         $this->active = $active;
+
+        return $this;
+    }
+
+    public function getPasswordReinitializationCode()
+    {
+        return $this->passwordReinitializationCode;
+    }
+
+    public function setPasswordReinitializationCode($passwordReinitializationCode)
+    {
+        $this->passwordReinitializationCode = $passwordReinitializationCode;
 
         return $this;
     }

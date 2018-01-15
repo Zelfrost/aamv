@@ -426,6 +426,10 @@ blockquote {
     margin-top: 20px;
 }
 
+.row.tool {
+    margin-left: 20px;
+}
+
 .popover {
     color: #333;
 }

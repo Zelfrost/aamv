@@ -9,38 +9,54 @@
 {% block body %}
     <h2 class="main">Les outils</h2>
 
-    {% if tools.aamv|length > 0 %}
+    {% if types.aamv|length > 0 %}
         <h3>Ceux que nous mettons à votre disposition :</h3>
 
         <div class="col-md-12">
-        {% for tool in tools.aamv %}
-            <div class="row">
-                <div class="col-md-10">
-                    {{ tool.name }}
-                    {% if tool.updatedAt is not null %} - mis à jour le <strong>{{ tool.updatedAt|date('d/m/Y') }}</strong>{% endif %}
+        {% for type in types.aamv %}
+            <h4>{{ type.name }}</h4>
+
+            {% for tool in type.tools %}
+                <div class="row tool">
+                    <div class="col-md-10">
+                        {{ tool.name }}
+                        {% if tool.updatedAt is not null %} - mis à jour le <strong>{{ tool.updatedAt|date('d/m/Y') }}</strong>{% endif %}
+                    </div>
+                    <div class="col-md-2">
+                        <a href="/public/tools/aamv/{{ tool.realName }}"><span class="glyphicon glyphicon-download"></span> Télécharger</a>
+                    </div>
                 </div>
-                <div class="col-md-2">
-                    <a href="/public/tools/aamv/{{ tool.realName }}"><span class="glyphicon glyphicon-download"></span> Télécharger</a>
-                </div>
-            </div>
+            {% endfor %}
+
+            {% if not loop.last %}
+                <hr>
+            {% endif %}
         {% endfor %}
         </div>
     {% endif %}
 
-    {% if tools.veronalice|length > 0 %}
+    {% if types.veronalice|length > 0 %}
         <h3>Ceux mit gracieusement à votre disposition par "<a href="http://chezveronalice.pagesperso-orange.fr/">ChezVeronalice</a>" :</h3>
 
         <div class="col-md-12">
-        {% for tool in tools.veronalice %}
-            <div class="row">
-                <div class="col-md-10">
-                    {{ tool.name }}
-                    {% if tool.updatedAt is not null %} - mis à jour le <strong>{{ tool.updatedAt|date('d/m/Y') }}</strong>{% endif %}
+        {% for type in types.veronalice %}
+            <h4>{{ type.name }}</h4>
+
+            {% for tool in type.tools %}
+                <div class="row tool">
+                    <div class="col-md-10">
+                        {{ tool.name }}
+                        {% if tool.updatedAt is not null %} - mis à jour le <strong>{{ tool.updatedAt|date('d/m/Y') }}</strong>{% endif %}
+                    </div>
+                    <div class="col-md-2">
+                        <a href="/public/tools/veronalice/{{ tool.realName }}"><span class="glyphicon glyphicon-download"></span> Télécharger</a>
+                    </div>
                 </div>
-                <div class="col-md-2">
-                    <a href="/public/tools/veronalice/{{ tool.realName }}"><span class="glyphicon glyphicon-download"></span> Télécharger</a>
-                </div>
-            </div>
+            {% endfor %}
+
+            {% if not loop.last %}
+                <hr>
+            {% endif %}
         {% endfor %}
         </div>
     {% endif %}

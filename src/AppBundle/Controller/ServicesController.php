@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Ad;
 use AppBundle\Entity\Disponibility;
 use AppBundle\Entity\Tool;
+use AppBundle\Entity\Type;
 use AppBundle\Entity\User;
 use AppBundle\Form\Type\AdFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -164,13 +165,13 @@ class ServicesController extends Controller
     {
         $repository = $this->getDoctrine()
             ->getManager()
-            ->getRepository(Tool::class);
+            ->getRepository(Type::class);
 
         return $this->render(
             'AppBundle:Services:tools.html.twig',
-            array('tools' => array(
-                'aamv' => $repository->findAamvTools(),
-                'veronalice' => $repository->findVeronaliceTools(),
+            array('types' => array(
+                'aamv' => $repository->findTyped(true),
+                'veronalice' => $repository->findTyped(false),
             ))
         );
     }
