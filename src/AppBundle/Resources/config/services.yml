@@ -79,3 +79,9 @@ services:
         arguments: ['@twig', '@mailer']
         calls:
             - ['setLogger', ['@logger']]
+
+    mailer.forgot_password:
+        class: AppBundle\Service\Mailer\ForgotPasswordMailer
+        arguments: ['@twig', '@mailer']
+        calls:
+            - ['setLogger', ['@logger']]

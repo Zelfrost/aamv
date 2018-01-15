@@ -3,7 +3,9 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Tool;
+use AppBundle\Entity\Type;
 use AppBundle\Form\Type\ToolType;
+use AppBundle\Form\Type\TypeType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -59,6 +61,37 @@ class ToolController extends Controller
     }
 
     /**
+     * @Route(path="/admin/types/create", name="admin_types_create")
+     * @Method({"GET", "POST"})
+     */
+    public function createTypeAction(Request $request)
+    {
+        $type = new Type();
+
+        $form = $this->createForm(TypeType::class, $type);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $this->getDoctrine()
+                ->getManager()
+                ->persist($type);
+
+            $this->getDoctrine()
+                ->getManager()
+                ->flush();
+
+            $this->get('session')->getFlashBag()->add('admin.tools.success', "La catégorie a bien été ajoutée.");
+
+            return $this->redirect($this->generateUrl('admin_tools'));
+        }
+
+        return $this->render('AppBundle:Admin:Tools/type_create.html.twig', array(
+            'type' => $type,
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
      * @Route(path="/admin/tools/edit/{id}", name="admin_tools_edit")
      * @Method({"GET", "POST"})
      */
@@ -101,7 +134,7 @@ class ToolController extends Controller
             ->getManager()
             ->flush();
 
-        $this->get('session')->getFlashBag()->add('admin.tools.success', "L'outil a bien été supprimée.");
+        $this->get('session')->getFlashBag()->add('admin.tools.success', "L'outil a bien été supprimé.");
 
         return $this->redirect($this->generateUrl('admin_tools'));
     }

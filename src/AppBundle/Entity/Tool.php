@@ -44,6 +44,14 @@ class Tool
     private $fromAamv;
 
     /**
+     * @var Type
+     *
+     * @ORM\ManyToOne(targetEntity="Type", inversedBy="tools")
+     * @ORM\JoinColumn(nullable=true, referencedColumnName="id")
+     */
+    private $type;
+
+    /**
      * @var Datetime
      *
      * @ORM\Column(name="createdAt", type="datetime", nullable=true)
@@ -128,6 +136,18 @@ class Tool
     public function setFromAamv($fromAamv)
     {
         $this->fromAamv = $fromAamv;
+
+        return $this;
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function setType($type)
+    {
+        $this->type = $type;
 
         return $this;
     }
