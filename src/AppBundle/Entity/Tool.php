@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Tool
  *
  * @ORM\Table(name="tool")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ToolRepository")
+ * @ORM\Entity
  */
 class Tool
 {
@@ -35,13 +35,6 @@ class Tool
      * @ORM\Column(name="real_name", type="string", length=255)
      */
     private $realName;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="from_aamv", type="boolean")
-     */
-    private $fromAamv;
 
     /**
      * @var Type
@@ -128,18 +121,6 @@ class Tool
         return $this;
     }
 
-    public function isFromAamv()
-    {
-        return $this->fromAamv;
-    }
-
-    public function setFromAamv($fromAamv)
-    {
-        $this->fromAamv = $fromAamv;
-
-        return $this;
-    }
-
     public function getType()
     {
         return $this->type;
@@ -175,7 +156,7 @@ class Tool
         $filename = $filename.'-'.date('YmdHis').'.'.$file->guessExtension();
 
         $this->getFile()->move(
-            __DIR__.'/../../../web/public/tools/'. ($this->isFromAamv()?'aamv':'veronalice').'/',
+            __DIR__.'/../../../web/public/tools/',
             $filename
         );
 
@@ -191,7 +172,7 @@ class Tool
         }
 
         $basePath = __DIR__.'/../../../web/public/tools/';
-        $path = $basePath.($this->isFromAamv()?'aamv':'veronalice').'/'.$this->getRealName();
+        $path = $basePath.$this->getRealName();
         $fs = new Filesystem();
 
         if ($fs->exists($path)) {

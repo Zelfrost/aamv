@@ -165,14 +165,12 @@ class ServicesController extends Controller
     {
         $repository = $this->getDoctrine()
             ->getManager()
-            ->getRepository(Type::class);
+            ->getRepository(Type::class)
+        ;
 
         return $this->render(
             'AppBundle:Services:tools.html.twig',
-            array('types' => array(
-                'aamv' => $repository->findTyped(true),
-                'veronalice' => $repository->findTyped(false),
-            ))
+            array('types' => $repository->findTools())
         );
     }
 }

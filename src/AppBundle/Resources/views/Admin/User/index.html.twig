@@ -22,18 +22,33 @@
     {% endif %}
 
     {% if users|length > 0 %}
-        <div class="role">
-            <label for="role">Filtrer :</label>
-            <select name="role" class="form-control">
-                <option value="none" {% if pagination.role == 'none' %}selected="selected"{% endif %}>Filtres possibles</option>
-                <option value="parent" {% if pagination.role == 'parent' %}selected="selected"{% endif %}>Liste des parents</option>
-                <option value="assistant" {% if pagination.role == 'assistante' %}selected="selected"{% endif %}>Liste des assistantes</option>
-                <option value="member" {% if pagination.role == 'member' %}selected="selected"{% endif %}>Liste des assistantes adhérentes</option>
-                <option value="not-member" {% if pagination.role == 'not-member' %}selected="selected"{% endif %}>Liste des assistantes non adhérentes</option>
-            </select>
-        </div>
+        <form action={{ path('admin_users') }}>
+            <div class="filters">
+                <h3>Filtrer</h3>
 
-        <br>
+                <div class="form-group">
+                    <label for="email">Email :</label>
+                    <input name="email" class="form-control" value={{ pagination.email }}>
+                </div>
+
+                <div class="form-group">
+                    <label for="role">Role :</label>
+                    <select name="role" class="form-control">
+                        <option value="" {% if pagination.role == 'none' %}selected="selected"{% endif %}>Filtres possibles</option>
+                        <option value="parent" {% if pagination.role == 'parent' %}selected="selected"{% endif %}>Liste des parents</option>
+                        <option value="assistant" {% if pagination.role == 'assistante' %}selected="selected"{% endif %}>Liste des assistantes</option>
+                        <option value="member" {% if pagination.role == 'member' %}selected="selected"{% endif %}>Liste des assistantes adhérentes</option>
+                        <option value="not-member" {% if pagination.role == 'not-member' %}selected="selected"{% endif %}>Liste des assistantes non adhérentes</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-success pull-right">Rechercher</button>
+                </div>
+            </div>
+        </form>
+
+        <h3>Liste</h3>
 
         <table class="table table-striped table-hover">
             <thead>
@@ -91,5 +106,4 @@
     <script src="{{ asset('bundles/app/js/Admin/default.js') }}"></script>
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
-    <script src="{{ asset('bundles/app/js/Admin/users.js') }}"></script>
 {% endblock javascripts %}

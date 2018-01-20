@@ -18,29 +18,25 @@ class ToolType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, array(
-                'label' => 'Nom'
+                'label' => 'Nom',
             ))
             ->add('type', EntityType::class, array(
-                'label' => 'Type',
+                'label' => 'Catégorie',
                 'class' => Type::class,
                 'choice_label' => 'name',
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('t')->orderBy('t.name', 'ASC');
-                }
+                'query_builder' => function (EntityRepository $repository) {
+                    return $repository->createQueryBuilder('t')->orderBy('t.name', 'ASC');
+                },
             ))
             ->add('file', FileType::class, array(
                 'label' => 'Fichier',
-                'required' => false
-            ))
-            ->add('fromAamv', CheckboxType::class, array(
-                'label' => 'Appartient à l\'AAMV',
-                'required' => false
+                'required' => false,
             ))
             ->add('submit', SubmitType::class, array(
                 'label' => 'Confirmer',
                 'attr' => array(
-                    'class' => 'btn btn-block btn-success'
-                )
+                    'class' => 'btn btn-block btn-success',
+                ),
             ));
         ;
     }

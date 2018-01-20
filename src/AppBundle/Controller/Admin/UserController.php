@@ -7,22 +7,25 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Authorization\isGranted;
 
 class UserController extends Controller
 {
     /**
      * @Route(
-     *     path="/admin/users/{role}/{page}",
+     *     path="/admin/users/{page}",
      *     options={"expose" = true},
      *     name="admin_users"
      * )
      */
-    public function indexAction($role = 'none', $page = 1)
+    public function indexAction(Request $request, $page = 1)
     {
+        $email = $request->query->get('email');
+        $role = $request->query->get('role');
+
         $users = $this->getDoctrine()
             ->getRepository(User::class)
-            ->findByRole($role, $page);
+            ->search($email, $role, $page)
+        ;
 
         return $this->render('AppBundle:Admin:User/index.html.twig', array(
             'users' => $users,
@@ -30,8 +33,9 @@ class UserController extends Controller
                 'route' => 'admin_users',
                 'page' => $page,
                 'role' => $role,
+                'email' => $email,
                 'pages_count' => ceil($users->count() / 30),
-                'parameters' => ['role' => $role]
+                'parameters' => ['role' => $role, 'email' => $email]
             ]
         ));
     }

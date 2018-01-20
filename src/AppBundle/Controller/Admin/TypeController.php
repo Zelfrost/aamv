@@ -19,7 +19,8 @@ class TypeController extends Controller
     {
         $types = $this->getDoctrine()
             ->getRepository(Type::class)
-            ->findAll();
+            ->findBy([], ['year' => 'DESC', 'name' => 'ASC'])
+        ;
 
         return $this->render('AppBundle:Admin:Types/index.html.twig', array(
             'types' => $types

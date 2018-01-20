@@ -29,7 +29,6 @@
                 <tr>
                     <th>Id</th>
                     <th>Nom</th>
-                    <th>AAMV</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -37,8 +36,7 @@
                 {% for tool in tools %}
                     <tr>
                         <td>{{ tool.id }}</td>
-                        <td>{{ tool.name }}</td>
-                        <td>{% if tool.fromAamv %}Oui{% else %}Non{% endif %}</td>
+                        <td>{{ tool.name }}</td></td>
                         <td>
                             <a class="btn btn-info" href="{{ path('admin_tools_edit', {'id': tool.id}) }}">Modifier</a>
                             <form method="POST" class="remove" action="{{ path('admin_tools_delete', {"id": tool.id}) }}">
