@@ -197,26 +197,6 @@ nav li li a:hover {
     color: #2DA1C9;
 }
 
-// #body h2.main {
-//     width: 50%;
-
-//     display: inline-block;
-//     margin: 40px 0 10px 0;
-
-//     position: relative;
-//     left: -30px;
-
-//     padding: 5px 20px;
-//     background: #FFCE79;
-
-//     color: #FFF;
-//     text-align: right;
-//     font-size: 1.6em;
-// }
-// #body h2.main:first-of-type {
-//     margin-top: 0;
-// }
-
 #body h3:not(.panel-title) {
     color: #79B9FF;
     margin-bottom: 20px;

@@ -17,19 +17,16 @@ class LoadToolData extends AbstractFixture implements OrderedFixtureInterface
         $toolA = new Tool();
         $toolA->setName('Document numéro 1');
         $toolA->setRealName('toolA.txt');
-        $toolA->setFromAamv(true);
         $toolA->setUpdatedAt(new \DateTime());
 
         $toolB = new Tool();
         $toolB->setName('Un autre document');
         $toolB->setRealName('toolB.txt');
-        $toolB->setFromAamv(true);
         $toolB->setUpdatedAt(new \DateTime());
 
         $toolC = new Tool();
         $toolC->setName('Le dernier document');
         $toolC->setRealName('toolC.txt');
-        $toolC->setFromAamv(false);
         $toolC->setUpdatedAt(new \DateTime());
 
         $manager->persist($toolA);
@@ -37,9 +34,9 @@ class LoadToolData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($toolC);
         $manager->flush();
 
-        $fs->touch('web/public/tools/aamv/toolA.txt');
-        $fs->touch('web/public/tools/aamv/toolB.txt');
-        $fs->touch('web/public/tools/veronalice/toolC.txt');
+        $fs->touch('web/public/tools/toolA.txt');
+        $fs->touch('web/public/tools/toolB.txt');
+        $fs->touch('web/public/tools/toolC.txt');
     }
 
     public function getOrder()

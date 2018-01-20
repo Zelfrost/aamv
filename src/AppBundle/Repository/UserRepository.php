@@ -7,7 +7,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class UserRepository extends EntityRepository
 {
-    public function findByRole($role, $page)
+    public function search($email, $role, $page)
     {
         $builder = $this->createQueryBuilder('u')
             ->orderBy('u.email', 'ASC')
@@ -15,7 +15,7 @@ class UserRepository extends EntityRepository
             ->setMaxResults(30)
         ;
 
-        if ($role !== 'none') {
+        if (!empty($role)) {
             if ($role === 'not-member') {
                 $role = 'assistant';
 
@@ -31,6 +31,13 @@ class UserRepository extends EntityRepository
                     '"ROLE_%s"',
                     strtoupper($role)
                 ) . '%')
+            ;
+        }
+
+        if (!empty($email)) {
+            $builder
+                ->andWhere('u.email LIKE :email')
+                ->setParameter('email', '%'.$email.'%')
             ;
         }
 

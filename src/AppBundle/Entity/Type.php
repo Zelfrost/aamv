@@ -30,6 +30,20 @@ class Type
     private $name;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="year", type="integer")
+     */
+    private $year;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="for_members", type="boolean")
+     */
+    private $forMembers;
+
+    /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(
@@ -53,6 +67,30 @@ class Type
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getYear()
+    {
+        return $this->year;
+    }
+
+    public function setYear($year)
+    {
+        $this->year = $year;
+
+        return $this;
+    }
+
+    public function isForMembers()
+    {
+        return $this->forMembers;
+    }
+
+    public function setForMembers($forMembers)
+    {
+        $this->forMembers = $forMembers;
 
         return $this;
     }

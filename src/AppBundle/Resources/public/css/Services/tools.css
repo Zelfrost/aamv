@@ -1,3 +1,28 @@
 #body .col-md-12 {
     margin: 10px 0 30px;
 }
+
+.table>tbody>tr>td {
+    border: none;
+}
+
+#body .table-hover tr:hover td {
+    color: #2b2922;
+    background-color: #f5f5f5;
+}
+
+#body .table-hover tr:hover td a {
+    color: #2DA1C9;
+}
+
+#body .table-hover tr td:first-of-type {
+    width: 70%;
+}
+
+#body .table-hover tr td:last-of-type {
+    width: 30%;
+}
+
+#body .table-hover tr td a {
+    color: #2b2922;
+}

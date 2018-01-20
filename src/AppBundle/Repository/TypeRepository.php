@@ -6,13 +6,14 @@ use Doctrine\ORM\EntityRepository;
 
 class TypeRepository extends EntityRepository
 {
-    public function findTyped($fromAamv)
+    public function findTools()
     {
         return $this->createQueryBuilder('t')
             ->select('t, to')
             ->join('t.tools', 'to')
-            ->where('to.fromAamv = :fromAamv')
-            ->setParameter('fromAamv', $fromAamv)
+            ->orderBy('t.year', 'DESC')
+            ->addOrderBy('t.name', 'ASC')
+            ->addOrderBy('to.name', 'ASC')
             ->getQuery()
             ->getResult()
         ;
