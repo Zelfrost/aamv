@@ -14,7 +14,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Tool
 {
     const PATH = '/public/tools';
-    const BASE_PATH = __DIR__ . '/../../../web' . self::PATH;
     const JOIN_NAME = 'admin-join-tool';
     const DISPONIBILITIES_NAME = 'admin-disponibilities-tool';
 
@@ -164,7 +163,7 @@ class Tool
     {
         return sprintf(
             '%s/%s',
-            Tool::BASE_PATH,
+            __DIR__ . '/../../../web' . self::PATH,
             null !== $this->type && $this->type->isForMembers() ? 'members' : null
         );
     }
@@ -172,9 +171,8 @@ class Tool
     public function getFullyQualifiedPath()
     {
         return sprintf(
-            '%s/%s/%s',
-            Tool::BASE_PATH,
-            null !== $this->type && $this->type->isForMembers() ? 'members' : null,
+            '%s/%s',
+            $this->getFullPath(),
             $this->realName
         );
     }
