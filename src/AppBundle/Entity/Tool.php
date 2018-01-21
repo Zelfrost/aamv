@@ -9,10 +9,15 @@ use Doctrine\ORM\Mapping as ORM;
  * Tool
  *
  * @ORM\Table(name="tool")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ToolRepository")
  */
 class Tool
 {
+    const PATH = '/public/tools';
+    const BASE_PATH = __DIR__ . '/../../../web' . self::PATH;
+    const JOIN_NAME = 'admin-join-tool';
+    const DISPONIBILITIES_NAME = 'admin-disponibilities-tool';
+
     /**
      * @var integer
      *
@@ -145,6 +150,35 @@ class Tool
         return $this;
     }
 
+    public function getPath()
+    {
+        return sprintf(
+            '%s/%s/%s',
+            Tool::PATH,
+            null !== $this->type && $this->type->isForMembers() ? 'members' : null,
+            $this->realName
+        );
+    }
+
+    public function getFullPath()
+    {
+        return sprintf(
+            '%s/%s',
+            Tool::BASE_PATH,
+            null !== $this->type && $this->type->isForMembers() ? 'members' : null
+        );
+    }
+
+    public function getFullyQualifiedPath()
+    {
+        return sprintf(
+            '%s/%s/%s',
+            Tool::BASE_PATH,
+            null !== $this->type && $this->type->isForMembers() ? 'members' : null,
+            $this->realName
+        );
+    }
+
     public function upload()
     {
         if (null === $this->file) {
@@ -155,12 +189,9 @@ class Tool
         $filename = substr(basename($file->getClientOriginalName(), $file->guessExtension()), 0, -1);
         $filename = $filename.'-'.date('YmdHis').'.'.$file->guessExtension();
 
-        $this->getFile()->move(
-            __DIR__.'/../../../web/public/tools/',
-            $filename
-        );
-
         $this->realName = $filename;
+
+        $this->getFile()->move($this->getFullPath(), $this->realName);
 
         $this->setFile(null);
     }
@@ -171,12 +202,10 @@ class Tool
             return;
         }
 
-        $basePath = __DIR__.'/../../../web/public/tools/';
-        $path = $basePath.$this->getRealName();
         $fs = new Filesystem();
 
-        if ($fs->exists($path)) {
-            $fs->remove($path);
+        if ($fs->exists($this->getFullyQualifiedPath())) {
+            $fs->remove($this->getFullyQualifiedPath());
         }
     }
 }

@@ -5,7 +5,7 @@
                 <li><a href="{{ path('association_presentation') }}">Qui sommes-nous ?</a></li>
                 {# <li><a href="{{ path('association_pictures') }}">Photos</a></li> #}
                 <li><a href="{{ path('association_about_us') }}">On en parle</a></li>
-                <li><a href="/public/adhesion-formulaire.docx">Télécharger notre formulaire d'adhésion</a></li>
+                <li><a href="{{ path('files_join') }}">Télécharger notre formulaire d'adhésion</a></li>
                 <li><a href="{{ path('association_contacts') }}">Nous contacter</a></li>
                 <hr>
             </ul></div>
@@ -25,8 +25,12 @@
                 <li><a href="{{ path('manage_password') }}">Modifier mon mot de passe</a></li>
                 {% if is_granted('ROLE_PARENT') or is_granted('ROLE_MEMBER') %}
                     <li><a href="{{ path('manage_ads') }}">Gérer mes annonces</a></li>
-                    <li><a href="/public/disponibilites.doc">Formulaire de disponibilité</a></li>
                 {% endif %}
+
+                {% if is_granted('ROLE_MEMBER') %}
+                    <li><a href="{{ path('files_disponibilities') }}">Formulaire de disponibilité</a></li>
+                {% endif %}
+
                 {% if is_granted('ROLE_ADMIN') %}
                     <li><a href="{{ path('admin') }}">Administration</a></li>
                 {% endif %}

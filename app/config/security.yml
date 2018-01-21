@@ -45,6 +45,7 @@ security:
     access_control:
         - { path: ^/admin, role: ROLE_ADMIN }
         - { path: ^/services/ads/parent, role: ROLE_MEMBER }
+        - { path: ^/files/disponibilities, role: ROLE_MEMBER }
         - { path: ^/services/ads/create, roles: [ROLE_ASSISTANT, ROLE_PARENT] }
         - { path: ^/manage/ad, roles: [ROLE_MEMBER, ROLE_PARENT] }
         - { path: ^/manage, roles: [ROLE_ASSISTANT, ROLE_PARENT] }
