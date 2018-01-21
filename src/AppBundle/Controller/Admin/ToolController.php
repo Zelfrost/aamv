@@ -20,7 +20,8 @@ class ToolController extends Controller
     {
         $tools = $this->getDoctrine()
             ->getRepository(Tool::class)
-            ->findAll();
+            ->findAllTools()
+        ;
 
         return $this->render('AppBundle:Admin:Tools/index.html.twig', array(
             'tools' => $tools
