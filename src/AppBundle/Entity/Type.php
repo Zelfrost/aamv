@@ -32,7 +32,7 @@ class Type
     /**
      * @var integer
      *
-     * @ORM\Column(name="year", type="integer")
+     * @ORM\Column(name="year", type="integer", nullable=true)
      */
     private $year;
 
