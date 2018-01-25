@@ -20,6 +20,7 @@ class TypeType extends AbstractType
             ))
             ->add('year', NumberType::class, array(
                 'label' => 'Année',
+                'required' => false,
             ))
             ->add('forMembers', CheckboxType::class, array(
                 'label' => 'Réservée aux membres',
