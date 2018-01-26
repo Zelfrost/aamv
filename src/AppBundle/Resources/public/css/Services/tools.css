@@ -17,10 +17,12 @@
 
 #body .table-hover tr td:first-of-type {
     width: 70%;
+    text-align: left;
 }
 
 #body .table-hover tr td:last-of-type {
     width: 30%;
+    text-align: right;
 }
 
 #body .table-hover tr td a {
