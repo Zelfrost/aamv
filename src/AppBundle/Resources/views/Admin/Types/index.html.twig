@@ -40,7 +40,7 @@
                     <td>{{ type.id }}</td>
                     <td>{{ type.name }}</td>
                     <td>{{ type.year }}</td>
-                    <td>{{ type.forMembers }}</td>
+                    <td>{% if type.forMembers %}Oui{% else %}Non{% endif %}</td>
                     <td>
                         <a class="btn btn-info" href="{{ path('admin_types_edit', {'id': type.id}) }}">Modifier</a>
                         <form method="POST" class="remove" action="{{ path('admin_types_delete', {"id": type.id}) }}">
