@@ -18,14 +18,12 @@ class ToolController extends Controller
      */
     public function indexAction()
     {
-        $types = $this->getDoctrine()
+        $repository = $this->getDoctrine()
+            ->getManager()
             ->getRepository(Type::class)
-            ->findTools()
         ;
 
-        return $this->render('AppBundle:Admin:Tools/index.html.twig', array(
-            'types' => $types
-        ));
+        return $this->render('AppBundle:Admin:Tools/index.html.twig', array('types' => $repository->findTools()));
     }
 
     /**
