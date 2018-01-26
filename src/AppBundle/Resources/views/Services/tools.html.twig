@@ -9,55 +9,30 @@
 {% block body %}
     <h2 class="main">Les outils</h2>
 
-    {% if types.aamv|length > 0 %}
-        <h3>Ceux que nous mettons à votre disposition :</h3>
-
+    {% if types|length > 0 %}
         <div class="col-md-12">
-        {% for type in types.aamv %}
-            <h4>{{ type.name }}</h4>
+            {% for type in types %}
+                {% if not type.forMembers or is_granted('ROLE_MEMBER') %}
+                    <h3>{{ type.name }} - {{ type.year }}{% if type.forMembers %} - <b>Réservés aux membres de
+                            l'association</b>{% endif %}</h3>
 
-            {% for tool in type.tools %}
-                <div class="row tool">
-                    <div class="col-md-10">
-                        {{ tool.name }}
-                        {% if tool.updatedAt is not null %} - mis à jour le <strong>{{ tool.updatedAt|date('d/m/Y') }}</strong>{% endif %}
-                    </div>
-                    <div class="col-md-2">
-                        <a href="/public/tools/aamv/{{ tool.realName }}"><span class="glyphicon glyphicon-download"></span> Télécharger</a>
-                    </div>
-                </div>
+                    <table class="table table-hover">
+                        {% for tool in type.tools %}
+                            <tr class="row tool">
+                                <td>{{ tool.name }}</td>
+                                <td>
+                                    <a href="{{ tool.path }}">
+                                        <span class="glyphicon glyphicon-download"></span>
+                                        Télécharger
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% endif %}
             {% endfor %}
-
-            {% if not loop.last %}
-                <hr>
-            {% endif %}
-        {% endfor %}
         </div>
-    {% endif %}
-
-    {% if types.veronalice|length > 0 %}
-        <h3>Ceux mit gracieusement à votre disposition par "<a href="http://chezveronalice.pagesperso-orange.fr/">ChezVeronalice</a>" :</h3>
-
-        <div class="col-md-12">
-        {% for type in types.veronalice %}
-            <h4>{{ type.name }}</h4>
-
-            {% for tool in type.tools %}
-                <div class="row tool">
-                    <div class="col-md-10">
-                        {{ tool.name }}
-                        {% if tool.updatedAt is not null %} - mis à jour le <strong>{{ tool.updatedAt|date('d/m/Y') }}</strong>{% endif %}
-                    </div>
-                    <div class="col-md-2">
-                        <a href="/public/tools/veronalice/{{ tool.realName }}"><span class="glyphicon glyphicon-download"></span> Télécharger</a>
-                    </div>
-                </div>
-            {% endfor %}
-
-            {% if not loop.last %}
-                <hr>
-            {% endif %}
-        {% endfor %}
-        </div>
+    {% else %}
+        <div class="alert alert-warning">Il n'y a actuellement pas d'outils sur le site.</div>
     {% endif %}
 {% endblock %}
