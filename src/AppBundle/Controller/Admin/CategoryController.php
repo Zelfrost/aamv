@@ -19,7 +19,7 @@ class CategoryController extends Controller
     {
         $categories = $this->getDoctrine()
             ->getRepository(Category::class)
-            ->findBy([], ['year' => 'DESC', 'name' => 'ASC'])
+            ->findOrdered()
         ;
 
         return $this->render('AppBundle:Admin:Categories/index.html.twig', array(
