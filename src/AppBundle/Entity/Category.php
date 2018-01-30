@@ -8,10 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Type
  *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\TypeRepository")
- * @ORM\Table(name="type")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CategoryRepository")
+ * @ORM\Table(name="category")
  */
-class Type
+class Category
 {
     /**
      * @var integer
@@ -48,7 +48,7 @@ class Type
      *
      * @ORM\OneToMany(
      *      targetEntity="Tool",
-     *      mappedBy="type",
+     *      mappedBy="category",
      *      cascade={"persist"}
      * )
      */

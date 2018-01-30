@@ -5,7 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Ad;
 use AppBundle\Entity\Disponibility;
 use AppBundle\Entity\Tool;
-use AppBundle\Entity\Type;
+use AppBundle\Entity\Category;
 use AppBundle\Entity\User;
 use AppBundle\Form\Type\AdFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -165,12 +165,28 @@ class ServicesController extends Controller
     {
         $repository = $this->getDoctrine()
             ->getManager()
-            ->getRepository(Type::class)
+            ->getRepository(Category::class)
         ;
 
         return $this->render(
             'AppBundle:Services:tools.html.twig',
-            array('types' => $repository->findTools())
+            array('categories' => $repository->findFiles(Tool::TOOL_TYPE))
+        );
+    }
+
+    /**
+     * @Route(path="/services/docs", name="services_docs")
+     */
+    public function docsAction()
+    {
+        $repository = $this->getDoctrine()
+            ->getManager()
+            ->getRepository(Category::class)
+        ;
+
+        return $this->render(
+            'AppBundle:Services:docs.html.twig',
+            array('categories' => $repository->findFiles(Tool::DOC_TYPE))
         );
     }
 }

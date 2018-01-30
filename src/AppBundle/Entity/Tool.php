@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Symfony\Component\Filesystem\Filesystem;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Tool
@@ -14,6 +15,10 @@ use Doctrine\ORM\Mapping as ORM;
 class Tool
 {
     const PATH = '/public/tools';
+
+    const DOC_TYPE = 'doc';
+    const TOOL_TYPE = 'tool';
+
     const JOIN_NAME = 'admin-join-tool';
     const DISPONIBILITIES_NAME = 'admin-disponibilities-tool';
 
@@ -41,10 +46,18 @@ class Tool
     private $realName;
 
     /**
-     * @var Type
+     * @var Category
      *
-     * @ORM\ManyToOne(targetEntity="Type", inversedBy="tools")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="tools")
      * @ORM\JoinColumn(nullable=true, referencedColumnName="id")
+     */
+    private $category;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=255, nullable=true)
+     * @Assert\Choice(choices={"doc", "tool"})
      */
     private $type;
 
@@ -125,6 +138,18 @@ class Tool
         return $this;
     }
 
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    public function setCategory($category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
     public function getType()
     {
         return $this->type;
@@ -154,7 +179,7 @@ class Tool
         return sprintf(
             '%s/%s/%s',
             Tool::PATH,
-            null !== $this->type && $this->type->isForMembers() ? 'members' : null,
+            null !== $this->category && $this->category->isForMembers() ? 'members' : null,
             $this->realName
         );
     }
@@ -164,7 +189,7 @@ class Tool
         return sprintf(
             '%s/%s',
             __DIR__ . '/../../../web' . self::PATH,
-            null !== $this->type && $this->type->isForMembers() ? 'members' : null
+            null !== $this->category && $this->category->isForMembers() ? 'members' : null
         );
     }
 

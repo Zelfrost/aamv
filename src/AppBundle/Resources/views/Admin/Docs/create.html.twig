@@ -1,13 +1,13 @@
 {% extends "AppBundle:Base:base.html.twig" %}
 
-{% block title %}Outils - Administration - {{ parent() }}{% endblock %}
+{% block title %}Documents - Administration - {{ parent() }}{% endblock %}
 
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/Homepage/index.css') }}">
 {% endblock css %}
 
 {% block body %}
-    <h2><a href="{{ path('admin') }}">Administration</a> / <a href="{{ path('admin_tools') }}">Outils</a> / {{ tool.id }}</h2>
+    <h2><a href="{{ path('admin') }}">Administration</a> / <a href="{{ path('admin_docs') }}">Documents</a> / Ajouter</h2>
 
     <a href="{{ path('admin_categories_create') }}">Ajouter une catégorie</a>
 

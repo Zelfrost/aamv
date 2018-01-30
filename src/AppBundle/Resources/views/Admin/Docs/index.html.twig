@@ -1,27 +1,27 @@
 {% extends "AppBundle:Base:base.html.twig" %}
 
-{% block title %}Outils - Administration - {{ parent() }}{% endblock %}
+{% block title %}Documents - Administration - {{ parent() }}{% endblock %}
 
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/Admin/base.css') }}">
 {% endblock css %}
 
 {% block body %}
-    <h2><a href="{{ path('admin') }}">Administration</a> / Outils</h2>
+    <h2><a href="{{ path('admin') }}">Administration</a> / Documents</h2>
 
-    {% for flash in app.session.flashbag.get('admin.tools.error') %}
+    {% for flash in app.session.flashbag.get('admin.docs.error') %}
         <div class="alert alert-danger">{{ flash }}</div>
     {% endfor %}
 
-    {% for flash in app.session.flashbag.get('admin.tools.success') %}
+    {% for flash in app.session.flashbag.get('admin.docs.success') %}
         <div class="alert alert-success">{{ flash }}</div>
     {% endfor %}
 
     {% if categories|length == 0 %}
-        <div class="alert alert-warning">Il n'y a encore aucun outil sur le site.</div>
+        <div class="alert alert-warning">Il n'y a encore aucun document sur le site.</div>
     {% endif %}
 
-    <div class="alert alert-info"><a href="{{ path('admin_tools_create') }}">Cliquez ici</a> pour ajouter un outil.</div>
+    <div class="alert alert-info"><a href="{{ path('admin_docs_create') }}">Cliquez ici</a> pour ajouter un document.</div>
 
     {% if categories|length > 0 %}
         {% for type in categories %}
@@ -35,13 +35,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for tool in type.tools %}
+                    {% for doc in type.tools %}
                         <tr>
-                            <td>{{ tool.id }}</td>
-                            <td>{{ tool.name }}</td></td>
+                            <td>{{ doc.id }}</td>
+                            <td>{{ doc.name }}</td></td>
                             <td>
-                                <a class="btn btn-info" href="{{ path('admin_tools_edit', {'id': tool.id}) }}">Modifier</a>
-                                <form method="POST" class="remove" action="{{ path('admin_tools_delete', {"id": tool.id}) }}">
+                                <a class="btn btn-info" href="{{ path('admin_docs_edit', {'id': doc.id}) }}">Modifier</a>
+                                <form method="POST" class="remove" action="{{ path('admin_docs_delete', {"id": doc.id}) }}">
                                     <input type="hidden" name="_method" value="DELETE">
                                     <button class="btn btn-danger btn-normal">Supprimer</button>
                                 </form>

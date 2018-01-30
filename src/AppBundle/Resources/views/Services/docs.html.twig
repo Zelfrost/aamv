@@ -1,28 +1,25 @@
 {% extends "AppBundle:Base:base.html.twig" %}
 
-{% block title %}Les outils - {{ parent() }}{% endblock %}
+{% block title %}Les Documents - {{ parent() }}{% endblock %}
 
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/Services/tools.css') }}">
 {% endblock css %}
 
 {% block body %}
-    <h2 class="main">Les outils</h2>
+    <h2 class="main">Les documents</h2>
 
     {% if not is_granted('ROLE_MEMBER') %}
-        <div class="alert alert-warning">Certains outils sont réservés aux membres de l'association. Si vous souhaitez
-        accéder à tous nos outils, n'hésitez pas à rejoindre notre association.</div>
+        <div class="alert alert-warning">Certains documents sont réservés aux membres de l'association. Si vous souhaitez
+            accéder à tous nos documents, n'hésitez pas à rejoindre notre association.</div>
     {% endif %}
 
     {% if categories|length > 0 %}
         <div class="col-md-12">
             {% for type in categories %}
                 {% if not type.forMembers or is_granted('ROLE_MEMBER') %}
-                    <h3>
-                        {{ type.name }}
-                        {% if not type.year is null %}- {{ type.year }}{% endif %}
-                        {% if type.forMembers %}- <b>Réservés aux membres de l'association</b>{% endif %}
-                    </h3>
+                    <h3>{{ type.name }} - {{ type.year }}{% if type.forMembers %} - <b>Réservés aux membres de
+                            l'association</b>{% endif %}</h3>
 
                     <table class="table table-hover">
                         {% for tool in type.tools %}
