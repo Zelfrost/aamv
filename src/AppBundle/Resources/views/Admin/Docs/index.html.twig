@@ -25,7 +25,12 @@
 
     {% if categories|length > 0 %}
         {% for type in categories %}
-            <h3>{{ type.name }}</h3>
+            <h3>
+                {{ type.name }}
+                {% if not type.year is null %}- {{ type.year }}{% endif %}
+                {% if type.forMembers %}- <b>Réservés aux membres de l'association</b>{% endif %}
+            </h3>
+
             <table class="table table-striped table-hover table-tool">
                 <thead>
                     <tr>
@@ -38,7 +43,7 @@
                     {% for doc in type.tools %}
                         <tr>
                             <td>{{ doc.id }}</td>
-                            <td>{{ doc.name }}</td></td>
+                            <td>{{ doc.name }}</td>
                             <td>
                                 <a class="btn btn-info" href="{{ path('admin_docs_edit', {'id': doc.id}) }}">Modifier</a>
                                 <form method="POST" class="remove" action="{{ path('admin_docs_delete', {"id": doc.id}) }}">
