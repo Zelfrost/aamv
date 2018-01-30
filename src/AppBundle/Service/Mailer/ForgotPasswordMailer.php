@@ -20,10 +20,16 @@ class ForgotPasswordMailer implements LoggerAwareInterface
      */
     private $mailer;
 
-    public function __construct(\Twig_Environment $twig, \Swift_Mailer $mailer)
+    /**
+     * @var string
+     */
+    private $baseUrl;
+
+    public function __construct(\Twig_Environment $twig, \Swift_Mailer $mailer, $baseUrl)
     {
         $this->twig = $twig;
         $this->mailer = $mailer;
+        $this->baseUrl = $baseUrl;
     }
 
     public function send(User $user)
@@ -32,7 +38,10 @@ class ForgotPasswordMailer implements LoggerAwareInterface
             ->setSubject('AAMV - Ré-initialiser votre mot de passe')
             ->setFrom('forgot_password@aamv.net', 'AAMV')
             ->setTo($user->getEmail())
-            ->setBody($this->twig->render('emails/forgot_password.html.twig', array('user' => $user)), 'text/html')
+            ->setBody($this->twig->render('emails/forgot_password.html.twig', array(
+                'user' => $user,
+                'base_url' => $this->baseUrl,
+            )), 'text/html')
         ;
 
         try {

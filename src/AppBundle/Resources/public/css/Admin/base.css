@@ -2,13 +2,13 @@ form {
     display: inline;
 }
 
-table.tool tr th:first-child {
+table.table-tool tr th:first-child {
     width: 10%;
 }
-table.tool tr th:nth-child(2) {
+table.table-tool tr th:nth-child(2) {
     width: 60%;
 }
-table.tool tr th:nth-child(3), table.tool tr td:nth-child(3) {
+table.table-tool tr th:nth-child(3), table.table-tool tr td:nth-child(3) {
     width: 30%;
     text-align: right;
 }

@@ -13,3 +13,6 @@ parameters:
 
     # You key for the Google city API
     api_city_key: your_key
+
+    # The base URL of the website (to manage different environment)
+    base_url: http://localhost:8080

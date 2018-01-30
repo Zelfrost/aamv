@@ -11,10 +11,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ToolController extends Controller
+class DocController extends Controller
 {
     /**
-     * @Route(path="/admin/tools", name="admin_tools")
+     * @Route(path="/admin/docs", name="admin_docs")
      */
     public function indexAction()
     {
@@ -23,17 +23,17 @@ class ToolController extends Controller
             ->getRepository(Category::class)
         ;
 
-        return $this->render('AppBundle:Admin:Tools/index.html.twig', array('categories' => $repository->findFiles(Tool::TOOL_TYPE)));
+        return $this->render('AppBundle:Admin:Docs/index.html.twig', array('categories' => $repository->findFiles(Tool::DOC_TYPE)));
     }
 
     /**
-     * @Route(path="/admin/tools/create", name="admin_tools_create")
+     * @Route(path="/admin/docs/create", name="admin_docs_create")
      * @Method({"GET", "POST"})
      */
     public function createAction(Request $request)
     {
         $tool = new Tool();
-        $tool->setType(Tool::TOOL_TYPE);
+        $tool->setType(Tool::DOC_TYPE);
 
         $form = $this->createForm(ToolType::class, $tool);
         $form->handleRequest($request);
@@ -49,19 +49,19 @@ class ToolController extends Controller
                 ->getManager()
                 ->flush();
 
-            $this->get('session')->getFlashBag()->add('admin.tools.success', "L'outil a bien été ajouté.");
+            $this->get('session')->getFlashBag()->add('admin.docs.success', "Le document a bien été ajouté.");
 
-            return $this->redirect($this->generateUrl('admin_tools'));
+            return $this->redirect($this->generateUrl('admin_docs'));
         }
 
-        return $this->render('AppBundle:Admin:Tools/create.html.twig', array(
+        return $this->render('AppBundle:Admin:Docs/create.html.twig', array(
             'tool' => $tool,
             'form' => $form->createView()
         ));
     }
 
     /**
-     * @Route(path="/admin/tools/edit/{id}", name="admin_tools_edit")
+     * @Route(path="/admin/docs/edit/{id}", name="admin_docs_edit")
      * @Method({"GET", "POST"})
      */
     public function editAction(Request $request, Tool $tool)
@@ -78,19 +78,19 @@ class ToolController extends Controller
                 ->getManager()
                 ->flush();
 
-            $this->get('session')->getFlashBag()->add('admin.tools.success', "L'outil a bien été mis à jour.");
+            $this->get('session')->getFlashBag()->add('admin.docs.success', "Le document a bien été mis à jour.");
 
-            return $this->redirect($this->generateUrl('admin_tools'));
+            return $this->redirect($this->generateUrl('admin_docs'));
         }
 
-        return $this->render('AppBundle:Admin:Tools/edit.html.twig', array(
+        return $this->render('AppBundle:Admin:Docs/edit.html.twig', array(
             'tool' => $tool,
             'form' => $form->createView()
         ));
     }
 
     /**
-     * @Route(path="/admin/tools/delete/{id}", name="admin_tools_delete")
+     * @Route(path="/admin/docs/delete/{id}", name="admin_docs_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Tool $tool)
@@ -103,8 +103,8 @@ class ToolController extends Controller
             ->getManager()
             ->flush();
 
-        $this->get('session')->getFlashBag()->add('admin.tools.success', "L'outil a bien été supprimé.");
+        $this->get('session')->getFlashBag()->add('admin.docs.success', "Le document a bien été supprimé.");
 
-        return $this->redirect($this->generateUrl('admin_tools'));
+        return $this->redirect($this->generateUrl('admin_docs'));
     }
 }
