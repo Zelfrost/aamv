@@ -1,13 +1,13 @@
 {% extends "AppBundle:Base:base.html.twig" %}
 
-{% block title %}Outils - Administration - {{ parent() }}{% endblock %}
+{% block title %}Catégories - Documents - Administration - {{ parent() }}{% endblock %}
 
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/Admin/base.css') }}">
 {% endblock css %}
 
 {% block body %}
-    <h2><a href="{{ path('admin') }}">Administration</a> / <a href="{{ path('admin_tools') }}">Outils</a> / Catégorie</h2>
+    <h2><a href="{{ path('admin') }}">Administration</a> / <a href="{{ path('admin_docs') }}">Documents</a> / Catégorie</h2>
 
     {% for flash in app.session.flashbag.get('admin.categories.error') %}
         <div class="alert alert-danger">{{ flash }}</div>
@@ -18,32 +18,30 @@
     {% endfor %}
 
     {% if categories|length == 0 %}
-        <div class="alert alert-warning">Il n'y a encore aucune catégorie d'outil sur le site.</div>
+        <div class="alert alert-warning">Il n'y a encore aucune catégorie de document sur le site.</div>
     {% endif %}
 
-    <div class="alert alert-info"><a href="{{ path('admin_categories_create') }}">Cliquez ici</a> pour ajouter une catégorie d'outil.</div>
+    <div class="alert alert-info"><a href="{{ path('admin_doc_categories_create') }}">Cliquez ici</a> pour ajouter une catégorie de document.</div>
 
-    {% if categories|length > 0 %}
-        <table class="table table-striped table-hover">
+    {% if categories|length > 0 or tools|length > 0 %}
+        <table class="table table-striped table-hover table-categories">
             <thead>
             <tr>
                 <th>Id</th>
                 <th>Nom</th>
-                <th>Année</th>
                 <th>Réservée</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            {% for type in categories %}
+            {% for category in categories %}
                 <tr>
-                    <td>{{ type.id }}</td>
-                    <td>{{ type.name }}</td>
-                    <td>{{ type.year }}</td>
-                    <td>{% if type.forMembers %}Oui{% else %}Non{% endif %}</td>
+                    <td>{{ category.id }}</td>
+                    <td>{{ category.name }}</td>
+                    <td>{% if category.forMembers %}Oui{% else %}Non{% endif %}</td>
                     <td>
-                        <a class="btn btn-info" href="{{ path('admin_categories_edit', {'id': type.id}) }}">Modifier</a>
-                        <form method="POST" class="remove" action="{{ path('admin_categories_delete', {"id": type.id}) }}">
+                        <a class="btn btn-info" href="{{ path('admin_doc_categories_edit', {'id': category.id}) }}">Modifier</a>
+                        <form method="POST" class="remove" action="{{ path('admin_doc_categories_delete', {"id": category.id}) }}">
                             <input type="hidden" name="_method" value="DELETE">
                             <button class="btn btn-danger btn-normal">Supprimer</button>
                         </form>

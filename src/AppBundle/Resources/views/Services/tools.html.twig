@@ -14,13 +14,34 @@
         accéder à tous nos outils, n'hésitez pas à rejoindre notre association.</div>
     {% endif %}
 
+    {% if tools|length == 0 and categories|length == 0 %}
+        <div class="alert alert-warning">Il n'y a actuellement pas d'outils sur le site.</div>
+    {% endif %}
+
+    {% if tools|length > 0 %}
+        <div class="col-md-12">
+            <table class="table table-hover">
+                {% for tool in tools %}
+                    <tr class="row tool">
+                        <td>{{ tool.name }}</td>
+                        <td>
+                            <a href="{{ tool.path }}">
+                                <span class="glyphicon glyphicon-download"></span>
+                                Télécharger
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% endif %}
+
     {% if categories|length > 0 %}
         <div class="col-md-12">
             {% for type in categories %}
                 {% if not type.forMembers or is_granted('ROLE_MEMBER') %}
                     <h3>
                         {{ type.name }}
-                        {% if not type.year is null %}- {{ type.year }}{% endif %}
                         {% if type.forMembers %}- <b>Réservés aux membres de l'association</b>{% endif %}
                     </h3>
 
@@ -40,7 +61,5 @@
                 {% endif %}
             {% endfor %}
         </div>
-    {% else %}
-        <div class="alert alert-warning">Il n'y a actuellement pas d'outils sur le site.</div>
     {% endif %}
 {% endblock %}

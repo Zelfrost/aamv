@@ -163,14 +163,21 @@ class ServicesController extends Controller
      */
     public function toolsAction()
     {
-        $repository = $this->getDoctrine()
+        $tools = $this->getDoctrine()
+            ->getManager()
+            ->getRepository(Tool::class)
+            ->findFiles(Tool::TOOL_TYPE)
+        ;
+
+        $categories = $this->getDoctrine()
             ->getManager()
             ->getRepository(Category::class)
+            ->findFiles(Tool::TOOL_TYPE)
         ;
 
         return $this->render(
             'AppBundle:Services:tools.html.twig',
-            array('categories' => $repository->findFiles(Tool::TOOL_TYPE))
+            array('tools' => $tools, 'categories' => $categories)
         );
     }
 
@@ -179,14 +186,21 @@ class ServicesController extends Controller
      */
     public function docsAction()
     {
-        $repository = $this->getDoctrine()
+        $tools = $this->getDoctrine()
+            ->getManager()
+            ->getRepository(Tool::class)
+            ->findFiles(Tool::DOC_TYPE)
+        ;
+
+        $categories = $this->getDoctrine()
             ->getManager()
             ->getRepository(Category::class)
+            ->findFiles(Tool::DOC_TYPE)
         ;
 
         return $this->render(
             'AppBundle:Services:docs.html.twig',
-            array('categories' => $repository->findFiles(Tool::DOC_TYPE))
+            array('tools' => $tools, 'categories' => $categories)
         );
     }
 }

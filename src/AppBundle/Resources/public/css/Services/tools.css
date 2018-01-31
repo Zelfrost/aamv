@@ -1,5 +1,8 @@
-#body .col-md-12 {
+#body .col-md-12:last-of-type {
     margin: 10px 0 30px;
+}
+#body .col-md-12 h3 {
+    margin: 0;
 }
 
 .table>tbody>tr>td {

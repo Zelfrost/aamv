@@ -18,9 +18,8 @@ class CategoryType extends AbstractType
             ->add('name', TextType::class, array(
                 'label' => 'Nom',
             ))
-            ->add('year', NumberType::class, array(
-                'label' => 'Année',
-                'required' => false,
+            ->add('position', NumberType::class, array(
+                'label' => 'Position',
             ))
             ->add('forMembers', CheckboxType::class, array(
                 'label' => 'Réservée aux membres',

@@ -8,7 +8,10 @@ table.table-tool tr th:first-child {
 table.table-tool tr th:nth-child(2) {
     width: 60%;
 }
-table.table-tool tr th:nth-child(3), table.table-tool tr td:nth-child(3) {
+table.table-tool tr th:nth-child(3),
+table.table-tool tr td:nth-child(3),
+table.table-categories tr th:nth-child(4),
+table.table-categories tr td:nth-child(4) {
     width: 30%;
     text-align: right;
 }
