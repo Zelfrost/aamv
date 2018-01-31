@@ -9,7 +9,9 @@
 {% block body %}
     <h2><a href="{{ path('admin') }}">Administration</a> / <a href="{{ path('admin_tools') }}">Outils</a> / Ajouter</h2>
 
-    <a href="{{ path('admin_categories_create') }}">Ajouter une catégorie</a>
+    <a href="{{ path('admin_tool_categories_create') }}">Ajouter une catégorie</a>
+
+    <br>
 
     {{ form(form) }}
 {% endblock %}

@@ -18,12 +18,22 @@ class ToolController extends Controller
      */
     public function indexAction()
     {
-        $repository = $this->getDoctrine()
+        $tools = $this->getDoctrine()
             ->getManager()
-            ->getRepository(Category::class)
+            ->getRepository(Tool::class)
+            ->findFiles(Tool::TOOL_TYPE)
         ;
 
-        return $this->render('AppBundle:Admin:Tools/index.html.twig', array('categories' => $repository->findFiles(Tool::TOOL_TYPE)));
+        $categories = $this->getDoctrine()
+            ->getManager()
+            ->getRepository(Category::class)
+            ->findFiles(Tool::TOOL_TYPE)
+        ;
+
+        return $this->render('AppBundle:Admin:Tools/index.html.twig', [
+            'tools' => $tools,
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -35,7 +45,7 @@ class ToolController extends Controller
         $tool = new Tool();
         $tool->setType(Tool::TOOL_TYPE);
 
-        $form = $this->createForm(ToolType::class, $tool);
+        $form = $this->createForm(ToolType::class, $tool, ['attr' => ['type' => Tool::TOOL_TYPE]]);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -66,7 +76,7 @@ class ToolController extends Controller
      */
     public function editAction(Request $request, Tool $tool)
     {
-        $form = $this->createForm(ToolType::class, $tool);
+        $form = $this->createForm(ToolType::class, $tool, ['attr' => ['type' => Tool::TOOL_TYPE]]);
         $form->handleRequest($request);
 
         if ($form->isValid()) {

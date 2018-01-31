@@ -7,14 +7,13 @@ use Doctrine\ORM\EntityRepository;
 
 class ToolRepository extends EntityRepository
 {
-    public function findAllTools()
+    public function findFiles($type)
     {
         return $this->createQueryBuilder('t')
-            ->where('t.name NOT IN (:common_files)')
-            ->setParameter('common_files', [
-                Tool::JOIN_NAME,
-                Tool::DISPONIBILITIES_NAME,
-            ])
+            ->where('t.category IS NULL')
+            ->andWhere('t.type = :type')
+            ->setParameter('type', $type)
+            ->orderBy('t.name', 'ASC')
             ->getQuery()
             ->getResult()
         ;

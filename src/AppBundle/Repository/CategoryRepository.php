@@ -8,22 +8,13 @@ class CategoryRepository extends EntityRepository
 {
     public function findFiles($type)
     {
-        $underYear = $this->createQueryBuilder('c')
-            ->select('MAX(c.year) - 0.5')
-            ->getQuery()
-            ->getSingleScalarResult()
-        ;
-
         return $this->createQueryBuilder('c')
             ->select('c, to')
-            ->addSelect('(CASE WHEN c.year IS NULL THEN :underYear ELSE c.year END) AS HIDDEN ORD')
+            ->addSelect('(CASE WHEN c.id IS NULL THEN 0 ELSE c.position END) AS HIDDEN ORD')
             ->join('c.tools', 'to')
-            ->where('to.type = :type')
-            ->setParameters([
-                'type' => $type,
-                'underYear' => $underYear
-            ])
-            ->orderBy('ORD', 'DESC')
+            ->where('c.type = :type')
+            ->setParameter('type', $type)
+            ->orderBy('ORD', 'ASC')
             ->addOrderBy('c.name', 'ASC')
             ->addOrderBy('to.name', 'ASC')
             ->getQuery()
@@ -31,21 +22,22 @@ class CategoryRepository extends EntityRepository
         ;
     }
 
-    public function findOrdered()
+    public function findOrdered($type)
     {
-        $underYear = $this->createQueryBuilder('c')
-            ->select('MAX(c.year) - 0.5')
-            ->getQuery()
-            ->getSingleScalarResult()
-        ;
-
-        return $this->createQueryBuilder('c')
-            ->addSelect('(CASE WHEN c.year IS NULL THEN :underYear ELSE c.year END) AS HIDDEN ORD')
-            ->setParameter('underYear', $underYear)
-            ->orderBy('ORD', 'DESC')
-            ->addOrderBy('c.name', 'ASC')
+        return $this->queryForOrdered($type)
             ->getQuery()
             ->getResult()
+        ;
+    }
+
+    public function queryForOrdered($type)
+    {
+        return $this->createQueryBuilder('c')
+            ->addSelect('(CASE WHEN c.id IS NULL THEN 0 ELSE c.position END) AS HIDDEN ORD')
+            ->where('c.type = :type')
+            ->setParameter('type', $type)
+            ->orderBy('ORD', 'ASC')
+            ->addOrderBy('c.name', 'ASC')
         ;
     }
 }

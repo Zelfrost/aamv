@@ -30,11 +30,18 @@ class Category
     private $name;
 
     /**
-     * @var integer
+     * @var int
      *
-     * @ORM\Column(name="year", type="integer", nullable=true)
+     * @ORM\Column(name="position", type="integer")
      */
-    private $year;
+    private $position;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string")
+     */
+    private $type;
 
     /**
      * @var string
@@ -71,14 +78,26 @@ class Category
         return $this;
     }
 
-    public function getYear()
+    public function getPosition()
     {
-        return $this->year;
+        return $this->position;
     }
 
-    public function setYear($year)
+    public function setPosition($position)
     {
-        $this->year = $year;
+        $this->position = $position;
+
+        return $this;
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function setType($type)
+    {
+        $this->type = $type;
 
         return $this;
     }

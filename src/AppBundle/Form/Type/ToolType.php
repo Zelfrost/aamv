@@ -26,9 +26,10 @@ class ToolType extends AbstractType
                 'label' => 'Catégorie',
                 'class' => Category::class,
                 'choice_label' => 'name',
-                'query_builder' => function (EntityRepository $repository) {
-                    return $repository->createQueryBuilder('t')->orderBy('t.name', 'ASC');
+                'query_builder' => function (EntityRepository $repository) use ($options) {
+                    return $repository->queryForOrdered($options['attr']['type']);
                 },
+                'required' => false,
             ))
             ->add('file', FileType::class, array(
                 'label' => 'Fichier',

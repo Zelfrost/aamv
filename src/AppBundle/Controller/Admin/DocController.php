@@ -18,12 +18,22 @@ class DocController extends Controller
      */
     public function indexAction()
     {
-        $repository = $this->getDoctrine()
+        $tools = $this->getDoctrine()
             ->getManager()
-            ->getRepository(Category::class)
+            ->getRepository(Tool::class)
+            ->findFiles(Tool::DOC_TYPE)
         ;
 
-        return $this->render('AppBundle:Admin:Docs/index.html.twig', array('categories' => $repository->findFiles(Tool::DOC_TYPE)));
+        $categories = $this->getDoctrine()
+            ->getManager()
+            ->getRepository(Category::class)
+            ->findFiles(Tool::DOC_TYPE)
+        ;
+
+        return $this->render('AppBundle:Admin:Docs/index.html.twig', [
+            'tools' => $tools,
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -35,7 +45,7 @@ class DocController extends Controller
         $tool = new Tool();
         $tool->setType(Tool::DOC_TYPE);
 
-        $form = $this->createForm(ToolType::class, $tool);
+        $form = $this->createForm(ToolType::class, $tool, ['attr' => ['type' => Tool::DOC_TYPE]]);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -66,7 +76,7 @@ class DocController extends Controller
      */
     public function editAction(Request $request, Tool $tool)
     {
-        $form = $this->createForm(ToolType::class, $tool);
+        $form = $this->createForm(ToolType::class, $tool, ['attr' => ['type' => Tool::DOC_TYPE]]);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
