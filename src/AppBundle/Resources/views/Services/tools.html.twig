@@ -9,11 +9,6 @@
 {% block body %}
     <h2 class="main">Les outils</h2>
 
-    {% if not is_granted('ROLE_MEMBER') %}
-        <div class="alert alert-warning">Certains outils sont réservés aux membres de l'association. Si vous souhaitez
-        accéder à tous nos outils, n'hésitez pas à rejoindre notre association.</div>
-    {% endif %}
-
     {% if tools|length == 0 and categories|length == 0 %}
         <div class="alert alert-warning">Il n'y a actuellement pas d'outils sur le site.</div>
     {% endif %}

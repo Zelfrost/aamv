@@ -10,8 +10,11 @@
     <h2 class="main">Les documents</h2>
 
     {% if not is_granted('ROLE_MEMBER') %}
-        <div class="alert alert-warning">Certains documents sont réservés aux membres de l'association. Si vous souhaitez
-            accéder à tous nos documents, n'hésitez pas à rejoindre notre association.</div>
+        <b class="alert alert-warning">
+            Certains documents sont réservés aux adhérents de l'association. Si vous souhaitez accéder à tous nos
+            documents, n'hésitez pas à rejoindre notre association.<br>
+            Vous avez la possibilité d'acheter nos contrats <b>A.A.M.V.</b> au prix de 2€ remis à jour régulièrement.
+        </div>
     {% endif %}
 
     {% if tools|length == 0 and categories|length == 0 %}
