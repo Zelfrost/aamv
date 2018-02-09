@@ -39,6 +39,7 @@ class AdType extends AbstractType
                     'Jeudi' => 'Jeudi',
                     'Vendredi' => 'Vendredi',
                     'Samedi' => 'Samedi',
+                    'Dimanche' => 'Dimanche',
                 ),
                 'expanded' => true,
                 'multiple' => true

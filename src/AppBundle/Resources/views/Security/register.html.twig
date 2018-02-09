@@ -10,6 +10,15 @@
 {% block body %}
     <h2 class="main">Inscription</h2>
 
+    <div class="alert alert-warning">
+        <i class="glyphicon glyphicon-alert"></i>
+        Si vous êtes membre de l'association <b>A.A.M.V</b>. en 2018, et que vous possédiez un compte sur l'ancien site,
+        sachez que celui-ci a été transféré sur le nouveau site. vous pouvez donc vous rendre directement sur la page
+        de <a href="{{ path('login') }}">connexion</a>, et y inscrire vos identifiants de l'ancien site. Si jamais vous
+        avez oublié vos identifiants, rendez-vous simplement sur <a href="{{ path('forgot_password') }}">mot de passe
+        oublié</a> pour y trouver la procédure à suivre.
+    </div>
+
     {{ form(form) }}
 {% endblock %}
 

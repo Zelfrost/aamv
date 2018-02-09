@@ -3,6 +3,7 @@
 namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -34,7 +35,7 @@ class ProfileType extends AbstractType
                 'label' => 'Email'
             ))
             ->add('phoneNumber', TextType::class, array(
-                'label' => 'Numéro de téléphone',
+                'label' => 'Numéro de téléphone (sans points, ni virgules, exemple : 0123456789)',
                 'required' => false
             ))
             ->add('city', ChoiceType::class, array(
@@ -63,6 +64,15 @@ class ProfileType extends AbstractType
                 )
             ))
         ;
+
+        $builder->get('phoneNumber')->addModelTransformer(new CallbackTransformer(
+            function ($value) {
+                return str_replace(['.', ','], '', $value);
+            },
+            function ($value) {
+                return str_replace(['.', ','], '', $value);
+            }
+        ));
 
         $builder->addEventListener(FormEvents::PRE_SUBMIT, function(FormEvent $event) {
             $form = $event->getForm();
