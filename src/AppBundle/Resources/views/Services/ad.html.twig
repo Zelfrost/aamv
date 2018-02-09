@@ -84,7 +84,6 @@
     </div>
     
     <div id="author">
-        <p>Publiée le <strong>{{ ad.createdAt|localizeddate('long', 'none', 'fr') }}</strong> à <strong>{{ ad.createdAt|date('h:i') }}</strong></p>
-        {% if ad.createdAt != ad.updatedAt %}<p>Modifiée le <strong>{{ ad.updatedAt|date('d/m/Y') }}</strong> à <strong>{{ ad.updatedAt|date('h:i:s') }}</strong></p>{% endif %}
+        <p>Publiée le <strong>{{ ad.createdAt|localizeddate('long', 'none', 'fr') }}</strong> à <strong>{{ ad.createdAt|date('H:i') }}</strong></p>
     </div>
 {% endblock %}

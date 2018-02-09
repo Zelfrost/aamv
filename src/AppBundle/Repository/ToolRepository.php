@@ -2,7 +2,6 @@
 
 namespace AppBundle\Repository;
 
-use AppBundle\Entity\Tool;
 use Doctrine\ORM\EntityRepository;
 
 class ToolRepository extends EntityRepository
@@ -16,6 +15,6 @@ class ToolRepository extends EntityRepository
             ->orderBy('t.name', 'ASC')
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
 }

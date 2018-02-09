@@ -34,7 +34,7 @@ class PersonType extends AbstractType
                 'label' => 'Email'
             ))
             ->add('phoneNumber', TextType::class, array(
-                'label' => 'Numéro de téléphone',
+                'label' => 'Numéro de téléphone (sans points, ni virgules, exemple : 0123456789)',
                 'required' => false
             ))
             ->add('city', ChoiceType::class, array(
