@@ -45,7 +45,11 @@ class AdRepository extends EntityRepository
             ->select('u.city, u.neighborhood')
             ->join('n.author', 'u')
             ->where('u.roles LIKE :role')
-            ->setParameter('role', '%'.$role.'%')
+            ->andWhere('n.createdAt > :date')
+            ->setParameters([
+                'role' => '%'.$role.'%',
+                'date' => (new \DateTime())->sub(new \DateInterval('P1M'))
+            ])
             ->groupBy('u.city, u.neighborhood')
             ->orderBy('u.city', 'ASC')
             ->getQuery()

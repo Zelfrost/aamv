@@ -24,6 +24,10 @@
         {{ form_row(form.wishedDays) }}
         {{ form_row(form.type) }}
         {{ form_row(form.submit) }}
+
+        {% if form.offsetExists('revalidate') %}
+            {{ form_row(form.revalidate) }}
+        {% endif %}
     {{ form_end(form) }}
 {% endblock %}
 
