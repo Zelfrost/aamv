@@ -12,7 +12,11 @@ class AdRepository extends EntityRepository
         $query = $this->createQueryBuilder('n')
             ->join('n.author', 'u')
             ->where('u.roles LIKE :role')
-            ->setParameter('role', '%'.$role.'%')
+            ->andWhere('n.createdAt > :date')
+            ->setParameters([
+                'role' => '%'.$role.'%',
+                'date' => (new \DateTime())->sub(new \DateInterval('P1M'))
+            ])
             ->orderBy('n.createdAt', 'DESC')
             ->setFirstResult(($page - 1) * 10)
             ->setMaxResults(10)
