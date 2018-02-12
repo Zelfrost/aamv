@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -54,6 +55,13 @@ class User extends Person implements UserInterface, EncoderAwareInterface
      * @ORM\Column(name="password_reinitialization_code", type="string", nullable=true)
      */
     private $passwordReinitializationCode;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Ad", mappedBy="author")
+     */
+    private $ads;
 
     public function __construct()
     {
@@ -180,5 +188,18 @@ class User extends Person implements UserInterface, EncoderAwareInterface
         $this->passwordReinitializationCode = $passwordReinitializationCode;
 
         return $this;
+    }
+
+    public function getOldAds()
+    {
+        $oldAds = [];
+
+        foreach ($this->ads as $ad) {
+            if ((new \DateTime())->sub(new \DateInterval('P1M')) > $ad->getCreatedAt()) {
+                $oldAds[] = $ad;
+            }
+        }
+
+        return $oldAds;
     }
 }

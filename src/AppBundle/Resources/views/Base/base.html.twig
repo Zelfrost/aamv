@@ -6,7 +6,6 @@
         <meta name="keywords" content="Assistante Maternelle, Assistantes Maternelles, Nourrice, Nounou, Garde d'enfant, Garde, Enfant, Association, Crèche, Relais, PMI, Famille, Parents, Maman, Enfant, Bébé, Enfance, AAMV, Assmat, Assistantes, Maternelles, Assistante, Maternelle, Nord, Villeneuve d'Ascq, Villeneuve, Ascq, Chereng, Tressin, Annappes, Gruson, Willems, Baisieux, Bouvines, Flers, Triolo, Sainghin, Cysoing, Forest sur Marque, Lille, Roubaix, Tourcoing, Cherche, Bebe, Métier assistante, Métier, Travail, Baby">
         <title>{% block title %}AAMV{% endblock %}</title>
 
-        {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <link rel="stylesheet" type="text/css" href="{{ asset('vendor/bootstrap/dist/css/bootstrap.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('vendor/jquery-ui/themes/base/jquery-ui.min.css') }}">
@@ -24,6 +23,25 @@
             {% include 'AppBundle:Base:nav.html.twig' %}
 
             <div id="body" class="col-md-12">
+                {% if app.user is not null %}
+                    {% set oldAds = app.user.oldAds %}
+                    {% if oldAds|length > 0 %}
+                        <div class="alert alert-warning">
+                            <p>
+                                <i class="glyphicon glyphicon-alert"></i>
+                                Attention, une ou plusieurs des vos annonces sont trop anciennes. Celles-ci ne sont donc
+                                plus visibles sur le site. Voici les liens sur lesquels vous rendre pour les revalider :
+                            </p>
+
+                            <ul class="with-type">
+                                {% for oldAd in oldAds %}
+                                    <li><a href="{{ path('manage_ad_edit', {id: oldAd.id}) }}">{{ oldAd.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                {% endif %}
+
                 {% block body %}{% endblock %}
             </div>
 

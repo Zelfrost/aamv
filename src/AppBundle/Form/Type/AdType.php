@@ -64,5 +64,17 @@ class AdType extends AbstractType
                 )
             ))
         ;
+
+        if (null !== $options['data']
+            && null !== $options['data']->getCreatedAt()
+            && $options['data']->getCreatedAt() < (new \DateTime())->sub(new \DateInterval('P1M'))
+        ) {
+            $builder->add('revalidate', SubmitType::class, [
+                'label' => 'Re-valider',
+                'attr' => [
+                    'class' => 'btn btn-block btn-info'
+                ]
+            ]);
+        }
     }
 }

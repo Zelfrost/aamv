@@ -13,7 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints as Assert;
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"person" = "Person", "user" = "User"})
  * @Constraints\CityFromApiConstraint
- * @Assert\UniqueEntity(fields={"email"})
+ * @Assert\UniqueEntity(fields={"email"}, message="Cette adresse email est déjà utilisée.")
  */
 class Person
 {

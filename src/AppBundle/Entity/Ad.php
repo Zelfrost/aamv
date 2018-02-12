@@ -38,7 +38,7 @@ class Ad
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="ads")
      * @ORM\JoinColumn(nullable=false, referencedColumnName="id")
      */
     private $author;

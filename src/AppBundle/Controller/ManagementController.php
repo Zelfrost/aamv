@@ -132,11 +132,17 @@ class ManagementController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            if ($form->get('revalidate')->isClicked()) {
+                $ad->setCreatedAt(new \DateTime());
+            }
+
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($ad);
             $manager->flush();
 
             $session->getFlashBag()->add('management.ads.success', "Votre annonce a bien été modifiée.");
+
+            return $this->redirectToRoute('manage_ad_edit', ['id' => $ad->getId()]);
         }
 
         return $this->render('AppBundle:Management:edit_ad.html.twig', array(
