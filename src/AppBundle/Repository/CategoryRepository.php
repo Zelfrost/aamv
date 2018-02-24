@@ -20,7 +20,7 @@ class CategoryRepository extends EntityRepository
         ;
 
         foreach ($categories as $key => $category) {
-            $tools = $this->_em->getRepository(Tool::class)->findFiles(Tool::TOOL_TYPE, $category);
+            $tools = $this->_em->getRepository(Tool::class)->findFiles($type, $category);
 
             if (empty($tools)) {
                 unset($categories[$key]);
