@@ -21,13 +21,13 @@ class ToolController extends Controller
         $tools = $this->getDoctrine()
             ->getManager()
             ->getRepository(Tool::class)
-            ->findFiles(Tool::TOOL_TYPE, true)
+            ->findFiles(Tool::TOOL_TYPE)
         ;
 
         $categories = $this->getDoctrine()
             ->getManager()
             ->getRepository(Category::class)
-            ->findFiles(Tool::TOOL_TYPE, true)
+            ->findFiles(Tool::TOOL_TYPE)
         ;
 
         return $this->render('AppBundle:Admin:Tools/index.html.twig', [

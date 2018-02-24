@@ -62,6 +62,13 @@ class Tool
     private $type;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="datetime", nullable=true)
+     */
+    private $date;
+
+    /**
      * @var Datetime
      *
      * @ORM\Column(name="createdAt", type="datetime", nullable=true)
@@ -92,6 +99,10 @@ class Tool
 
     public function getName()
     {
+        if (null !== $this->date) {
+            return sprintf('%s - %s', $this->name, $this->date->format('d/m/Y'));
+        }
+
         return $this->name;
     }
 
@@ -160,6 +171,16 @@ class Tool
         $this->type = $type;
 
         return $this;
+    }
+
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTime $date)
+    {
+        $this->date = $date;
     }
 
     public function getFile()
