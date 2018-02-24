@@ -4,6 +4,7 @@ namespace AppBundle\Form\Type;
 
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -20,6 +21,10 @@ class CategoryType extends AbstractType
             ))
             ->add('position', NumberType::class, array(
                 'label' => 'Position',
+            ))
+            ->add('orderField', ChoiceType::class, array(
+                'label' => 'Trier les documents par :',
+                'choices' => ['Nom' => 'name', 'Date' => 'date'],
             ))
             ->add('forMembers', CheckboxType::class, array(
                 'label' => 'Réservée aux membres',

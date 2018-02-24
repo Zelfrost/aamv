@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Type
@@ -49,6 +50,14 @@ class Category
      * @ORM\Column(name="for_members", type="boolean")
      */
     private $forMembers;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="order_field", type="string")
+     * @Assert\Choice(choices={"name", "date"}, message="Le tri ne peut se faire que par nom ou par date")
+     */
+    private $orderField;
 
     /**
      * @var ArrayCollection
@@ -122,6 +131,18 @@ class Category
     public function setTools($tools)
     {
         $this->tools = $tools;
+
+        return $this;
+    }
+
+    public function getOrderField()
+    {
+        return $this->orderField;
+    }
+
+    public function setOrderField($orderField)
+    {
+        $this->orderField = $orderField;
 
         return $this;
     }
