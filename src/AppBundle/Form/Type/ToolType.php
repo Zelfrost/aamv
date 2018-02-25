@@ -34,6 +34,7 @@ class ToolType extends AbstractType
             ))
             ->add('date', DateType::class, array(
                 'label' => 'Date (ne remplir que pour les documents à trier par date)',
+                'format' => 'dd-MM-yyyy',
                 'required' => false,
             ))
             ->add('file', FileType::class, array(

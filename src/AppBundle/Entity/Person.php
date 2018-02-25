@@ -133,6 +133,9 @@ class Person
 
     public function getFullname()
     {
-        return $this->name." ".$this->firstname;
+        return sprintf('%s %s',
+            $this->name,
+            $this->firstname
+        );
     }
 }

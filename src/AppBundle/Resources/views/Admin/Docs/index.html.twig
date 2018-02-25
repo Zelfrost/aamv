@@ -38,7 +38,7 @@
             {% for doc in tools %}
                 <tr>
                     <td>{{ doc.id }}</td>
-                    <td>{{ doc.name }}</td>
+                    <td>{{ doc.fullname }}</td>
                     <td>
                         <a class="btn btn-info" href="{{ path('admin_docs_edit', {'id': doc.id}) }}">Modifier</a>
                         <form method="POST" class="remove" action="{{ path('admin_docs_delete', {"id": doc.id}) }}">
@@ -71,7 +71,7 @@
                     {% for doc in category.tools %}
                         <tr>
                             <td>{{ doc.id }}</td>
-                            <td>{{ doc.name }}</td>
+                            <td>{{ doc.fullname }}</td>
                             <td>
                                 <a class="btn btn-info" href="{{ path('admin_docs_edit', {'id': doc.id}) }}">Modifier</a>
                                 <form method="POST" class="remove" action="{{ path('admin_docs_delete', {"id": doc.id}) }}">

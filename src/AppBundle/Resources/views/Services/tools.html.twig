@@ -18,7 +18,7 @@
             <table class="table table-hover">
                 {% for tool in tools %}
                     <tr class="row tool">
-                        <td>{{ tool.name }}</td>
+                        <td>{{ tool.fullname }}</td>
                         <td>
                             <a href="{{ tool.path }}">
                                 <span class="glyphicon glyphicon-download"></span>
@@ -43,7 +43,7 @@
                     <table class="table table-hover">
                         {% for tool in type.tools %}
                             <tr class="row tool">
-                                <td>{{ tool.name }}</td>
+                                <td>{{ tool.fullname }}</td>
                                 <td>
                                     <a href="{{ tool.path }}">
                                         <span class="glyphicon glyphicon-download"></span>

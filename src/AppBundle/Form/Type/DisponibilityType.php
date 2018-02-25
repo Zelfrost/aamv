@@ -25,6 +25,7 @@ class DisponibilityType extends AbstractType
                     return $er->createQueryBuilder('p')
                         ->leftJoin('AppBundle\Entity\User', 'u', Expr\Join::WITH, 'u.id = p.id')
                         ->where('u.roles LIKE :role')
+                        ->orWhere('u.id IS NULL')
                         ->setParameter('role', '%ROLE_MEMBER%')
                         ->orderBy('p.name', 'ASC')
                         ->addOrderBy('p.firstname', 'ASC')

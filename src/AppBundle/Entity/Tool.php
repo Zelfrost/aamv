@@ -99,6 +99,11 @@ class Tool
 
     public function getName()
     {
+        return $this->name;
+    }
+
+    public function getFullname()
+    {
         if (null !== $this->date) {
             return sprintf('%s - %s', $this->name, $this->date->format('d/m/Y'));
         }
