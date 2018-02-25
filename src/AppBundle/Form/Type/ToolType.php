@@ -36,7 +36,6 @@ class ToolType extends AbstractType
                 'label' => 'Date (ne remplir que pour les documents à trier par date)',
                 'format' => 'dd-MMMM-yyyy',
                 'required' => false,
-                'choice_translation_domain' => 'FR'
             ))
             ->add('file', FileType::class, array(
                 'label' => 'Fichier',
