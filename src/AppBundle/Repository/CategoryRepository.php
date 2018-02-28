@@ -14,7 +14,7 @@ class CategoryRepository extends EntityRepository
             ->where('c.type = :type')
             ->setParameter('type', $type)
             ->orderBy('ORD', 'ASC')
-            ->orderBy('c.name', 'DESC')
+            ->addOrderBy('c.name', 'DESC')
             ->getQuery()
             ->getResult()
         ;
