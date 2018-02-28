@@ -20,6 +20,8 @@ class ToolRepository extends EntityRepository
 
         if (null !== $category) {
             $builder->andWhere('t.category = :category')->setParameter('category', $category);
+        } else {
+            $builder->andWhere('t.category IS NULL');
         }
 
         return $builder->getQuery()->getResult();
