@@ -36,9 +36,9 @@
                     <select name="role" class="form-control">
                         <option value="" {% if pagination.role == 'none' %}selected="selected"{% endif %}>Filtres possibles</option>
                         <option value="parent" {% if pagination.role == 'parent' %}selected="selected"{% endif %}>Liste des parents</option>
-                        <option value="assistant" {% if pagination.role == 'assistante' %}selected="selected"{% endif %}>Liste des assistantes</option>
-                        <option value="member" {% if pagination.role == 'member' %}selected="selected"{% endif %}>Liste des assistantes adhérentes</option>
-                        <option value="not-member" {% if pagination.role == 'not-member' %}selected="selected"{% endif %}>Liste des assistantes non adhérentes</option>
+                        <option value="assistant" {% if pagination.role == 'assistante' %}selected="selected"{% endif %}>Liste des assistantes maternelles</option>
+                        <option value="member" {% if pagination.role == 'member' %}selected="selected"{% endif %}>Liste des assistantes maternelles adhérentes</option>
+                        <option value="not-member" {% if pagination.role == 'not-member' %}selected="selected"{% endif %}>Liste des assistantes maternelles non adhérentes</option>
                     </select>
                 </div>
 
