@@ -224,6 +224,9 @@ nav li li a:hover {
 #body ul:not(.with-type) li {
     list-style-type: none;
 }
+#body #news ul li {
+    list-style-type: circle;
+}
 
 footer {
     position: relative;
