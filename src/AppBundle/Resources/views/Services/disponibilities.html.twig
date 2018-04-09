@@ -9,28 +9,28 @@
 {% block body %}
     <h2>Disponibilités</h2>
 
-    <div class="city">
-        <label for="city">Ville :</label>
-        <select name="city" class="form-control">
-            <option value="none" {% if city == 'none' %}selected="selected"{% endif %}>Villes disponible</option>
-            {% for cityValue in cities %}
-                <option value="{{ cityValue }}" {% if city == cityValue %}selected="selected"{% endif %}>{{ cityValue }}</option>
-            {% endfor %}
-        </select>
-    </div>
+    {% if disponibilities|length > 0 %}
+        <div class="city">
+            <label for="city">Ville :</label>
+            <select name="city" class="form-control">
+                <option value="none" {% if city == 'none' %}selected="selected"{% endif %}>Villes disponible</option>
+                {% for cityValue in cities %}
+                    <option value="{{ cityValue }}" {% if city == cityValue %}selected="selected"{% endif %}>{{ cityValue }}</option>
+                {% endfor %}
+            </select>
+        </div>
 
-    <div class="neighborhood">
-        <label for="neighborhood">Quartier :</label>
-        <select name="neighborhood" class="form-control">
-            <option value="none" {% if neighborhood == 'none' %}selected="selected"{% endif %}>Quartier disponible</option>
-            {% for neighborhoodValue in neighborhoods %}
-                <option value="{{ neighborhoodValue }}" {% if neighborhood == neighborhoodValue %}selected="selected"{% endif %}>{{ neighborhoodValue }}</option>
-            {% endfor %}
-        </select>
-    </div>
+        <div class="neighborhood">
+            <label for="neighborhood">Quartier :</label>
+            <select name="neighborhood" class="form-control">
+                <option value="none" {% if neighborhood == 'none' %}selected="selected"{% endif %}>Quartier disponible</option>
+                {% for neighborhoodValue in neighborhoods %}
+                    <option value="{{ neighborhoodValue }}" {% if neighborhood == neighborhoodValue %}selected="selected"{% endif %}>{{ neighborhoodValue }}</option>
+                {% endfor %}
+            </select>
+        </div>
 
-    <div id="disponibilities">
-        {% if disponibilities|length > 0 %}
+        <div id="disponibilities">
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
@@ -55,8 +55,10 @@
             </table>
 
             {% include 'AppBundle:Base:pagination.html.twig' %}
-        {% endif %}
-    </div>
+        </div>
+    {% else %}
+        <p class="nothing">Il n'y a actuellement pas de disponibilités sur le site.</p>
+    {% endif %}
 {% endblock %}
 
 {% block javascripts %}
