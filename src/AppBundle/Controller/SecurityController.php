@@ -31,6 +31,7 @@ class SecurityController extends Controller
 
             $role = $this->get('retriever.role')->getRoleFromName($form->get('role')->getData());
             $user->addRole($role);
+            $user->setFromIP($request->getClientIp());
 
             $this->get('mailer.registration')->send($user);
 
