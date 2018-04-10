@@ -52,6 +52,20 @@ class User extends Person implements UserInterface, EncoderAwareInterface
     /**
      * @var string
      *
+     * @ORM\Column(name="from_ip", type="string")
+     */
+    private $fromIP;
+
+    /**
+     * @var \DateTime;
+     *
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="password_reinitialization_code", type="string", nullable=true)
      */
     private $passwordReinitializationCode;
@@ -66,6 +80,7 @@ class User extends Person implements UserInterface, EncoderAwareInterface
     public function __construct()
     {
         $this->active = true;
+        $this->createdAt = new \DateTime();
     }
 
     public function getUsername()
@@ -176,6 +191,30 @@ class User extends Person implements UserInterface, EncoderAwareInterface
         $this->active = $active;
 
         return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param string $fromIp
+     */
+    public function setFromIP($fromIp)
+    {
+        $this->fromIP = $fromIp;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFromIP()
+    {
+        return $this->fromIP;
     }
 
     public function getPasswordReinitializationCode()
