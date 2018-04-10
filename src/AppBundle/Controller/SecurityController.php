@@ -98,7 +98,11 @@ class SecurityController extends Controller
                 ->findOneByEmail($form->get('email')->getData())
             ;
 
-            if ($user !== null) {
+            if (null === $user) {
+                $error = "Aucun compte n'est lié à cette adresse email";
+            } elseif (null !== $user->getPasswordReinitializationCode()) {
+                $error = "Une demande de réinitialisation de mot de passe a déjà été faite pour ce compte.";
+            } else {
                 $user->setPasswordReinitializationCode(md5(uniqid($user->getId(), true)));
 
                 $this->getDoctrine()->getManager()->flush();
@@ -112,8 +116,6 @@ class SecurityController extends Controller
 
                 return $this->redirectToRoute('login');
             }
-
-            $error = "Aucun compte n'est lié à cette adresse email";
         }
 
         return $this->render('AppBundle:Security:forgot_password.html.twig', array(
