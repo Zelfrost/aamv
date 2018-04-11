@@ -50,10 +50,11 @@
             <script src="{{ asset('vendor/jquery/dist/jquery.min.js') }}"></script>
             <script src="{{ asset('vendor/jquery-ui/jquery-ui.min.js') }}"></script>
 
+            <script src="{{ asset('bundles/app/js/base.js') }}"></script>
             {% if app.session.getFlashBag.has('authentication.legacy') and app.session.getFlashBag.get('authentication.legacy') == true %}
                 <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
                 <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
-                <script src="{{ asset('bundles/app/js/base.js') }}"></script>
+                <script src="{{ asset('bundles/app/js/authentication-legacy.js') }}"></script>
             {% endif %}
 
             {% block javascripts %}{% endblock %}

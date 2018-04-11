@@ -65,6 +65,20 @@ class Ad
     private $type;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="show_phone_number", type="boolean")
+     */
+    private $showPhoneNumber;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="show_email", type="boolean")
+     */
+    private $showEmail;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="view_count", type="integer")
@@ -238,6 +252,26 @@ class Ad
     public function getType()
     {
         return $this->type;
+    }
+
+    public function showPhoneNumber(): bool
+    {
+        return $this->showPhoneNumber;
+    }
+
+    public function setShowPhoneNumber(bool $showPhoneNumber)
+    {
+        $this->showPhoneNumber = $showPhoneNumber;
+    }
+
+    public function showEmail(): bool
+    {
+        return $this->showEmail;
+    }
+
+    public function setShowEmail(bool $showEmail)
+    {
+        $this->showEmail = $showEmail;
     }
 
     /**
