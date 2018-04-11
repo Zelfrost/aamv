@@ -69,14 +69,14 @@ class Ad
      *
      * @ORM\Column(name="show_phone_number", type="boolean")
      */
-    private $showPhoneNumber;
+    private $showPhoneNumber = false;
 
     /**
      * @var boolean
      *
      * @ORM\Column(name="show_email", type="boolean")
      */
-    private $showEmail;
+    private $showEmail = false;
 
     /**
      * @var integer
