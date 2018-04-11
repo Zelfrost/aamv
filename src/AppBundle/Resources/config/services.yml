@@ -74,6 +74,11 @@ services:
         tags:
             - { name: validator.constraint_validator, alias: city_from_api }
 
+    validator.email:
+        class: AppBundle\Service\Validator\Constraints\EmailValidator
+        tags:
+            - { name: validator.constraint_validator, alias: email_validator }
+
     mailer.registration:
         class: AppBundle\Service\Mailer\RegistrationMailer
         arguments: ['@twig', '@mailer']
