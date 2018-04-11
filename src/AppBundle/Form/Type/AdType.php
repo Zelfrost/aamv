@@ -57,6 +57,22 @@ class AdType extends AbstractType
                     'class' => 'form-control'
                 )
             ))
+            ->add('showPhoneNumber', ChoiceType::class, [
+                'label' => "Souhaitez vous afficher votre numéro de téléphone dans l'annonce ?",
+                'expanded' => true,
+                'choices' => [
+                    'Oui' => true,
+                    'Non' => false,
+                ],
+            ])
+            ->add('showEmail', ChoiceType::class, [
+                'label' => "Souhaitez vous afficher votre adresse email dans l'annonce ?",
+                'expanded' => true,
+                'choices' => [
+                    'Oui' => true,
+                    'Non' => false,
+                ],
+            ])
             ->add('submit', SubmitType::class, array(
                 'label' => 'Confirmer',
                 'attr' => array(

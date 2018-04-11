@@ -132,7 +132,7 @@ class ManagementController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            if ($form->get('revalidate')->isClicked()) {
+            if ($form->has('revalidate') && $form->get('revalidate')->isClicked()) {
                 $ad->setCreatedAt(new \DateTime());
             }
 

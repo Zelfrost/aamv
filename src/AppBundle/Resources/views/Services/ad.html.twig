@@ -57,18 +57,25 @@
     <div>
         <h3>Contact</h3>
         <div id="contact" class="col-md-12">
-            <div class="col-md-6">
-                <div class="row">
-                    <label>Numéro de téléphone :</label>
-                    <p>{{ ad.author.phoneNumber }}</p>
+            {% if ad.showPhoneNumber %}
+                <div class="col-md-6">
+                    <div class="row">
+                        <label>Numéro de téléphone :</label>
+                        <p><button class="btn btn-info display-info">Afficher le numéro de téléphone</button></p>
+                        <p class="button-related">{{ ad.author.phoneNumber }}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="row">
-                    <label>Adresse mail :</label>
-                    <p>{{ ad.author.email }}</p>
+            {% endif %}
+
+            {% if ad.showEmail %}
+                <div class="col-md-6">
+                    <div class="row">
+                        <label>Adresse mail :</label>
+                        <p><button class="btn btn-info display-info">Afficher l'addresse email</button></p>
+                        <p class="button-related">{{ ad.author.email }}</p>
+                    </div>
                 </div>
-            </div>
+            {% endif %}
         </div>
 
         <hr class="clear">
