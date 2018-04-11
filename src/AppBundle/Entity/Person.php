@@ -36,6 +36,7 @@ class Person
 
     /**
      * @ORM\Column(type="string", length=60, unique=true)
+     * @Constraints\EmailConstraint
      */
     private $email;
 
