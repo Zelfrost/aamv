@@ -178,12 +178,18 @@ class Tool
         return $this;
     }
 
+    /**
+     * @return \DateTime|null
+     */
     public function getDate()
     {
         return $this->date;
     }
 
-    public function setDate(\DateTime $date)
+    /**
+     * @param \DateTime|null $date
+     */
+    public function setDate($date)
     {
         $this->date = $date;
     }
