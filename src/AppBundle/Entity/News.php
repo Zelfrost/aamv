@@ -38,10 +38,17 @@ class News
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="User")
      * @ORM\JoinColumn(nullable=false, referencedColumnName="id")
      */
     private $author;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="important", type="boolean")
+     */
+    private $important;
 
     /**
      * @var \DateTime
@@ -121,7 +128,7 @@ class News
     /**
      * Set author
      *
-     * @param AppBundle\Entity\User $author
+     * @param User $author
      * @return $this
      */
     public function setAuthor($author)
@@ -134,11 +141,24 @@ class News
     /**
      * Get author
      *
-     * @return AppBundle\Entity\User 
+     * @return User
      */
     public function getAuthor()
     {
         return $this->author;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function isImportant()
+    {
+        return $this->important;
+    }
+
+    public function setImportant(bool $important)
+    {
+        $this->important = $important;
     }
 
     /**

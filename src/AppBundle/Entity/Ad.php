@@ -38,7 +38,7 @@ class Ad
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="ads")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="ads")
      * @ORM\JoinColumn(nullable=false, referencedColumnName="id")
      */
     private $author;
@@ -165,7 +165,7 @@ class Ad
     /**
      * Set author
      *
-     * @param AppBundle\Entity\User $author
+     * @param User $author
      * @return Ad
      */
     public function setAuthor($author)
@@ -178,7 +178,7 @@ class Ad
     /**
      * Get author
      *
-     * @return AppBundle\Entity\User 
+     * @return User
      */
     public function getAuthor()
     {
