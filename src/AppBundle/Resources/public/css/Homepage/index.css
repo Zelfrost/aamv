@@ -51,9 +51,16 @@
          -o-box-sizing: border-box;
             box-sizing: border-box;
 }
+.new.important {
+    background: #FFD792;
+    border-color: #7F673C;
+}
 .new:hover {
     background: #E5E5E5;
     border-color: #7F673C;
+}
+.new.important:hover {
+    background: #FFCE79;
 }
 
 .new .title {

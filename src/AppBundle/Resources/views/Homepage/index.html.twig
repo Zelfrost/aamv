@@ -22,7 +22,7 @@
     <div id="news">
         {% for new in news %}
         <a href="{{ path('homepage_new', {'id': new.id}) }}">
-            <div class="new">
+            <div class="new{% if new.important %} important{% endif %}">
                 <div class="title">
                     <h3>{{ new.title|raw|slice(0, 150) }} {% if new.title|length > 150 %}...{% endif %}</h3>
                 </div>
