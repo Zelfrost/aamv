@@ -149,9 +149,10 @@ class ServicesController extends Controller
             'neighborhood' => $neighborhood,
             'neighborhoods' => $neighborhoods,
             'pagination' => array(
-                'route' => 'service_disponibilities',
+                'route' => 'services_disponibilities',
                 'page' => $page,
-                'pages_count' => $pagesCount
+                'pages_count' => $pagesCount,
+                'parameters' => [],
             )
         );
 
