@@ -50,13 +50,6 @@ class User extends Person implements UserInterface, EncoderAwareInterface
     private $currentPassword;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="from_ip", type="string")
-     */
-    private $fromIP;
-
-    /**
      * @var \DateTime;
      *
      * @ORM\Column(name="created_at", type="datetime")
@@ -199,22 +192,6 @@ class User extends Person implements UserInterface, EncoderAwareInterface
     public function getCreatedAt()
     {
         return $this->createdAt;
-    }
-
-    /**
-     * @param string $fromIp
-     */
-    public function setFromIP($fromIp)
-    {
-        $this->fromIP = $fromIp;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFromIP()
-    {
-        return $this->fromIP;
     }
 
     public function getPasswordReinitializationCode()

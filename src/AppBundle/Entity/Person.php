@@ -3,12 +3,14 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Service\Validator\Constraints;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="person")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PersonRepository")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"person" = "Person", "user" = "User"})
@@ -54,6 +56,13 @@ class Person
      * @ORM\Column(name="neighborhood", type="string", length=255, nullable = true)
      */
     private $neighborhood;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Disponibility", mappedBy="childminder")
+     */
+    private $disponibilities;
 
     public function getId()
     {
@@ -138,5 +147,10 @@ class Person
             $this->name,
             $this->firstname
         );
+    }
+
+    public function getDisponibilities()
+    {
+        return $this->disponibilities;
     }
 }
