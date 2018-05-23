@@ -38,8 +38,8 @@ class Disponibility
     /**
      * @var Childminder
      *
-     * @ORM\ManyToOne(targetEntity="Person")
-     * @ORM\JoinColumn(nullable=false, referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Person", inversedBy="disponibilities")
+     * @ORM\JoinColumn(nullable=true, referencedColumnName="id")
      */
     private $childminder;
 
@@ -100,12 +100,10 @@ class Disponibility
     }
 
     /**
-     * Set childminder
-     *
-     * @param AppBundle\Entity\Person $childminder
+     * @param Person|null $childminder
      * @return $this
      */
-    public function setChildminder(Person $childminder)
+    public function setChildminder($childminder)
     {
         $this->childminder = $childminder;
 
@@ -115,7 +113,7 @@ class Disponibility
     /**
      * Get childminder
      *
-     * @return AppBundle\Entity\Person 
+     * @return Person|null
      */
     public function getChildminder()
     {

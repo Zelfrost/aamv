@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Disponibility;
+use AppBundle\Entity\Person;
 use AppBundle\Entity\User;
 use AppBundle\Form\Type\ChangePasswordType;
 use AppBundle\Form\Type\ForgotPasswordType;
@@ -25,17 +27,39 @@ class SecurityController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $password = $this->get('security.password_encoder')
-                ->encodePassword($user, $user->getPlainPassword());
+            $password = $this
+                ->get('security.password_encoder')
+                ->encodePassword($user, $user->getPlainPassword())
+            ;
             $user->setPassword($password);
+
+            $em = $this->getDoctrine()->getManager();
+            $alreadyExistingPerson = $em
+                ->getRepository(Person::class)
+                ->findPersonOnly($user->getEmail())
+            ;
+            if (null !== $alreadyExistingPerson && $alreadyExistingPerson instanceof Person) {
+                $disponibilities = [];
+
+                /** @var Disponibility $disponibility */
+                foreach ($alreadyExistingPerson->getDisponibilities() as $disponibility) {
+                    $disponibilities[] = $disponibility;
+                    $disponibility->setChildminder(null);
+                }
+
+                $em->remove($alreadyExistingPerson);
+                $em->flush();
+
+                foreach ($disponibilities as $disponibility) {
+                    $disponibility->setChildminder($user);
+                }
+            }
 
             $role = $this->get('retriever.role')->getRoleFromName($form->get('role')->getData());
             $user->addRole($role);
-            $user->setFromIP($request->getClientIp());
 
             $this->get('mailer.registration')->send($user);
 
-            $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 
