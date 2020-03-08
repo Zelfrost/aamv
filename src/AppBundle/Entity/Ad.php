@@ -5,8 +5,6 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Ad
- *
  * @ORM\Table(name="ad")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AdRepository")
  */
@@ -46,21 +44,21 @@ class Ad
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="disponibility_date", type="datetime")
+     * @ORM\Column(name="disponibility_date", type="datetime", nullable=true)
      */
     private $disponibilityDate;
 
     /**
      * @var array
      *
-     * @ORM\Column(name="wished_days", type="array")
+     * @ORM\Column(name="wished_days", type="array", nullable=true)
      */
     private $wishedDays;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="type", type="string")
+     * @ORM\Column(name="type", type="string", nullable=true)
      */
     private $type;
 

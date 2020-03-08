@@ -20,9 +20,11 @@
     {{ form_start(form) }}
         {{ form_row(form.title) }}
         {{ form_row(form.content) }}
-        {{ form_row(form.disponibilityDate, {'date_pattern': '<span style="display: none;">{{ day }}</span> {{ month }} <span class="delim">/</span> {{ year }}'}) }}
-        {{ form_row(form.wishedDays) }}
-        {{ form_row(form.type) }}
+        {% if is_granted('ROLE_TRAINEE') %}<div class="hidden">{% endif %}
+            {{ form_row(form.disponibilityDate, {'date_pattern': '<span style="display: none;">{{ day }}</span> {{ month }} <span class="delim">/</span> {{ year }}'}) }}
+            {{ form_row(form.wishedDays) }}
+            {{ form_row(form.type) }}
+        {% if is_granted('ROLE_TRAINEE') %}</div>{% endif %}
         {{ form_row(form.showPhoneNumber) }}
         {{ form_row(form.showEmail) }}
         {{ form_row(form.submit) }}

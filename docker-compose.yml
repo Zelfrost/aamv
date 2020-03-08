@@ -9,7 +9,7 @@ services:
             - MYSQL_DATABASE=aamv
 
     php:
-        image: mehrdadkhah/php7
+        image: mehrdadkhah/php7:alpine-7.1
         container_name: php7
         links:
             - mysql:mysql

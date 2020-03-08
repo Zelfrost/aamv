@@ -2,6 +2,8 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\Repository\CityRepository;
+use AppBundle\Service\Retriever\CityRetriever;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -15,10 +17,12 @@ use Symfony\Component\Form\FormEvents;
 class RegisterType extends AbstractType
 {
     private $cityRetriever;
+    private $repository;
 
-    public function __construct($cityRetriever)
+    public function __construct(CityRetriever $cityRetriever, CityRepository $repository)
     {
         $this->cityRetriever = $cityRetriever;
+        $this->repository = $repository;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -45,7 +49,8 @@ class RegisterType extends AbstractType
             ->add('role', ChoiceType::class, array(
                 'choices' => array(
                     'Assistante Maternelle' => 'assistante',
-                    'Parent' => 'parent'
+                    'Parent' => 'parent',
+                    'En recherche de stage' => 'trainee',
                 ),
                 'attr' => array('class' => 'clearfix'),
                 'label' => 'Vous êtes un/une',
@@ -56,7 +61,7 @@ class RegisterType extends AbstractType
             ->add('city', ChoiceType::class, array(
                 'label' => 'Ville',
                 'attr' => array(
-                    'class' => "select2 city form-control"
+                    'class' => 'select2 city form-control'
                 )
             ))
             ->add('neighborhood', ChoiceType::class, array(
@@ -64,9 +69,9 @@ class RegisterType extends AbstractType
                 'required' => false,
                 'choices' =>  array_merge(array(
                     null => 'Choisissez un quartier',
-                ), $this->cityRetriever->getNeighborhoods("Villeneuve-d'Ascq, France")),
+                ), $this->cityRetriever->getNeighborhoods()),
                 'attr' => array(
-                    'class' => "form-control neighborhood"
+                    'class' => 'form-control neighborhood'
                 )
             ))
             ->add('submit', SubmitType::class, array(
@@ -87,19 +92,19 @@ class RegisterType extends AbstractType
             $form->add('city', ChoiceType::class, array(
                 'label' => 'Ville',
                 'attr' => array(
-                    'class' => "select2 city form-control"
+                    'class' => 'select2 city form-control'
                 ),
-                'choices' => array(
+                'choices' => [
                     $data['city'] => $data['city'],
-                )
+                ]
             ))
             ->add('neighborhood', ChoiceType::class, array(
-                'label' => "Quartier (seulement si vous êtes de Villeneuve d'Ascq)",
+                'label' => 'Quartier (seulement si vous êtes de Villeneuve d\'Ascq)',
                 'choices' => array_merge(array(
                     null => 'Choisissez un quartier',
-                ), $this->cityRetriever->getNeighborhoods("Villeneuve-d'Ascq, France")),
+                ), $this->cityRetriever->getNeighborhoods()),
                 'attr' => array(
-                    'class' => "form-control neighborhood"
+                    'class' => 'form-control neighborhood'
                 )
             ))
             ->add('submit', SubmitType::class, array(

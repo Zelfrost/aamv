@@ -9,7 +9,7 @@
 {% block body %}
     <h2 class="main">Petites annonces</h2>
 
-    {% if is_granted('IS_AUTHENTICATED_FULLY') and (is_granted('ROLE_PARENT') or is_granted('ROLE_MEMBER')) %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') and (is_granted('ROLE_PARENT') or is_granted('ROLE_MEMBER') or is_granted('ROLE_TRAINEE')) %}
         <div class="alert alert-info"><a href="{{ path('manage_ad_create') }}">Cliquez ici</a> pour poster une annonce.</div>
     {% endif %}
 
@@ -30,8 +30,11 @@
         </div>
     {% endif %}
 
-
     <div class="ads-type"><a href="{{ path('services_ads_list', {'type': 'assistante'}) }}" class="btn">Annonces d'assistantes maternelles</a></div>
+
+    {% if is_granted('ROLE_ASSISTANT') or is_granted('ROLE_TRAINEE') %}
+        <div class="ads-type"><a href="{{ path('services_ads_list', {'type': 'trainee'}) }}" class="btn">Recherche de stage</a></div>
+    {% endif %}
 {% endblock body %}
 
 {% block javascripts %}

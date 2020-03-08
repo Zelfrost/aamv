@@ -1,4 +1,26 @@
 services:
+    AppBundle\Repository\ToolRepository:
+        class: AppBundle\Repository\ToolRepository
+        lazy: true
+        factory:
+            - "@doctrine.orm.default_entity_manager"
+            - getRepository
+        arguments:
+            - "AppBundle\\Entity\\Tool"
+
+    AppBundle\Repository\CityRepository:
+        class: AppBundle\Repository\CityRepository
+        lazy: true
+        factory:
+            - "@doctrine.orm.default_entity_manager"
+            - getRepository
+        arguments:
+            - 'AppBundle\Entity\City'
+
+    AppBundle\Controller\Api\CitiesApiController:
+        class: AppBundle\Controller\Api\CitiesApiController
+        autowire: true
+
     listener.legacy_authentication:
         class: AppBundle\Listener\LegacyAuthenticationListener
         arguments: ['@security.token_storage', '@session', '@security.password_encoder', '@doctrine']
@@ -22,9 +44,9 @@ services:
         class:     Buzz\Browser
         arguments: ['@buzz.client.curl']
 
-    form.register:
+    AppBundle\Form\Type\RegisterType:
         class: AppBundle\Form\Type\RegisterType
-        arguments: ['@retriever.city']
+        autowire: true
         tags:
             - { name: form.type }
 
@@ -58,7 +80,7 @@ services:
 
     retriever.city:
         class: AppBundle\Service\Retriever\CityRetriever
-        arguments: ['@buzz.browser', '%api_city_key%']
+        autowire: true
 
     retriever.role:
         class: AppBundle\Service\Retriever\RoleRetriever
@@ -68,11 +90,11 @@ services:
         class: AppBundle\Service\Retriever\PublishableRetriever
         arguments: ['@doctrine.orm.entity_manager']
 
-    city_from_api:
-        class: AppBundle\Service\Validator\Constraints\CityFromApiValidator
-        arguments: ['@retriever.city']
+    AppBundle\Service\Validator\Constraints\CityFromApiConstraintValidator:
+        class: AppBundle\Service\Validator\Constraints\CityFromApiConstraintValidator
+        autowire: true
         tags:
-            - { name: validator.constraint_validator, alias: city_from_api }
+            - { name: validator.constraint_validator }
 
     validator.email:
         class: AppBundle\Service\Validator\Constraints\EmailValidator

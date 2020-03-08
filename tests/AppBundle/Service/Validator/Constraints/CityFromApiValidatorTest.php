@@ -3,7 +3,7 @@
 namespace AppBundle\Service\Validator\Constraints;
 
 use AppBundle\Service\Validator\Constraints\CityFromApiConstraint;
-use AppBundle\Service\Validator\Constraints\CityFromApiValidator;
+use AppBundle\Service\Validator\Constraints\CityFromApiConstraint;
 use \Mockery as m;
 
 class CityFromApiValidatorTest extends \PHPUnit_Framework_TestCase
@@ -25,7 +25,7 @@ class CityFromApiValidatorTest extends \PHPUnit_Framework_TestCase
         $constraint = m::mock('AppBundle\Service\Validator\Constraints\CityFromApiConstraint');
         $constraint->cityMessage = 'Not a valid city';
 
-        $validator = new CityFromApiValidator($retriever);
+        $validator = new CityFromApiConstraint($retriever);
         $validator->initialize($context);
         $validator->validate($entity, $constraint);
     }
@@ -50,7 +50,7 @@ class CityFromApiValidatorTest extends \PHPUnit_Framework_TestCase
         $constraint = m::mock('AppBundle\Service\Validator\Constraints\CityFromApiConstraint');
         $constraint->cityMessage = 'Not a valid city';
 
-        $validator = new CityFromApiValidator($retriever);
+        $validator = new CityFromApiConstraint($retriever);
         $validator->initialize($context);
         $validator->validate($entity, $constraint);
     }
@@ -72,7 +72,7 @@ class CityFromApiValidatorTest extends \PHPUnit_Framework_TestCase
         $constraint = m::mock('AppBundle\Service\Validator\Constraints\CityFromApiConstraint');
         $constraint->cityMessage = 'Not a valid city';
 
-        $validator = new CityFromApiValidator($retriever);
+        $validator = new CityFromApiConstraint($retriever);
         $validator->initialize($context);
         $validator->validate($entity, $constraint);
     }

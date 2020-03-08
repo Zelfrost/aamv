@@ -2,10 +2,9 @@
 
 namespace AppBundle\Form\Type;
 
+use AppBundle\Service\Retriever\CityRetriever;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,7 +15,7 @@ class PersonType extends AbstractType
 {
     private $cityRetriever;
 
-    public function __construct($cityRetriever)
+    public function __construct(CityRetriever $cityRetriever)
     {
         $this->cityRetriever = $cityRetriever;
     }
@@ -40,7 +39,7 @@ class PersonType extends AbstractType
             ->add('city', ChoiceType::class, array(
                 'label' => 'Ville',
                 'attr' => array(
-                    'class' => "select2 city form-control"
+                    'class' => 'select2 city form-control'
                 )
             ))
             ->add('neighborhood', ChoiceType::class, array(
@@ -48,9 +47,9 @@ class PersonType extends AbstractType
                 'required' => false,
                 'choices' =>  array_merge(array(
                     null => 'Choisissez un quartier',
-                ), $this->cityRetriever->getNeighborhoods("Villeneuve-d'Ascq, France")),
+                ), $this->cityRetriever->getNeighborhoods()),
                 'attr' => array(
-                    'class' => "form-control neighborhood"
+                    'class' => 'form-control neighborhood'
                 )
             ))
             ->add('submit', SubmitType::class, array(
@@ -73,7 +72,7 @@ class PersonType extends AbstractType
                 $form->add('city', ChoiceType::class, array(
                     'label' => 'Ville',
                     'attr' => array(
-                        'class' => "select2 city form-control"
+                        'class' => 'select2 city form-control'
                     ),
                     'choices' => array(
                         $data['city'] => $data['city'],
@@ -83,18 +82,18 @@ class PersonType extends AbstractType
                 $form->add('city', ChoiceType::class, array(
                     'label' => 'Ville',
                     'attr' => array(
-                        'class' => "select2 city form-control"
+                        'class' => 'select2 city form-control'
                     )
                 ));
             }
 
             $form->add('neighborhood', ChoiceType::class, array(
-                'label' => "Quartier (seulement si vous êtes de Villeneuve d'Ascq)",
+                'label' => 'Quartier (seulement si vous êtes de Villeneuve d\'Ascq)',
                 'choices' => array_merge(array(
                     null => 'Choisissez un quartier',
-                ), $this->cityRetriever->getNeighborhoods("Villeneuve-d'Ascq, France")),
+                ), $this->cityRetriever->getNeighborhoods()),
                 'attr' => array(
-                    'class' => "form-control neighborhood"
+                    'class' => 'form-control neighborhood'
                 )
             ))
             ->add('submit', SubmitType::class, array(
