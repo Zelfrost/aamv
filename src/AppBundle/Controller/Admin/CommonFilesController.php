@@ -18,12 +18,16 @@ class CommonFilesController extends Controller
      */
     public function joinAction(Request $request)
     {
+        if (null === $request->query->get('year')) {
+            return $this->render('AppBundle:Admin:CommonFiles/join-year.html.twig');
+        }
+
         $form = $this->createForm(CommonFileType::class);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $data = $form->getData();
-            $this->saveFile($data['file'], Tool::JOIN_NAME);
+            $this->saveFile($data['file'], Tool::JOIN_NAME, $request->query->get('year'));
 
             $this->get('session')->getFlashBag()->add('admin.success', "Le formulaire d'adhésion a bien été remplacé.");
 
@@ -31,6 +35,29 @@ class CommonFilesController extends Controller
         }
 
         return $this->render('AppBundle:Admin:CommonFiles/join.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @Route(path="/admin/files/terms", name="admin_files_terms")
+     * @Method({"GET", "POST"})
+     */
+    public function termsAction(Request $request)
+    {
+        $form = $this->createForm(CommonFileType::class);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $data = $form->getData();
+            $this->saveFile($data['file'], Tool::TERMS_NAME);
+
+            $this->get('session')->getFlashBag()->add('admin.success', "Les conditions d'utilisation ont bien été remplacées.");
+
+            return $this->redirect($this->generateUrl('admin'));
+        }
+
+        return $this->render('AppBundle:Admin:CommonFiles/terms.html.twig', array(
             'form' => $form->createView()
         ));
     }
@@ -58,21 +85,31 @@ class CommonFilesController extends Controller
         ));
     }
 
-    private function saveFile(UploadedFile $file, $name)
+    private function saveFile(UploadedFile $file, $name, $year = null)
     {
         $manager = $this->getDoctrine()->getManager();
 
+        $criterias = [
+            'type' => null,
+            'name' => $name,
+        ];
+
+        if (null !== $year) {
+            $criterias['year'] = $year;
+        }
+
         $tool = $manager
             ->getRepository(Tool::class)
-            ->findOneBy([
-                'type' => null,
-                'name' => $name,
-            ])
+            ->findOneBy($criterias)
         ;
 
         if (null === $tool) {
             $tool = new Tool();
             $tool->setName($name);
+        }
+
+        if (null !== $year) {
+            $tool->setYear($year);
         }
 
         $tool->setFile($file);

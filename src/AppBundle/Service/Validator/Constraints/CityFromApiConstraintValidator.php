@@ -2,22 +2,23 @@
 
 namespace AppBundle\Service\Validator\Constraints;
 
+use AppBundle\Repository\CityRepository;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-class CityFromApiValidator extends ConstraintValidator
+class CityFromApiConstraintValidator extends ConstraintValidator
 {
-    private $cityRetriever;
+    private $repository;
 
-    public function __construct($cityRetriever)
+    public function __construct(CityRepository $repository)
     {
-        $this->cityRetriever = $cityRetriever;
+        $this->repository = $repository;
     }
 
     public function validate($entity, Constraint $constraint)
     {
-        $cities = $this->cityRetriever->retrieve($entity->getCity());
-        if (count($cities) === 0) {
+        $cities = $this->repository->findLike($entity->getCity());
+        if (0 === count($cities)) {
             $this->context->buildViolation($constraint->cityMessage)->addViolation();
 
             return;

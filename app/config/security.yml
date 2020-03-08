@@ -7,12 +7,14 @@ security:
 
     role_hierarchy:
         ROLE_PARENT:    ROLE_PARENT
+        ROLE_TRAINEE:   ROLE_TRAINEE
         ROLE_ASSISTANT: ROLE_ASSISTANT
         ROLE_MEMBER:    ROLE_ASSISTANT
         ROLE_ADMIN:
             - ROLE_PARENT
             - ROLE_ASSISTANT
             - ROLE_MEMBER
+            - ROLE_TRAINEE
 
     providers:
         user:
@@ -46,6 +48,6 @@ security:
         - { path: ^/admin, role: ROLE_ADMIN }
         - { path: ^/services/ads/parent, role: ROLE_MEMBER }
         - { path: ^/files/disponibilities, role: ROLE_MEMBER }
-        - { path: ^/services/ads/create, roles: [ROLE_ASSISTANT, ROLE_PARENT] }
-        - { path: ^/manage/ad, roles: [ROLE_MEMBER, ROLE_PARENT] }
-        - { path: ^/manage, roles: [ROLE_ASSISTANT, ROLE_PARENT] }
+        - { path: ^/services/ads/create, roles: [ROLE_ASSISTANT, ROLE_PARENT, ROLE_TRAINEE] }
+        - { path: ^/manage/ad, roles: [ROLE_MEMBER, ROLE_PARENT, ROLE_TRAINEE] }
+        - { path: ^/manage, roles: [ROLE_ASSISTANT, ROLE_PARENT, ROLE_TRAINEE] }

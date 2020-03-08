@@ -2,61 +2,25 @@
 
 namespace AppBundle\Service\Retriever;
 
+use AppBundle\Repository\CityRepository;
+
 class CityRetriever
 {
-    /**
-     * @var Buzz\Browser
-     */
-    private $browser;
+    private $repository;
 
-    /**
-     * @var string
-     */
-    private $key;
-
-    public function __construct($browser, $key)
+    public function __construct(CityRepository $repository)
     {
-        $this->browser = $browser;
-        $this->key = $key;
+        $this->repository = $repository;
     }
 
-    public function retrieve($name)
+    public function retrieve($name): array
     {
-        $url = str_replace(' ', '%20', sprintf(
-            'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=%s&key=%s&regions=locality&langage=fr&components=country:fr',
-            $name,
-            $this->key
-        ));
-
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-        $response = curl_exec($ch);
-        $cities = json_decode($response, true);
-
-        if (array_key_exists('error_message', $cities)) {
-            throw new \Exception($cities['error_message']);
-        }
-
-        if (!is_array($cities) || !array_key_exists('predictions', $cities)) {
-            return [];
-        }
-
-        $citiesList = array();
-        foreach ($cities['predictions'] as $city) {
-            if (array_key_exists('description', $city) && in_array('locality', $city['types'])) {
-                $citiesList[] = array('id' => $city['description'], 'text' => $city['description']);
-            }
-        }
-
-        return $citiesList;
+        return $this->repository->findLike($name);
     }
 
-    public function getNeighborhoods($city)
+    public function getNeighborhoods(): array
     {
-        return array(
+        return [
             'Annappes' => 'Annappes',
             'Ascq' => 'Ascq',
             'Babylone' => 'Babylone',
@@ -71,6 +35,6 @@ class CityRetriever
             'Recueil' => 'Recueil',
             'Résidence' => 'Résidence',
             'Triolo' => 'Triolo',
-        );
+        ];
     }
 }

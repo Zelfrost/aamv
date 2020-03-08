@@ -59,7 +59,7 @@ class DocController extends Controller
                 ->getManager()
                 ->flush();
 
-            $this->get('session')->getFlashBag()->add('admin.docs.success', "Le document a bien été ajouté.");
+            $this->get('session')->getFlashBag()->add('admin.docs.success', 'Le document a bien été ajouté.');
 
             return $this->redirect($this->generateUrl('admin_docs'));
         }
@@ -88,7 +88,7 @@ class DocController extends Controller
                 ->getManager()
                 ->flush();
 
-            $this->get('session')->getFlashBag()->add('admin.docs.success', "Le document a bien été mis à jour.");
+            $this->get('session')->getFlashBag()->add('admin.docs.success', 'Le document a bien été mis à jour.');
 
             return $this->redirect($this->generateUrl('admin_docs'));
         }
@@ -113,7 +113,7 @@ class DocController extends Controller
             ->getManager()
             ->flush();
 
-        $this->get('session')->getFlashBag()->add('admin.docs.success', "Le document a bien été supprimé.");
+        $this->get('session')->getFlashBag()->add('admin.docs.success', 'Le document a bien été supprimé.');
 
         return $this->redirect($this->generateUrl('admin_docs'));
     }

@@ -49,7 +49,7 @@ class DocCategoryController extends Controller
                 ->getManager()
                 ->flush();
 
-            $this->get('session')->getFlashBag()->add('admin.categories.success', "La catégorie a bien été ajoutée.");
+            $this->get('session')->getFlashBag()->add('admin.categories.success', 'La catégorie a bien été ajoutée.');
 
             return $this->redirect($this->generateUrl('admin_doc_categories'));
         }
@@ -74,7 +74,7 @@ class DocCategoryController extends Controller
                 ->getManager()
                 ->flush();
 
-            $this->get('session')->getFlashBag()->add('admin.categories.success', "La catégorie a bien été mise à jour.");
+            $this->get('session')->getFlashBag()->add('admin.categories.success', 'La catégorie a bien été mise à jour.');
 
             return $this->redirect($this->generateUrl('admin_doc_categories'));
         }
@@ -101,7 +101,7 @@ class DocCategoryController extends Controller
                 ->getManager()
                 ->flush();
 
-            $this->get('session')->getFlashBag()->add('admin.categories.success', "La catégorie a bien été supprimée.");
+            $this->get('session')->getFlashBag()->add('admin.categories.success', 'La catégorie a bien été supprimée.');
         } catch (ForeignKeyConstraintViolationException $e) {
             $this->get('session')->getFlashBag()->add(
                 'admin.categories.error',

@@ -20,6 +20,7 @@ class Tool
     const TOOL_TYPE = 'tool';
 
     const JOIN_NAME = 'admin-join-tool';
+    const TERMS_NAME = 'admin-terms-tool';
     const DISPONIBILITIES_NAME = 'admin-disponibilities-tool';
 
     /**
@@ -44,6 +45,13 @@ class Tool
      * @ORM\Column(name="real_name", type="string", length=255)
      */
     private $realName;
+
+    /**
+     * @var int|null
+     *
+     * @ORM\Column(name="year", type="integer", nullable=true)
+     */
+    private $year = null;
 
     /**
      * @var Category
@@ -162,6 +170,18 @@ class Tool
     public function setCategory($category)
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getYear()
+    {
+        return $this->year;
+    }
+
+    public function setYear($year)
+    {
+        $this->year = $year;
 
         return $this;
     }

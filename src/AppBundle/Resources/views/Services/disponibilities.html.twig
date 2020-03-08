@@ -34,10 +34,12 @@
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>Assistante maternelle</th>
+                        <th>AssMat</th>
                         <th>Ville</th>
-                        <th>Nombre d'enfants</th>
+                        <th>Places</th>
                         <th>Période</th>
+                        <th>Téléphone</th>
+                        <th>Email</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,6 +51,8 @@
                             </td>
                             <td>{{ disponibility.numberOfChildren }}</td>
                             <td>{{ disponibility.period }}</td>
+                            <td>{{ disponibility.childminder.phoneNumber }}</td>
+                            <td>{{ disponibility.childminder.email }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

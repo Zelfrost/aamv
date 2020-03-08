@@ -5,7 +5,9 @@
                 <li><a href="{{ path('association_presentation') }}">Qui sommes-nous ?</a></li>
                 {# <li><a href="{{ path('association_pictures') }}">Photos</a></li> #}
                 <li><a href="{{ path('association_about_us') }}">On en parle</a></li>
-                <li><a href="{{ path('files_join') }}">Télécharger notre bulletin d'adhésion</a></li>
+                {% for tool in toolRepository.findValidJoin %}
+                    <li><a href="{{ path('files_join', {year: tool.year}) }}">Télécharger notre bulletin d'adhésion {{ tool.year }}</a></li>
+                {% endfor %}
                 <li><a href="{{ path('association_contacts') }}">Nous contacter</a></li>
                 <hr>
             </ul></div>
@@ -24,7 +26,7 @@
             <div><ul>
                 <li><a href="{{ path('manage_account') }}">Modifier mon compte</a></li>
                 <li><a href="{{ path('manage_password') }}">Modifier mon mot de passe</a></li>
-                {% if is_granted('ROLE_PARENT') or is_granted('ROLE_MEMBER') %}
+                {% if is_granted('ROLE_PARENT') or is_granted('ROLE_MEMBER') or is_granted('ROLE_TRAINEE') %}
                     <li><a href="{{ path('manage_ads') }}">Gérer mes annonces</a></li>
                 {% endif %}
 

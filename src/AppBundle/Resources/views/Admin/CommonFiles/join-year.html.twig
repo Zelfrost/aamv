@@ -1,0 +1,31 @@
+{% extends "AppBundle:Base:base.html.twig" %}
+
+{% block title %}Fichiers - Administration - {{ parent() }}{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/Homepage/index.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/Admin/join-year.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/select2/dist/css/select2.min.css') }}">
+{% endblock css %}
+
+{% block body %}
+    <h2><a href="{{ path('admin') }}">Administration</a> / Formulaire d'adhésion</h2>
+
+    <form action="{{ path('admin_files_join') }}" method="get">
+        <label for="year">Le formulaire d'adhésion de quelle année souhaitez vous gérer?</label>
+        <select class="select2" name="year" id="year">
+            {% for year in (date().format('Y'))..(date().format('Y')+1) %}
+                <option value="{{ year }}">{{ year }}</option>
+            {% endfor %}
+        </select>
+
+        <input type="submit" value="Gérer" class="btn btn-block btn-success">
+    </form>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('vendor/select2/dist/js/select2.min.js') }}"></script>
+    <script>
+        $(document).ready(function() { $("#year").select2(); });
+    </script>
+{% endblock javascripts %}

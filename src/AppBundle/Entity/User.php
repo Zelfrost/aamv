@@ -17,6 +17,7 @@ class User extends Person implements UserInterface, EncoderAwareInterface
     const ROLE_PARENT    = 'ROLE_PARENT';
     const ROLE_ASSISTANT = 'ROLE_ASSISTANT';
     const ROLE_MEMBER    = 'ROLE_MEMBER';
+    const ROLE_TRAINEE   = 'ROLE_TRAINEE';
     const ROLE_ADMIN     = 'ROLE_ADMIN';
 
     /**
@@ -176,7 +177,7 @@ class User extends Person implements UserInterface, EncoderAwareInterface
 
     public function isActive()
     {
-        return $this->active();
+        return $this->active;
     }
 
     public function setActive($active)

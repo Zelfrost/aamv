@@ -9,7 +9,7 @@
 {% block body %}
     <h2 class="main">Petites annonces</h2>
 
-    {% if is_granted('IS_AUTHENTICATED_FULLY') and (is_granted('ROLE_PARENT') or is_granted('ROLE_MEMBER')) %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') and (is_granted('ROLE_PARENT') or is_granted('ROLE_MEMBER') or is_granted('ROLE_TRAINEE')) %}
         <div class="alert alert-info"><a href="{{ path('manage_ad_create') }}">Cliquez ici</a> pour poster une annonce.</div>
     {% endif %}
 
@@ -43,10 +43,12 @@
                         <th>Titre de l'annonce</th>
                         {% if type == 'assistante' %}
                             <th>Assistante</th>
-                        {% else %}
+                        {% elseif type == 'parent' %}
                             <th>Parent</th>
+                        {% else %}
+                            <th>Stagiaire</th>
                         {% endif %}
-                        <th>Disponibilité</th>
+                        {% if type in ['assistante', 'parent'] %}<th>Disponibilité</th>{% endif %}
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -55,7 +57,7 @@
                     <tr>
                         <td>{{ ad.title }}</td>
                         <td>{{ ad.author.firstname }} {{ ad.author.name }}</td>
-                        <td>{{ ad.disponibilityDate|date('m/Y') }}</td>
+                        {% if type in ['assistante', 'parents'] %}<td>{{ ad.disponibilityDate|date('m/Y') }}</td>{% endif %}
                         <td>
                             <a class="btn btn-default" href="{{ path('services_ad', {id: ad.id}) }}">Voir l'annonce</a>
                         </td>
