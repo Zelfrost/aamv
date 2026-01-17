@@ -62,6 +62,11 @@
 .new.important:hover {
     background: #FFCE79;
 }
+.new.important.first {
+    width: 98%;
+    text-align: center;
+    font-size: 1.2em;
+}
 
 .new .title {
     height: 80px;

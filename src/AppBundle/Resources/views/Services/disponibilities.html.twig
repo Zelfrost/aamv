@@ -1,5 +1,7 @@
 {% extends "AppBundle:Base:base.html.twig" %}
 
+{% block meta %}<meta name="description" content="Les disponibilités des assistantes maternelles agréées de Villeneuve d'Ascq et ses environs - Informations, contacts, conseils, écoute, réponses à vos questions, forum, petites annonces ...">{% endblock meta %}
+
 {% block title %}Disponibilités - {{ parent() }}{% endblock %}
 
 {% block css %}
@@ -39,7 +41,6 @@
                         <th>Places</th>
                         <th>Période</th>
                         <th>Téléphone</th>
-                        <th>Email</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,7 +53,6 @@
                             <td>{{ disponibility.numberOfChildren }}</td>
                             <td>{{ disponibility.period }}</td>
                             <td>{{ disponibility.childminder.phoneNumber }}</td>
-                            <td>{{ disponibility.childminder.email }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

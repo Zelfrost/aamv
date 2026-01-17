@@ -103,13 +103,22 @@ nav li {
          -o-box-sizing: border-box;
             box-sizing: border-box;
 }
+nav li.multi-nav {
+    padding: 0 15px;
+}
 nav li a, nav li.has-submenu {
     display: inline-block;
     color: #FFF;
     padding: 20px 10px;
 }
+nav li a.multi-nav {
+    padding: 30px 0;
+}
 nav li:hover {
     cursor: pointer;
+}
+nav li.multi-nav:hover {
+    cursor: auto;
 }
 nav > ul > li:hover {
     background-color: #CCA561;

@@ -19,7 +19,7 @@ class DisponibilityController extends Controller
     {
         $disponibilities = $this->getDoctrine()
             ->getRepository(Disponibility::class)
-            ->findAll();
+            ->findOrdered();
 
         return $this->render('AppBundle:Admin:Disponibility/index.html.twig', array(
             'disponibilities' => $disponibilities

@@ -7,17 +7,21 @@ use Doctrine\ORM\EntityRepository;
 
 class CategoryRepository extends EntityRepository
 {
-    public function findFiles(string $type): array
+    public function findFiles(string $type, bool $forMembers = null): array
     {
-        $categories = $this->createQueryBuilder('c')
+        $builder = $this->createQueryBuilder('c')
             ->addSelect('(CASE WHEN c.id IS NULL THEN 0 ELSE c.position END) AS HIDDEN ORD')
             ->where('c.type = :type')
             ->setParameter('type', $type)
             ->orderBy('ORD', 'ASC')
             ->addOrderBy('c.name', 'DESC')
-            ->getQuery()
-            ->getResult()
         ;
+
+        if (null !== $forMembers) {
+            $builder->andWhere('c.forMembers = :forMembers')->setParameter('forMembers', $forMembers);
+        }
+
+        $categories = $builder->getQuery()->getResult();
 
         foreach ($categories as $key => $category) {
             $tools = $this->_em->getRepository(Tool::class)->findFiles($type, $category);
@@ -38,7 +42,7 @@ class CategoryRepository extends EntityRepository
         return $this->queryForOrdered($type)
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
 
     public function queryForOrdered($type)
@@ -49,6 +53,6 @@ class CategoryRepository extends EntityRepository
             ->setParameter('type', $type)
             ->orderBy('ORD', 'ASC')
             ->addOrderBy('c.name', 'ASC')
-        ;
+            ;
     }
 }

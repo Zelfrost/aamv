@@ -17,6 +17,7 @@
         {% endif %}
 
         {{ form(form) }}
+        <a class="register" href="{{ path('register') }}">S'inscrire</a>
         <a class="forgot" href="{{ path('forgot_password') }}">Mot de passe oublié?</a>
     </div>
 {% endblock body %}

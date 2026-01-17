@@ -39,4 +39,15 @@ class DisponibilityRepository extends EntityRepository
             ->getScalarResult()
         ;
     }
+
+    public function findOrdered()
+    {
+        return $this->createQueryBuilder('d')
+            ->innerJoin('d.childminder', 'c')
+            ->orderBy('c.firstname', 'ASC')
+            ->orderBy('c.name', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

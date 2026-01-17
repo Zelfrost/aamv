@@ -10,7 +10,8 @@ class UserRepository extends EntityRepository
     public function search($email, $role, $page)
     {
         $builder = $this->createQueryBuilder('u')
-            ->orderBy('u.email', 'ASC')
+            ->orderBy('u.firstname', 'ASC')
+            ->orderBy('u.name', 'ASC')
             ->setFirstResult(($page - 1) * 30)
             ->setMaxResults(30)
         ;

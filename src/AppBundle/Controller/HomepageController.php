@@ -4,6 +4,8 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\News;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomepageController extends Controller
@@ -12,8 +14,12 @@ class HomepageController extends Controller
      * @Route(path="/", name="homepage")
      * @Route(path="/news/{page}", name="homepage_news")
      */
-    public function indexAction($page = 1)
+    public function indexAction(Request $request, $page = 1)
     {
+        if (0 < count($request->query->all()) && ['page'] !== array_keys($request->query->all())) {
+            return new Response(null, Response::HTTP_GONE);
+        }
+
         $repository = $this->getDoctrine()->getRepository('AppBundle\Entity\News');
 
         $pagination = array(

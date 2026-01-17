@@ -261,8 +261,15 @@ class Tool
         }
 
         $file = $this->getFile();
-        $filename = substr(basename($file->getClientOriginalName(), $file->guessExtension()), 0, -1);
-        $filename = $filename.'-'.date('YmdHis').'.'.$file->guessExtension();
+
+        if (false !== strpos($file->getClientOriginalName(), '.xlsm')) {
+            $extension = 'xlsm';
+        } else {
+            $extension = $file->guessExtension();
+        }
+
+        $filename = substr(basename($file->getClientOriginalName(), $extension), 0, -1);
+        $filename = $filename . '-' . date('YmdHis') . '.' . $extension;
 
         $this->realName = $filename;
 
