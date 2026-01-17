@@ -4,6 +4,7 @@
 
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/Homepage/index.css') }}">
+    <link rel="canonical" href="https://aamv.net" />
 {% endblock css %}
 
 {% block body %}
@@ -22,7 +23,7 @@
     <div id="news">
         {% for new in news %}
         <a href="{{ path('homepage_new', {'id': new.id}) }}">
-            <div class="new{% if new.important %} important{% endif %}">
+            <div class="new{% if new.important %} important{% endif %}{% if pagination.page == 1 and loop.index0 == 0 %} first{% endif %}">
                 <div class="title">
                     <h3>{{ new.title|raw|slice(0, 150) }} {% if new.title|length > 150 %}...{% endif %}</h3>
                 </div>

@@ -9,19 +9,19 @@
 {% block body %}
     <h2 class="main">Les documents</h2>
 
-    {% if not is_granted('ROLE_MEMBER') %}
+    {% if not is_granted('ROLE_MEMBER') and type == 'member' %}
         <div class="alert alert-warning">
-            Certains documents sont réservés aux adhérents de l'association. Si vous souhaitez accéder à tous nos
-            documents, n'hésitez pas à rejoindre notre association.<br>
+            Ces documents sont réservés aux adhérents de l'association. Si vous souhaitez y accéder, n'hésitez pas
+            à rejoindre notre association, et à vous <a href='https://aamv.net/register'>inscrire</a>/<a href='https://aamv.net/login'>connecter</a> sur le site afin d'y avoir accès.<br>
             Vous avez la possibilité d'acheter nos contrats <b>A.A.M.V.</b> au prix de 2€ remis à jour régulièrement.
         </div>
     {% endif %}
 
     {% if tools|length == 0 and categories|length == 0 %}
-        <div class="alert alert-warning">Il n'y a actuellement pas de documents sur le site.</div>
+        <div class="alert alert-warning">Il n'y a actuellement pas de documents {% if type == 'public' %}public{% else %}réservés aux membres{% endif %} sur le site.</div>
     {% endif %}
 
-    {% if tools|length > 0 %}
+    {% if tools|length > 0 and type == 'public' %}
         <div class="col-md-12">
             <table class="table table-hover">
                 {% for tool in tools %}
@@ -41,22 +41,24 @@
 
     {% if categories|length > 0 %}
         <div class="col-md-12">
-            {% for type in categories %}
-                {% if not type.forMembers or is_granted('ROLE_MEMBER') %}
+            {% for category in categories %}
+                {% if (not category.forMembers and type == 'public') or (category.forMembers and type == 'members') %}
                     <h3>
-                        {{ type.name }}
-                        {% if type.forMembers %}- <b>Réservés aux membres de l'association</b>{% endif %}
+                        {{ category.name }}
+                        {% if category.forMembers %}- <b>Réservés aux membres de l'association</b>{% endif %}
                     </h3>
 
                     <table class="table table-hover">
-                        {% for tool in type.tools %}
+                        {% for tool in category.tools %}
                             <tr class="row tool">
                                 <td>{{ tool.fullname }}</td>
                                 <td>
+                                    {% if not category.forMembers or is_granted('ROLE_MEMBER') %}
                                     <a href="{{ tool.path }}">
                                         <span class="glyphicon glyphicon-download"></span>
                                         Télécharger
                                     </a>
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% endfor %}

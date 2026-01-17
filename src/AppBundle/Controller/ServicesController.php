@@ -98,7 +98,7 @@ class ServicesController extends Controller
                 ->flush();
         }
 
-        if ($ad === null) {
+        if ($ad === null || $ad->getCreatedAt() < new \DateTime('-1 month')) {
             return $this->redirect($this->generateUrl('homepage'));
         }
 
@@ -152,7 +152,10 @@ class ServicesController extends Controller
                 'route' => 'services_disponibilities',
                 'page' => $page,
                 'pages_count' => $pagesCount,
-                'parameters' => [],
+                'parameters' => [
+                    'city' => $city,
+                    'neighborhood' => $neighborhood,
+                ],
             )
         );
 
@@ -160,48 +163,54 @@ class ServicesController extends Controller
     }
 
     /**
-     * @Route(path="/services/tools", name="services_tools")
+     * @Route(path="/services/tools/{type}", name="services_tools")
      */
-    public function toolsAction()
+    public function toolsAction($type = 'public')
     {
-        $tools = $this->getDoctrine()
-            ->getManager()
-            ->getRepository(Tool::class)
-            ->findFiles(Tool::TOOL_TYPE)
+        if (!in_array($type, ['public', 'members'])) {
+            $type = 'public';
+        }
+
+        $tools = 'public' === $type
+            ? $this->getDoctrine()->getManager()->getRepository(Tool::class)->findFiles(Tool::TOOL_TYPE)
+            : []
         ;
 
         $categories = $this->getDoctrine()
             ->getManager()
             ->getRepository(Category::class)
-            ->findFiles(Tool::TOOL_TYPE)
+            ->findFiles(Tool::TOOL_TYPE, 'members' === $type)
         ;
 
         return $this->render(
             'AppBundle:Services:tools.html.twig',
-            array('tools' => $tools, 'categories' => $categories)
+            array('tools' => $tools, 'categories' => $categories, 'type' => $type)
         );
     }
 
     /**
-     * @Route(path="/services/docs", name="services_docs")
+     * @Route(path="/services/docs/{type}", name="services_docs")
      */
-    public function docsAction()
+    public function docsAction($type = 'public')
     {
-        $tools = $this->getDoctrine()
-            ->getManager()
-            ->getRepository(Tool::class)
-            ->findFiles(Tool::DOC_TYPE)
+        if (!in_array($type, ['public', 'members'])) {
+            $type = 'public';
+        }
+
+        $tools = 'public' === $type
+            ? $this->getDoctrine()->getManager()->getRepository(Tool::class)->findFiles(Tool::DOC_TYPE)
+            : []
         ;
 
         $categories = $this->getDoctrine()
             ->getManager()
             ->getRepository(Category::class)
-            ->findFiles(Tool::DOC_TYPE)
+            ->findFiles(Tool::DOC_TYPE, 'members' === $type)
         ;
 
         return $this->render(
             'AppBundle:Services:docs.html.twig',
-            array('tools' => $tools, 'categories' => $categories)
+            array('tools' => $tools, 'categories' => $categories, 'type' => $type)
         );
     }
 }
