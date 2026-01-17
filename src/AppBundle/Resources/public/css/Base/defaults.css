@@ -60,8 +60,9 @@ nav.navbar {
     padding: 0;
 
     font-weight: bold;
-    background-color: #FFCE79;
+    background-color: rgba(255, 206, 121, 0.8);
     border-bottom: 1px solid #CCA561;
+    border-radius: 8px;
 
     -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
        -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
@@ -137,19 +138,23 @@ nav li:hover > div ul {
 nav li > div {
     position: absolute;
     top: 65px;
-    left: 0;
+    margin-left: -10px;
 
     width: 100%;
 }
 
 nav li ul {
-    width: 100%;
+    margin-top: 1px;
+
+    width: fit-content;
     padding-left: 10px;
+    padding-right: 10px;
 
     display: none;
     z-index: 0;
 
     background-color: #CCA561;
+    border-radius: 8px;
 
     -webkit-box-shadow: none;
        -moz-box-shadow: none;
@@ -158,16 +163,22 @@ nav li ul {
 }
 
 nav li li {
+    display: block;
+    float: none;
     padding: 0;
     width: auto;
     font-size: 0.8em;
 }
 nav li li a {
-    display: inline-block;
-    padding: 30px 15px;
+    display: block;
+    padding: 0 10px 20px 10px;
 
     color: #fff;
     text-decoration: none;
+    text-align: left;
+}
+nav li li:nth-child(1) a {
+    padding: 20px 10px;
 }
 nav li li a:hover {
     text-decoration: underline;
@@ -185,7 +196,8 @@ nav li li a:hover {
     padding: 20px 30px;
 
     color: #444;
-    background-color: #FFF;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
 
     font-size: 1.2em;
 
@@ -242,10 +254,11 @@ footer {
     z-index: 2;
 
     padding: 0 20px;
-    margin: 10px 0 0;
+    margin: 10px 0 10px 0;
 
     color: #FAFAFA;
-    background-color: #7F7563;
+    background-color: rgba(127, 117, 99, 0.8);
+    border-radius: 8px;
 
     -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
        -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);

@@ -6,12 +6,11 @@
                 {# <li><a href="{{ path('association_pictures') }}">Photos</a></li> #}
                 <li><a href="{{ path('association_about_us') }}">On en parle</a></li>
                 {% for tool in toolRepository.findValidJoin %}
-                    <li>{% if not loop.first %} | {% endif %}<a href="{{ path('files_join', {year: tool.year}) }}" style="padding: {% if loop.first %}30px 5px 30px 15px{% else %}30px 15px 30px 0{% endif %};">{% if loop.first %}Adhésion Assistante Maternelle {% endif %}{{ tool.year }}</a></li>
+                    <li>{% if not loop.first %} | {% endif %}<a href="{{ path('files_join', {year: tool.year}) }}">{% if loop.first %}Adhésion Assistante Maternelle {% endif %}{{ tool.year }}</a></li>
                 {% endfor %}
-                <li><a href="https://aamv.net/public/adhesion-parents-2024.pdf" style="padding: 30px 5px 30px 15px;">Adhésion Parents 2024</a></li>
-                <li> | <a href="https://aamv.net/public/adhesion-parents-2025.pdf" style="padding: 30px 15px 30px 0;">2025</a></li>
-                <li><a href="https://aamv.net/public/adhesion-mam-3-2025.pdf" style="padding: 30px 5px 30px 15px;">Adhésion 2025 MAM 3</a></li>
-                <li> | <a href="https://aamv.net/public/adhesion-mam-4-2025.pdf" style="padding: 30px 15px 30px 0;">4</a></li>
+                <li><a href="https://aamv.net/public/adhesion-parents-2025.pdf">Adhésion Parents 2025</a></li>
+                <li><a href="https://aamv.net/public/adhesion-mam-3-2026.pdf">Adhésion 2026 MAM 3</a></li>
+                <li><a href="https://aamv.net/public/adhesion-mam-4-2026.pdf">Adhésion 2026 MAM 4</a></li>
                 <li><a href="{{ path('association_contacts') }}">Nous contacter</a></li>
                 <hr>
             </ul></div>
@@ -20,8 +19,10 @@
             <div><ul>
                 <li><a href="{{ path('services_ads_index') }}">Petites annonces</a></li>
                 <li><a href="{{ path('services_disponibilities') }}">Disponibilité des assistantes maternelles</a></li>
-                <li class="multi-nav">Nos outils <a class="multi-nav" href="{{ path('services_tools', {"type": "public"}) }}">libres</a> / <a class="multi-nav" href="{{ path('services_tools', {"type": "members"}) }}">adhérents</a></li>
-                <li class="multi-nav">Nos documents <a class="multi-nav" href="{{ path('services_docs', {"type": "public"}) }}">libres</a> / <a class="multi-nav" href="{{ path('services_docs', {"type": "members"}) }}">adhérents</a></li>
+                <li><a href="{{ path('services_tools', {"type": "public"}) }}">Nos outils libres</a></li>
+                <li><a href="{{ path('services_tools', {"type": "members"}) }}">Nos outils adhérents</a></li>
+                <li><a href="{{ path('services_docs', {"type": "public"}) }}">Nos documents libres</a></li>
+                <li><a href="{{ path('services_docs', {"type": "members"}) }}">Nos documents adhérents</a></li>
                 <hr>
             </ul></div>
         </li>
