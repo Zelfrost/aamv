@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Ad;
 use AppBundle\Entity\Disponibility;
+use AppBundle\Entity\News;
 use AppBundle\Form\Type\AdType;
 use AppBundle\Form\Type\ChangePasswordType;
 use AppBundle\Form\Type\ProfileType;
@@ -21,6 +22,10 @@ class ManagementController extends Controller
     public function consentAction(Request $request)
     {
         if ($request->isMethod('POST')) {
+            if (!$this->isCsrfTokenValid('consent', $request->request->get('_token'))) {
+                throw $this->createAccessDeniedException('Jeton CSRF invalide.');
+            }
+
             $user = $this->getUser();
             $user->setConsentedAt(new \DateTime());
 
@@ -204,12 +209,21 @@ class ManagementController extends Controller
      */
     public function deleteAccountAction(Request $request)
     {
+        if (!$this->isCsrfTokenValid('delete_account', $request->request->get('_token'))) {
+            throw $this->createAccessDeniedException('Jeton CSRF invalide.');
+        }
+
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
 
         $ads = $em->getRepository(Ad::class)->findByAuthor($user);
         foreach ($ads as $ad) {
             $em->remove($ad);
+        }
+
+        $news = $em->getRepository(News::class)->findByAuthor($user);
+        foreach ($news as $item) {
+            $em->remove($item);
         }
 
         $disponibilities = $em->getRepository(Disponibility::class)->findBy(['childminder' => $user]);

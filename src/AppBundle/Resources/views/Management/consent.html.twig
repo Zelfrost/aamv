@@ -27,6 +27,7 @@
     <div class="row" style="margin-top: 20px;">
         <div class="col-md-6">
             <form method="post" action="{{ path('manage_consent') }}">
+                <input type="hidden" name="_token" value="{{ csrf_token('consent') }}">
                 <button type="submit" class="btn btn-success btn-block">
                     <i class="glyphicon glyphicon-ok"></i> J'accepte la politique de confidentialité
                 </button>

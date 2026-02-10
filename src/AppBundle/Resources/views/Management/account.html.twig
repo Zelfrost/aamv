@@ -51,6 +51,7 @@
                     <ul>
                         <li>Toutes vos <strong>annonces</strong></li>
                         <li>Toutes vos <strong>disponibilités</strong></li>
+                        <li>Toutes vos <strong>actualités</strong> publiées</li>
                         <li>Toutes vos <strong>données personnelles</strong></li>
                     </ul>
                     <p>Aucun retour en arrière ne sera possible.</p>
@@ -58,6 +59,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
                     <form method="post" action="{{ path('manage_account_delete') }}" style="display: inline;">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete_account') }}">
                         <button type="submit" class="btn btn-danger">
                             <i class="glyphicon glyphicon-trash"></i> Confirmer la suppression
                         </button>
