@@ -3,16 +3,37 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Ad;
+use AppBundle\Entity\Disponibility;
 use AppBundle\Form\Type\AdType;
 use AppBundle\Form\Type\ChangePasswordType;
 use AppBundle\Form\Type\ProfileType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormError;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ManagementController extends Controller
 {
+    /**
+     * @Route(path="/manage/consent", name="manage_consent")
+     */
+    public function consentAction(Request $request)
+    {
+        if ($request->isMethod('POST')) {
+            $user = $this->getUser();
+            $user->setConsentedAt(new \DateTime());
+
+            $this->getDoctrine()->getManager()->flush();
+
+            $this->get('session')->getFlashBag()->add('success', 'Merci, votre consentement a bien été enregistré.');
+
+            return $this->redirectToRoute('homepage');
+        }
+
+        return $this->render('AppBundle:Management:consent.html.twig');
+    }
+
     /**
      * @Route(path="/manage/password", name="manage_password")
      */
@@ -176,5 +197,86 @@ class ManagementController extends Controller
         }
 
         return $this->redirect($this->generateUrl('manage_ads'));
+    }
+
+    /**
+     * @Route(path="/manage/account/delete", name="manage_account_delete", methods={"POST"})
+     */
+    public function deleteAccountAction(Request $request)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        $ads = $em->getRepository(Ad::class)->findByAuthor($user);
+        foreach ($ads as $ad) {
+            $em->remove($ad);
+        }
+
+        $disponibilities = $em->getRepository(Disponibility::class)->findBy(['childminder' => $user]);
+        foreach ($disponibilities as $disponibility) {
+            $em->remove($disponibility);
+        }
+
+        $em->remove($user);
+        $em->flush();
+
+        $this->get('security.token_storage')->setToken(null);
+        $request->getSession()->invalidate();
+        $request->getSession()->getFlashBag()->add('success', 'Votre compte a été supprimé avec succès.');
+
+        return $this->redirectToRoute('login');
+    }
+
+    /**
+     * @Route(path="/manage/account/export", name="manage_account_export")
+     */
+    public function exportDataAction()
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        $data = [
+            'informations_personnelles' => [
+                'nom' => $user->getName(),
+                'prenom' => $user->getFirstname(),
+                'email' => $user->getEmail(),
+                'telephone' => $user->getPhoneNumber(),
+                'ville' => $user->getCity(),
+                'quartier' => $user->getNeighborhood(),
+            ],
+            'compte' => [
+                'roles' => $user->getRoles(),
+                'date_creation' => $user->getCreatedAt() ? $user->getCreatedAt()->format('Y-m-d H:i:s') : null,
+                'date_consentement' => $user->getConsentedAt() ? $user->getConsentedAt()->format('Y-m-d H:i:s') : null,
+            ],
+            'annonces' => [],
+            'disponibilites' => [],
+        ];
+
+        $ads = $em->getRepository(Ad::class)->findByAuthor($user);
+        foreach ($ads as $ad) {
+            $data['annonces'][] = [
+                'titre' => $ad->getTitle(),
+                'contenu' => $ad->getContent(),
+                'type' => $ad->getType(),
+                'date_creation' => $ad->getCreatedAt() ? $ad->getCreatedAt()->format('Y-m-d H:i:s') : null,
+                'date_modification' => $ad->getUpdatedAt() ? $ad->getUpdatedAt()->format('Y-m-d H:i:s') : null,
+                'jours_souhaites' => $ad->getWishedDays(),
+            ];
+        }
+
+        $disponibilities = $em->getRepository(Disponibility::class)->findBy(['childminder' => $user]);
+        foreach ($disponibilities as $disponibility) {
+            $data['disponibilites'][] = [
+                'nombre_enfants' => $disponibility->getNumberOfChildren(),
+                'periode' => $disponibility->getPeriod(),
+            ];
+        }
+
+        $response = new JsonResponse($data, 200, [
+            'Content-Disposition' => 'attachment; filename="mes-donnees-aamv.json"',
+        ]);
+
+        return $response;
     }
 }

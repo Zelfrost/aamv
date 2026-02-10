@@ -46,4 +46,20 @@ class AssociationController extends Controller
     {
         return $this->render('AppBundle:Association:contacts.html.twig');
     }
+
+    /**
+     * @Route(path="/association/privacy", name="association_privacy")
+     */
+    public function privacyAction()
+    {
+        return $this->render('AppBundle:Association:privacy.html.twig');
+    }
+
+    /**
+     * @Route(path="/association/legal", name="association_legal")
+     */
+    public function legalAction()
+    {
+        return $this->render('AppBundle:Association:legal.html.twig');
+    }
 }

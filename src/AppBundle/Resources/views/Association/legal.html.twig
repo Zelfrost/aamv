@@ -1,0 +1,50 @@
+{% extends "AppBundle:Base:base.html.twig" %}
+
+{% block title %}Mentions légales - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h2 class="main">Mentions légales</h2>
+
+    <div class="content">
+        <h3>1. Éditeur du site</h3>
+        <p>
+            Association des Assistantes Maternelles de Villeneuve d'Ascq (AAMV)<br>
+            Association loi 1901<br>
+            Siège social : [ADRESSE DU SIEGE]<br>
+            SIRET : [NUMERO SIRET]<br>
+            Contact : <a href="mailto:contact@aamv.net">contact@aamv.net</a>
+        </p>
+    </div>
+
+    <div class="content">
+        <h3>2. Directeur de la publication</h3>
+        <p>[NOM DU PRESIDENT], Président(e) de l'AAMV</p>
+    </div>
+
+    <div class="content">
+        <h3>3. Hébergeur</h3>
+        <p>
+            [NOM DE L'HEBERGEUR]<br>
+            [ADRESSE DE L'HEBERGEUR]<br>
+            [TELEPHONE DE L'HEBERGEUR]
+        </p>
+    </div>
+
+    <div class="content">
+        <h3>4. Propriété intellectuelle</h3>
+        <p>
+            L'ensemble du contenu de ce site (textes, images, graphismes, logo, icônes) est la propriété
+            de l'AAMV ou de ses partenaires. Toute reproduction, même partielle, est interdite sans
+            autorisation préalable.
+        </p>
+    </div>
+
+    <div class="content">
+        <h3>5. Protection des données personnelles</h3>
+        <p>
+            Conformément au Règlement Général sur la Protection des Données (RGPD),
+            vous disposez de droits sur vos données personnelles.
+            Pour en savoir plus, consultez notre <a href="{{ path('association_privacy') }}">politique de confidentialité</a>.
+        </p>
+    </div>
+{% endblock %}

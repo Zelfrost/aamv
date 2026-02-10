@@ -65,6 +65,13 @@ class User extends Person implements UserInterface, EncoderAwareInterface
     private $passwordReinitializationCode;
 
     /**
+     * @var \DateTime|null
+     *
+     * @ORM\Column(name="consented_at", type="datetime", nullable=true)
+     */
+    private $consentedAt;
+
+    /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Ad", mappedBy="author")
@@ -203,6 +210,25 @@ class User extends Person implements UserInterface, EncoderAwareInterface
     public function setPasswordReinitializationCode($passwordReinitializationCode)
     {
         $this->passwordReinitializationCode = $passwordReinitializationCode;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime|null
+     */
+    public function getConsentedAt()
+    {
+        return $this->consentedAt;
+    }
+
+    /**
+     * @param \DateTime|null $consentedAt
+     * @return $this
+     */
+    public function setConsentedAt($consentedAt)
+    {
+        $this->consentedAt = $consentedAt;
 
         return $this;
     }

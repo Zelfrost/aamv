@@ -17,7 +17,30 @@
         Par exemple pour Villeneuve d'Ascq, il faut indiquer "Villeneuve-d'Ascq", le tiret est très important !
     </div>
 
-    {{ form(form) }}
+    {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.firstname) }}
+        {{ form_row(form.phoneNumber) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.plainPassword) }}
+        {{ form_row(form.role) }}
+        {{ form_row(form.city) }}
+        {{ form_row(form.neighborhood) }}
+
+        <div class="form-group">
+            <div class="checkbox">
+                <label>
+                    {{ form_widget(form.rgpdConsent) }}
+                    J'accepte la <a href="{{ path('association_privacy') }}" target="_blank">politique de confidentialité</a>
+                    et le traitement de mes données personnelles.
+                </label>
+            </div>
+            {{ form_errors(form.rgpdConsent) }}
+        </div>
+
+        {{ form_row(form.submit) }}
+    {{ form_end(form) }}
 {% endblock %}
 
 {% block javascripts %}

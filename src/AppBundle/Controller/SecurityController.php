@@ -55,6 +55,8 @@ class SecurityController extends Controller
                 }
             }
 
+            $user->setConsentedAt(new \DateTime());
+
             $role = $this->get('retriever.role')->getRoleFromName($form->get('role')->getData());
             $user->addRole($role);
 

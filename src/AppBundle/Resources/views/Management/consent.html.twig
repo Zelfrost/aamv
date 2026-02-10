@@ -1,0 +1,41 @@
+{% extends "AppBundle:Base:base.html.twig" %}
+
+{% block title %}Consentement requis - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h2 class="main">Politique de confidentialité</h2>
+
+    <div class="alert alert-warning">
+        <i class="glyphicon glyphicon-alert"></i>
+        Conformément au Règlement Général sur la Protection des Données (RGPD), nous avons besoin de votre consentement
+        pour continuer à traiter vos données personnelles. Veuillez prendre connaissance de notre politique de confidentialité
+        et confirmer votre accord pour continuer à utiliser le site.
+    </div>
+
+    <div class="content">
+        <p>
+            Nous collectons et traitons vos données personnelles (nom, prénom, email, téléphone, ville, quartier)
+            dans le but de gérer votre compte membre, vos petites annonces et vos disponibilités.
+        </p>
+        <p>
+            Vous pouvez consulter l'intégralité de notre
+            <a href="{{ path('association_privacy') }}" target="_blank">politique de confidentialité</a>
+            pour connaître vos droits (accès, rectification, effacement, portabilité, opposition).
+        </p>
+    </div>
+
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-md-6">
+            <form method="post" action="{{ path('manage_consent') }}">
+                <button type="submit" class="btn btn-success btn-block">
+                    <i class="glyphicon glyphicon-ok"></i> J'accepte la politique de confidentialité
+                </button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <a href="{{ path('logout') }}" class="btn btn-default btn-block">
+                <i class="glyphicon glyphicon-log-out"></i> Me déconnecter
+            </a>
+        </div>
+    </div>
+{% endblock %}
