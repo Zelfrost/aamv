@@ -3,7 +3,7 @@ SHELL = /bin/bash
 
 PROJECT = aamv
 NETWORK = $(PROJECT)_default
-COMPOSE = NETWORK=$(NETWORK) docker-compose -p $(PROJECT)
+COMPOSE = NETWORK=$(NETWORK) docker compose -p $(PROJECT)
 
 .PHONY: start
 start: up wait_app install reload-db ## Starts the application
