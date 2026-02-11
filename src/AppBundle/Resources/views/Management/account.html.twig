@@ -23,16 +23,18 @@
     <h3>Mes données personnelles (RGPD)</h3>
 
     <div class="row">
-        <div class="col-md-6">
-            <a href="{{ path('manage_account_export') }}" class="btn btn-info btn-block">
-                <i class="glyphicon glyphicon-download-alt"></i> Exporter mes données
-            </a>
-        </div>
-        <div class="col-md-6">
-            <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#deleteAccountModal">
-                <i class="glyphicon glyphicon-trash"></i> Supprimer mon compte
-            </button>
-        </div>
+        <form>
+            <div class="col-md-6">
+                <a href="{{ path('manage_account_export') }}" class="btn btn-info btn-block">
+                    <i class="glyphicon glyphicon-download-alt"></i> Exporter mes données
+                </a>
+            </div>
+            <div class="col-md-6">
+                <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#deleteAccountModal">
+                    <i class="glyphicon glyphicon-trash"></i> Supprimer mon compte
+                </button>
+            </div>
+        </form>
     </div>
 
     <div class="modal fade" id="deleteAccountModal" tabindex="-1" role="dialog">
