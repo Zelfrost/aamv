@@ -126,10 +126,14 @@ class SecurityController extends Controller
 
             if (null === $user) {
                 $error = "Aucun compte n'est lié à cette adresse email";
-            } elseif (null !== $user->getPasswordReinitializationCode()) {
+            } elseif (null !== $user->getPasswordReinitializationCode() && !$user->isPasswordReinitializationCodeExpired()) {
                 $error = "Une demande de réinitialisation de mot de passe a déjà été faite pour ce compte.";
             } else {
+                $expiresAt = new \DateTime();
+                $expiresAt->modify('+1 hour');
+
                 $user->setPasswordReinitializationCode(md5(uniqid($user->getId(), true)));
+                $user->setPasswordReinitializationCodeExpiresAt($expiresAt);
 
                 $this->getDoctrine()->getManager()->flush();
 
@@ -169,11 +173,25 @@ class SecurityController extends Controller
             return $this->redirect($this->generateUrl('homepage'));
         }
 
+        if ($user->isPasswordReinitializationCodeExpired()) {
+            $user->setPasswordReinitializationCode(null);
+            $user->setPasswordReinitializationCodeExpiresAt(null);
+            $this->getDoctrine()->getManager()->flush();
+
+            $this->get('session')->getFlashBag()->add(
+                'error',
+                'Ce lien de réinitialisation a expiré. Veuillez faire une nouvelle demande.'
+            );
+
+            return $this->redirectToRoute('forgot_password');
+        }
+
         $form = $this->createForm(ReinitPasswordType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $user->setPasswordReinitializationCode(null);
+            $user->setPasswordReinitializationCodeExpiresAt(null);
             $user->setLegacyPassword(null);
             $user->setPassword($this->get('security.password_encoder')->encodePassword(
                 $user,

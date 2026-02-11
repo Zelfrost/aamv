@@ -67,6 +67,13 @@ class User extends Person implements UserInterface, EncoderAwareInterface
     /**
      * @var \DateTime|null
      *
+     * @ORM\Column(name="password_reinitialization_code_expires_at", type="datetime", nullable=true)
+     */
+    private $passwordReinitializationCodeExpiresAt;
+
+    /**
+     * @var \DateTime|null
+     *
      * @ORM\Column(name="consented_at", type="datetime", nullable=true)
      */
     private $consentedAt;
@@ -212,6 +219,27 @@ class User extends Person implements UserInterface, EncoderAwareInterface
         $this->passwordReinitializationCode = $passwordReinitializationCode;
 
         return $this;
+    }
+
+    public function getPasswordReinitializationCodeExpiresAt()
+    {
+        return $this->passwordReinitializationCodeExpiresAt;
+    }
+
+    public function setPasswordReinitializationCodeExpiresAt($passwordReinitializationCodeExpiresAt)
+    {
+        $this->passwordReinitializationCodeExpiresAt = $passwordReinitializationCodeExpiresAt;
+
+        return $this;
+    }
+
+    public function isPasswordReinitializationCodeExpired()
+    {
+        if ($this->passwordReinitializationCodeExpiresAt === null) {
+            return true;
+        }
+
+        return new \DateTime() > $this->passwordReinitializationCodeExpiresAt;
     }
 
     /**
