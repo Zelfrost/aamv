@@ -39,7 +39,7 @@ security:
                 invalidate_session: true
                 path: /logout
             remember_me:
-                secret: '%secret%'
+                secret: '%env(APP_SECRET)%'
                 lifetime: 604800
                 path: /
                 remember_me_parameter: login[_remember_me]
