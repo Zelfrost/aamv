@@ -4,8 +4,8 @@ namespace AppBundle\Service\EventListener;
 
 use AppBundle\Entity\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\Routing\Router;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class ConsentRedirectListener
@@ -13,15 +13,15 @@ class ConsentRedirectListener
     private $tokenStorage;
     private $router;
 
-    public function __construct(TokenStorageInterface $tokenStorage, Router $router)
+    public function __construct(TokenStorageInterface $tokenStorage, RouterInterface $router)
     {
         $this->tokenStorage = $tokenStorage;
         $this->router = $router;
     }
 
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(RequestEvent $event)
     {
-        if (!$event->isMasterRequest()) {
+        if (!$event->isMainRequest()) {
             return;
         }
 

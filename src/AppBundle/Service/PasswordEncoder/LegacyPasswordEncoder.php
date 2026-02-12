@@ -2,29 +2,34 @@
 
 namespace AppBundle\Service\PasswordEncoder;
 
-use Symfony\Component\Security\Core\Encoder\BasePasswordEncoder;
-use Symfony\Component\Security\Core\Exception\BadCredentialsException;
+use Symfony\Component\PasswordHasher\Exception\InvalidPasswordException;
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 
-class LegacyPasswordEncoder extends BasePasswordEncoder
+class LegacyPasswordEncoder implements PasswordHasherInterface
 {
-    public function encodePassword($raw, $salt)
+    public function hash(string $plainPassword, ?string $salt = null): string
     {
-        if ($this->isPasswordTooLong($raw)) {
-            throw new BadCredentialsException('Invalid password.');
+        if (strlen($plainPassword) > 4096) {
+            throw new InvalidPasswordException();
         }
- 
-        return $this->getEncodedPassword($raw);
+
+        return $this->getEncodedPassword($plainPassword);
     }
 
-    public function isPasswordValid($encoded, $raw, $salt)
+    public function verify(string $hashedPassword, string $plainPassword, ?string $salt = null): bool
     {
-        if ($this->isPasswordTooLong($raw)) {
+        if (strlen($plainPassword) > 4096) {
             return false;
         }
 
-        $pass2 = $this->getEncodedPassword($raw);
+        $pass2 = $this->getEncodedPassword($plainPassword);
 
-        return $this->comparePasswords($encoded, $pass2);
+        return hash_equals($hashedPassword, $pass2);
+    }
+
+    public function needsRehash(string $hashedPassword): bool
+    {
+        return false;
     }
 
     private function getEncodedPassword($raw)

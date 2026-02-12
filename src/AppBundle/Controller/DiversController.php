@@ -2,17 +2,17 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DiversController extends Controller
+class DiversController extends AbstractController
 {
     /**
      * @Route(path="/divers/questions_answers", name="divers_questions_answers")
      */
     public function questionsAnswersAction()
     {
-        return $this->render('AppBundle:Divers:questions_answers.html.twig');
+        return $this->render('@AppBundle/Divers/questions_answers.html.twig');
     }
 
     /**
@@ -20,6 +20,6 @@ class DiversController extends Controller
      */
     public function sitesAction()
     {
-        return $this->render('AppBundle:Divers:sites.html.twig');
+        return $this->render('@AppBundle/Divers/sites.html.twig');
     }
 }

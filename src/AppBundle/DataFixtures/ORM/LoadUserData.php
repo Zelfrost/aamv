@@ -75,7 +75,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         return 1;
     }
 
-    public function setContainer(ContainerInterface $container = null)
+    public function setContainer(?ContainerInterface $container = null)
     {
         $this->container = $container;
     }

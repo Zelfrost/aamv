@@ -6,31 +6,37 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Tool;
 use AppBundle\Form\Type\CategoryType;
 use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
-class ToolCategoryController extends Controller
+class ToolCategoryController extends AbstractController
 {
+    private ManagerRegistry $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
+
     /**
      * @Route(path="/admin/tool_categories", name="admin_tool_categories")
      */
     public function indexAction()
     {
-        $categories = $this->getDoctrine()
+        $categories = $this->doctrine
             ->getRepository(Category::class)
             ->findOrdered(Tool::TOOL_TYPE)
         ;
 
-        return $this->render('AppBundle:Admin:ToolCategories/index.html.twig', array(
+        return $this->render('@AppBundle/Admin/ToolCategories/index.html.twig', array(
             'categories' => $categories
         ));
     }
 
     /**
-     * @Route(path="/admin/tool_categories/create", name="admin_tool_categories_create")
-     * @Method({"GET", "POST"})
+     * @Route(path="/admin/tool_categories/create", name="admin_tool_categories_create", methods={"GET", "POST"})
      */
     public function createCategoryAction(Request $request)
     {
@@ -41,28 +47,27 @@ class ToolCategoryController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $this->getDoctrine()
+            $this->doctrine
                 ->getManager()
                 ->persist($type);
 
-            $this->getDoctrine()
+            $this->doctrine
                 ->getManager()
                 ->flush();
 
-            $this->get('session')->getFlashBag()->add('admin.categories.success', "La catégorie a bien été ajoutée.");
+            $request->getSession()->getFlashBag()->add('admin.categories.success', "La catégorie a bien été ajoutée.");
 
             return $this->redirect($this->generateUrl('admin_tool_categories'));
         }
 
-        return $this->render('AppBundle:Admin:ToolCategories/create.html.twig', array(
+        return $this->render('@AppBundle/Admin/ToolCategories/create.html.twig', array(
             'type' => $type,
             'form' => $form->createView()
         ));
     }
 
     /**
-     * @Route(path="/admin/tool_categories/edit/{id}", name="admin_tool_categories_edit")
-     * @Method({"GET", "POST"})
+     * @Route(path="/admin/tool_categories/edit/{id}", name="admin_tool_categories_edit", methods={"GET", "POST"})
      */
     public function editAction(Request $request, Category $type)
     {
@@ -70,40 +75,39 @@ class ToolCategoryController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $this->getDoctrine()
+            $this->doctrine
                 ->getManager()
                 ->flush();
 
-            $this->get('session')->getFlashBag()->add('admin.categories.success', "La catégorie a bien été mise à jour.");
+            $request->getSession()->getFlashBag()->add('admin.categories.success', "La catégorie a bien été mise à jour.");
 
             return $this->redirect($this->generateUrl('admin_tool_categories'));
         }
 
-        return $this->render('AppBundle:Admin:ToolCategories/edit.html.twig', array(
+        return $this->render('@AppBundle/Admin/ToolCategories/edit.html.twig', array(
             'tool' => $type,
             'form' => $form->createView()
         ));
     }
 
     /**
-     * @Route(path="/admin/tool_categories/delete/{id}", name="admin_tool_categories_delete")
-     * @Method("DELETE")
+     * @Route(path="/admin/tool_categories/delete/{id}", name="admin_tool_categories_delete", methods={"DELETE"})
      */
-    public function deleteAction(Category $type)
+    public function deleteAction(Request $request, Category $type)
     {
-        $this->getDoctrine()
+        $this->doctrine
             ->getManager()
             ->remove($type)
         ;
 
         try {
-            $this->getDoctrine()
+            $this->doctrine
                 ->getManager()
                 ->flush();
 
-            $this->get('session')->getFlashBag()->add('admin.categories.success', "La catégorie a bien été supprimée.");
+            $request->getSession()->getFlashBag()->add('admin.categories.success', "La catégorie a bien été supprimée.");
         } catch (ForeignKeyConstraintViolationException $e) {
-            $this->get('session')->getFlashBag()->add(
+            $request->getSession()->getFlashBag()->add(
                 'admin.categories.error',
                 'Impossible de supprimer une catégorie à laquelle des outils sont liées.'
             );

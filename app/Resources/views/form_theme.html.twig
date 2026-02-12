@@ -1,9 +1,7 @@
 {% block form_widget_simple %}
-    {% spaceless %}
-        {% set attr = attr|merge({ 'class': (attr.class|default('') ~ ' form-control')|trim }) %}
-        {% set type = type|default('text') %}
-        <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
-    {% endspaceless %}
+    {%- set attr = attr|merge({ 'class': (attr.class|default('') ~ ' form-control')|trim }) -%}
+    {%- set type = type|default('text') -%}
+    <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
 {% endblock form_widget_simple %}
 
 {%- block form_errors -%}

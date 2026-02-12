@@ -6,8 +6,13 @@ use AppBundle\Service\Validator\Constraints\CityFromApiConstraint;
 use AppBundle\Service\Validator\Constraints\CityFromApiConstraint;
 use \Mockery as m;
 
-class CityFromApiValidatorTest extends \PHPUnit_Framework_TestCase
+class CityFromApiValidatorTest extends \PHPUnit\Framework\TestCase
 {
+    public function tearDown(): void
+    {
+        m::close();
+    }
+
     public function testNoCity()
     {
         $retriever = m::mock('AppBundle\Service\Retriever\CityRetriever');

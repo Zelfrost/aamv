@@ -2,17 +2,17 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AssociationController extends Controller
+class AssociationController extends AbstractController
 {
     /**
      * @Route(path="/association/presentation", name="association_presentation")
      */
     public function presentationAction()
     {
-        return $this->render('AppBundle:Association:presentation.html.twig');
+        return $this->render('@AppBundle/Association/presentation.html.twig');
     }
 
     /**
@@ -20,7 +20,7 @@ class AssociationController extends Controller
      */
     public function joinAction()
     {
-        return $this->render('AppBundle:Association:join.html.twig');
+        return $this->render('@AppBundle/Association/join.html.twig');
     }
 
     /**
@@ -28,7 +28,7 @@ class AssociationController extends Controller
      */
     public function picturesAction()
     {
-        return $this->render('AppBundle:Association:pictures.html.twig');
+        return $this->render('@AppBundle/Association/pictures.html.twig');
     }
 
     /**
@@ -36,7 +36,7 @@ class AssociationController extends Controller
      */
     public function aboutUsAction()
     {
-        return $this->render('AppBundle:Association:about_us.html.twig');
+        return $this->render('@AppBundle/Association/about_us.html.twig');
     }
 
     /**
@@ -44,7 +44,7 @@ class AssociationController extends Controller
      */
     public function contactsAction()
     {
-        return $this->render('AppBundle:Association:contacts.html.twig');
+        return $this->render('@AppBundle/Association/contacts.html.twig');
     }
 
     /**
@@ -52,7 +52,7 @@ class AssociationController extends Controller
      */
     public function privacyAction()
     {
-        return $this->render('AppBundle:Association:privacy.html.twig');
+        return $this->render('@AppBundle/Association/privacy.html.twig');
     }
 
     /**
@@ -60,6 +60,6 @@ class AssociationController extends Controller
      */
     public function legalAction()
     {
-        return $this->render('AppBundle:Association:legal.html.twig');
+        return $this->render('@AppBundle/Association/legal.html.twig');
     }
 }

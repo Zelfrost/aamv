@@ -1,4 +1,4 @@
-{% extends "AppBundle:Base:base.html.twig" %}
+{% extends "@AppBundle/Base/base.html.twig" %}
 
 {% block title %}Modifier mon compte - {{ parent() }}{% endblock %}
 
@@ -25,13 +25,13 @@
     <div class="row">
         <form>
             <div class="col-md-6">
-                <a href="{{ path('manage_account_export') }}" class="btn btn-info btn-block">
-                    <i class="glyphicon glyphicon-download-alt"></i> Exporter mes données
+                <a href="{{ path('manage_account_export') }}" class="btn btn-info w-100">
+                    <i class="bi bi-download"></i> Exporter mes données
                 </a>
             </div>
             <div class="col-md-6">
-                <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#deleteAccountModal">
-                    <i class="glyphicon glyphicon-trash"></i> Supprimer mon compte
+                <button type="button" class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">
+                    <i class="bi bi-trash"></i> Supprimer mon compte
                 </button>
             </div>
         </form>
@@ -41,12 +41,12 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                     <h4 class="modal-title">Supprimer mon compte</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <div class="alert alert-danger">
-                        <i class="glyphicon glyphicon-warning-sign"></i>
+                        <i class="bi bi-exclamation-triangle"></i>
                         <strong>Attention, cette action est irréversible !</strong>
                     </div>
                     <p>La suppression de votre compte entraînera la suppression définitive de :</p>
@@ -59,11 +59,11 @@
                     <p>Aucun retour en arrière ne sera possible.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
                     <form method="post" action="{{ path('manage_account_delete') }}" style="display: inline;">
                         <input type="hidden" name="_token" value="{{ csrf_token('delete_account') }}">
                         <button type="submit" class="btn btn-danger">
-                            <i class="glyphicon glyphicon-trash"></i> Confirmer la suppression
+                            <i class="bi bi-trash"></i> Confirmer la suppression
                         </button>
                     </form>
                 </div>
@@ -78,5 +78,4 @@
     <script src="{{ asset('vendor/select2/dist/js/select2.min.js') }}"></script>
     <script src="{{ asset('vendor/select2/dist/js/i18n/fr.js') }}"></script>
     <script src="{{ asset('bundles/app/js/cities.js') }}"></script>
-    <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 {% endblock javascripts %}

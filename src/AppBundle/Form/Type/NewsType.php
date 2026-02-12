@@ -31,7 +31,7 @@ class NewsType extends AbstractType
             ])
             ->add('submit', SubmitType::class, array(
                 'label' => 'Valider',
-                'attr' => array('class' => 'btn btn-info btn-block')
+                'attr' => array('class' => 'btn btn-info w-100')
             ))
         ;
     }

@@ -3,14 +3,14 @@
 namespace AppBundle\Service\Converter;
 
 use AppBundle\Service\Converter\CsvToArrayConverter;
+use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 
-class CsvToArrayConverterTest extends \PHPUnit_Framework_TestCase
+class CsvToArrayConverterTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @expectedException Symfony\Component\Filesystem\Exception\FileNotFoundException
-     */
     public function testNoFile()
     {
+        $this->expectException(FileNotFoundException::class);
+
         $filename = 'test-no-file.csv';
 
         $converter = new CsvToArrayConverter();

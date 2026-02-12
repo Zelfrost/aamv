@@ -1,4 +1,4 @@
-{% extends "AppBundle:Base:base.html.twig" %}
+{% extends "@AppBundle/Base/base.html.twig" %}
 
 {% block title %}Petites annonces - {{ parent() }}{% endblock %}
 
@@ -59,7 +59,7 @@
                         <td>{{ ad.author.firstname }} {{ ad.author.name }}</td>
                         {% if type in ['assistante', 'parents'] %}<td>{{ ad.disponibilityDate|date('m/Y') }}</td>{% endif %}
                         <td>
-                            <a class="btn btn-default" href="{{ path('services_ad', {id: ad.id}) }}">Voir l'annonce</a>
+                            <a class="btn btn-secondary" href="{{ path('services_ad', {id: ad.id}) }}">Voir l'annonce</a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -68,7 +68,7 @@
         </div>
     {% endif %}
 
-    {% include 'AppBundle:Base:pagination.html.twig' %}
+    {% include '@AppBundle/Base/pagination.html.twig' %}
 
     <a href="{{ path('services_ads_index') }}">Retour</a>
 {% endblock body %}

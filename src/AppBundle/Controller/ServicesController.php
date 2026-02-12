@@ -8,12 +8,23 @@ use AppBundle\Entity\Tool;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\User;
 use AppBundle\Form\Type\AdFormType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Service\Retriever\RoleRetriever;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ServicesController extends Controller
+class ServicesController extends AbstractController
 {
+    private ManagerRegistry $doctrine;
+    private RoleRetriever $roleRetriever;
+
+    public function __construct(ManagerRegistry $doctrine, RoleRetriever $roleRetriever)
+    {
+        $this->doctrine = $doctrine;
+        $this->roleRetriever = $roleRetriever;
+    }
+
     /**
      * @Route(
      *      path="/services/ads",
@@ -23,7 +34,7 @@ class ServicesController extends Controller
      */
     public function adsIndexAction()
     {
-        return $this->render('AppBundle:Services:ads.html.twig');
+        return $this->render('@AppBundle/Services/ads.html.twig');
     }
 
     /**
@@ -35,8 +46,8 @@ class ServicesController extends Controller
      */
     public function adsListAction($type, $city = "none", $neighborhood = "none", $page = 1)
     {
-        $role = $this->get('retriever.role')->getRoleFromName($type);
-        $repository = $this->getDoctrine()
+        $role = $this->roleRetriever->getRoleFromName($type);
+        $repository = $this->doctrine
             ->getManager()
             ->getRepository(Ad::class)
         ;
@@ -82,7 +93,7 @@ class ServicesController extends Controller
             ]
         ];
 
-        return $this->render('AppBundle:Services:ads_list.html.twig', $parameters);
+        return $this->render('@AppBundle/Services/ads_list.html.twig', $parameters);
     }
 
     /**
@@ -93,7 +104,7 @@ class ServicesController extends Controller
         if (null === $this->getUser() || ($ad->getAuthor()->getId() !== $this->getUser()->getId())) {
             $ad->addView();
 
-            $this->getDoctrine()
+            $this->doctrine
                 ->getManager()
                 ->flush();
         }
@@ -103,7 +114,7 @@ class ServicesController extends Controller
         }
 
         return $this->render(
-            'AppBundle:Services:ad.html.twig',
+            '@AppBundle/Services/ad.html.twig',
             array('ad' => $ad)
         );
     }
@@ -117,8 +128,7 @@ class ServicesController extends Controller
      */
     public function disponibilitiesAction($city = "none", $neighborhood = "none", $page = 1)
     {
-        $repository = $this
-            ->getDoctrine()
+        $repository = $this->doctrine
             ->getManager()
             ->getRepository(Disponibility::class)
         ;
@@ -159,7 +169,7 @@ class ServicesController extends Controller
             )
         );
 
-        return $this->render('AppBundle:Services:disponibilities.html.twig', $parameters);
+        return $this->render('@AppBundle/Services/disponibilities.html.twig', $parameters);
     }
 
     /**
@@ -172,18 +182,18 @@ class ServicesController extends Controller
         }
 
         $tools = 'public' === $type
-            ? $this->getDoctrine()->getManager()->getRepository(Tool::class)->findFiles(Tool::TOOL_TYPE)
+            ? $this->doctrine->getManager()->getRepository(Tool::class)->findFiles(Tool::TOOL_TYPE)
             : []
         ;
 
-        $categories = $this->getDoctrine()
+        $categories = $this->doctrine
             ->getManager()
             ->getRepository(Category::class)
             ->findFiles(Tool::TOOL_TYPE, 'members' === $type)
         ;
 
         return $this->render(
-            'AppBundle:Services:tools.html.twig',
+            '@AppBundle/Services/tools.html.twig',
             array('tools' => $tools, 'categories' => $categories, 'type' => $type)
         );
     }
@@ -198,18 +208,18 @@ class ServicesController extends Controller
         }
 
         $tools = 'public' === $type
-            ? $this->getDoctrine()->getManager()->getRepository(Tool::class)->findFiles(Tool::DOC_TYPE)
+            ? $this->doctrine->getManager()->getRepository(Tool::class)->findFiles(Tool::DOC_TYPE)
             : []
         ;
 
-        $categories = $this->getDoctrine()
+        $categories = $this->doctrine
             ->getManager()
             ->getRepository(Category::class)
             ->findFiles(Tool::DOC_TYPE, 'members' === $type)
         ;
 
         return $this->render(
-            'AppBundle:Services:docs.html.twig',
+            '@AppBundle/Services/docs.html.twig',
             array('tools' => $tools, 'categories' => $categories, 'type' => $type)
         );
     }

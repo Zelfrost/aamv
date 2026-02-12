@@ -83,7 +83,7 @@ class EventPicture
      *
      * @return EventPicture
      */
-    public function setEvent(Event $event = null)
+    public function setEvent(?Event $event = null)
     {
         $this->event = $event;
 

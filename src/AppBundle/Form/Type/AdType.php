@@ -76,7 +76,7 @@ class AdType extends AbstractType
             ->add('submit', SubmitType::class, array(
                 'label' => 'Confirmer',
                 'attr' => array(
-                    'class' => 'btn btn-block btn-success'
+                    'class' => 'btn btn-success w-100'
                 )
             ))
         ;
@@ -88,7 +88,7 @@ class AdType extends AbstractType
             $builder->add('revalidate', SubmitType::class, [
                 'label' => 'Re-valider',
                 'attr' => [
-                    'class' => 'btn btn-block btn-info'
+                    'class' => 'btn btn-info w-100'
                 ]
             ]);
         }

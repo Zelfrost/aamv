@@ -3,14 +3,14 @@ SHELL = /bin/bash
 
 PROJECT = aamv
 NETWORK = $(PROJECT)_default
-COMPOSE = NETWORK=$(NETWORK) docker compose -p $(PROJECT)
+COMPOSE = docker compose
 
 .PHONY: start
-start: up wait_app install reload-db ## Starts the application
+start: up install ## Starts the application
 
 .PHONY: up
 up: ## Launches containers
-	@$(COMPOSE) up --remove-orphans -d nginx
+	@$(COMPOSE) up --remove-orphans -d
 
 .PHONY: install
 install: ## Launches composer install
@@ -81,10 +81,6 @@ destroy: stop rm ## Destroys a container
 
 .PHONY: recreate
 recreate: destroy up ## Recreates a container
-
-.PHONY: wait_app
-wait_app: ## Waits for an app to be starts
-	@docker run --rm --net=$(NETWORK) -e TIMEOUT=120 -e TARGETS=nginx:80,mysql:3306 ddn0/wait 2> /dev/null
 
 .PHONY: help
 help: ## Show help

@@ -3,15 +3,23 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Tool;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 
-class CommonFilesController extends Controller
+class CommonFilesController extends AbstractController
 {
+    private ManagerRegistry $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
+
     /**
      * @Route(path="/files/join", name="files_join", methods={"GET"})
      */
@@ -27,7 +35,7 @@ class CommonFilesController extends Controller
         }
 
         /** @var Tool $tool */
-        $tool = $this->getDoctrine()
+        $tool = $this->doctrine
             ->getManager()
             ->getRepository(Tool::class)
             ->findOneBy($criterias)
@@ -49,7 +57,7 @@ class CommonFilesController extends Controller
     public function getTermsAction(Request $request)
     {
         /** @var Tool $tool */
-        $tool = $this->getDoctrine()
+        $tool = $this->doctrine
             ->getManager()
             ->getRepository(Tool::class)
             ->findOneBy([
@@ -74,7 +82,7 @@ class CommonFilesController extends Controller
     public function getDisponibilitiesAction()
     {
         /** @var Tool $tool */
-        $tool = $this->getDoctrine()
+        $tool = $this->doctrine
             ->getManager()
             ->getRepository(Tool::class)
             ->findOneBy([

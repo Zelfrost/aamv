@@ -1,4 +1,4 @@
-{% extends "AppBundle:Base:base.html.twig" %}
+{% extends "@AppBundle/Base/base.html.twig" %}
 
 {% block title %}Les outils - {{ parent() }}{% endblock %}
 
@@ -28,7 +28,7 @@
                         <td>{{ tool.fullname }}</td>
                         <td>
                             <a href="{{ tool.path }}">
-                                <span class="glyphicon glyphicon-download"></span>
+                                <span class="bi bi-download"></span>
                                 Télécharger
                             </a>
                         </td>
@@ -54,7 +54,7 @@
                                 <td>
                                     {% if not category.forMembers or is_granted('ROLE_MEMBER') %}
                                     <a href="{{ tool.path }}">
-                                        <span class="glyphicon glyphicon-download"></span>
+                                        <span class="bi bi-download"></span>
                                         Télécharger
                                     </a>
                                     {% endif %}

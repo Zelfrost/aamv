@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityRepository;
 
 class ToolRepository extends EntityRepository
 {
-    public function findFiles(string $type, Category $category = null)
+    public function findFiles(string $type, ?Category $category = null)
     {
         $builder = $this->createQueryBuilder('t')
             ->where('t.type = :type')

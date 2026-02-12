@@ -10,12 +10,41 @@ use AppBundle\Form\Type\ForgotPasswordType;
 use AppBundle\Form\Type\LoginType;
 use AppBundle\Form\Type\RegisterType;
 use AppBundle\Form\Type\ReinitPasswordType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Service\Mailer\ForgotPasswordMailer;
+use AppBundle\Service\Mailer\RegistrationMailer;
+use AppBundle\Service\Retriever\RoleRetriever;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class SecurityController extends Controller
+class SecurityController extends AbstractController
 {
+    private ManagerRegistry $doctrine;
+    private UserPasswordHasherInterface $passwordHasher;
+    private AuthenticationUtils $authenticationUtils;
+    private RoleRetriever $roleRetriever;
+    private RegistrationMailer $registrationMailer;
+    private ForgotPasswordMailer $forgotPasswordMailer;
+
+    public function __construct(
+        ManagerRegistry $doctrine,
+        UserPasswordHasherInterface $passwordHasher,
+        AuthenticationUtils $authenticationUtils,
+        RoleRetriever $roleRetriever,
+        RegistrationMailer $registrationMailer,
+        ForgotPasswordMailer $forgotPasswordMailer
+    ) {
+        $this->doctrine = $doctrine;
+        $this->passwordHasher = $passwordHasher;
+        $this->authenticationUtils = $authenticationUtils;
+        $this->roleRetriever = $roleRetriever;
+        $this->registrationMailer = $registrationMailer;
+        $this->forgotPasswordMailer = $forgotPasswordMailer;
+    }
+
     /**
      * @Route(path="/register", name="register")
      */
@@ -27,13 +56,10 @@ class SecurityController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $password = $this
-                ->get('security.password_encoder')
-                ->encodePassword($user, $user->getPlainPassword())
-            ;
+            $password = $this->passwordHasher->hashPassword($user, $user->getPlainPassword());
             $user->setPassword($password);
 
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $alreadyExistingPerson = $em
                 ->getRepository(Person::class)
                 ->findPersonOnly($user->getEmail())
@@ -57,15 +83,15 @@ class SecurityController extends Controller
 
             $user->setConsentedAt(new \DateTime());
 
-            $role = $this->get('retriever.role')->getRoleFromName($form->get('role')->getData());
+            $role = $this->roleRetriever->getRoleFromName($form->get('role')->getData());
             $user->addRole($role);
 
-            $this->get('mailer.registration')->send($user);
+            $this->registrationMailer->send($user);
 
             $em->persist($user);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add(
+            $request->getSession()->getFlashBag()->add(
                 'success',
                 "Votre compte a bien été créé. Vous allez recevoir un email de confirmation d'ici quelques minutes."
             );
@@ -74,7 +100,7 @@ class SecurityController extends Controller
         }
 
         return $this->render(
-            'AppBundle:Security:register.html.twig',
+            '@AppBundle/Security/register.html.twig',
             array('form' => $form->createView())
         );
     }
@@ -88,16 +114,14 @@ class SecurityController extends Controller
             return $this->redirect($this->generateUrl('homepage'));
         }
 
-        $authenticationUtils = $this->get('security.authentication_utils');
-
         $form = $this->createForm(LoginType::class);
 
         return $this->render(
-            'AppBundle:Security:login.html.twig',
+            '@AppBundle/Security/login.html.twig',
             array(
                 'title' => 'Connexion',
                 'form' => $form->createView(),
-                'error' => $authenticationUtils->getLastAuthenticationError(),
+                'error' => $this->authenticationUtils->getLastAuthenticationError(),
             )
         );
     }
@@ -118,8 +142,7 @@ class SecurityController extends Controller
 
         if ($form->isValid()) {
             /** @var User $user */
-            $user = $this
-                ->getDoctrine()
+            $user = $this->doctrine
                 ->getRepository(User::class)
                 ->findOneByEmail($form->get('email')->getData())
             ;
@@ -135,11 +158,11 @@ class SecurityController extends Controller
                 $user->setPasswordReinitializationCode(md5(uniqid($user->getId(), true)));
                 $user->setPasswordReinitializationCodeExpiresAt($expiresAt);
 
-                $this->getDoctrine()->getManager()->flush();
+                $this->doctrine->getManager()->flush();
 
-                $this->get('mailer.forgot_password')->send($user);
+                $this->forgotPasswordMailer->send($user);
 
-                $this->get('session')->getFlashBag()->add(
+                $request->getSession()->getFlashBag()->add(
                     'success',
                     'Un email vient de vous être envoyé afin de ré-initialiser votre mot de passe'
                 );
@@ -148,7 +171,7 @@ class SecurityController extends Controller
             }
         }
 
-        return $this->render('AppBundle:Security:forgot_password.html.twig', array(
+        return $this->render('@AppBundle/Security/forgot_password.html.twig', array(
             'form' => $form->createView(),
             'error' => $error
         ));
@@ -163,8 +186,7 @@ class SecurityController extends Controller
             return $this->redirect($this->generateUrl('homepage'));
         }
 
-        $user = $this
-            ->getDoctrine()
+        $user = $this->doctrine
             ->getRepository(User::class)
             ->findOneByPasswordReinitializationCode($code)
         ;
@@ -176,9 +198,9 @@ class SecurityController extends Controller
         if ($user->isPasswordReinitializationCodeExpired()) {
             $user->setPasswordReinitializationCode(null);
             $user->setPasswordReinitializationCodeExpiresAt(null);
-            $this->getDoctrine()->getManager()->flush();
+            $this->doctrine->getManager()->flush();
 
-            $this->get('session')->getFlashBag()->add(
+            $request->getSession()->getFlashBag()->add(
                 'error',
                 'Ce lien de réinitialisation a expiré. Veuillez faire une nouvelle demande.'
             );
@@ -193,14 +215,14 @@ class SecurityController extends Controller
             $user->setPasswordReinitializationCode(null);
             $user->setPasswordReinitializationCodeExpiresAt(null);
             $user->setLegacyPassword(null);
-            $user->setPassword($this->get('security.password_encoder')->encodePassword(
+            $user->setPassword($this->passwordHasher->hashPassword(
                 $user,
                 $user->getPlainPassword()
             ));
 
-            $this->getDoctrine()->getManager()->flush();
+            $this->doctrine->getManager()->flush();
 
-            $this->get('session')->getFlashBag()->add(
+            $request->getSession()->getFlashBag()->add(
                 'success',
                 'Votre mot de passe a bien été modifié.'
             );
@@ -208,7 +230,7 @@ class SecurityController extends Controller
             return $this->redirectToRoute('login');
         }
 
-        return $this->render('AppBundle:Security:reinit_password.html.twig', array(
+        return $this->render('@AppBundle/Security/reinit_password.html.twig', array(
             'form' => $form->createView(),
         ));
     }

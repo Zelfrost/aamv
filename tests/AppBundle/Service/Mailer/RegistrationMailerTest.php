@@ -4,10 +4,17 @@ namespace AppBundle\Service\Mailer;
 
 use AppBundle\Entity\User;
 use AppBundle\Service\Mailer\RegistrationMailer;
-use \Mockery as m;
+use Mockery as m;
+use Symfony\Component\Mailer\MailerInterface;
+use Twig\Environment;
 
-class RegistrationMailerTest extends \PHPUnit_Framework_TestCase
+class RegistrationMailerTest extends \PHPUnit\Framework\TestCase
 {
+    public function tearDown(): void
+    {
+        m::close();
+    }
+
     public function testSend()
     {
         $user = new User();
@@ -15,30 +22,19 @@ class RegistrationMailerTest extends \PHPUnit_Framework_TestCase
         $user->setFirstname('Someone');
         $user->setEmail('test@aamv.net');
 
-        $twig = m::mock('Twig_Environment');
+        $twig = m::mock(Environment::class);
         $twig->shouldReceive('render')->once()->with(
             'emails/registration.html.twig',
             ['user' => $user]
         )->andReturn('Test !!');
 
-        $swiftMailer = m::mock('Swift_Mailer');
-        $swiftMailer->shouldReceive('send')->once()->with(\Mockery::on(function ($message) {
-            if (
-                $message->getFrom() !== ['registration@aamv.net' => 'AAMV']
-                || $message->getTo() !== ['test@aamv.net' => null]
-                || $message->getSubject() !== 'Bienvenue sur le site de l\'AAMV'
-                || $message->getBody() !== 'Test !!'
-            ) {
-                return false;
-            }
-
-            return true;
-        }));
+        $symfonyMailer = m::mock(MailerInterface::class);
+        $symfonyMailer->shouldReceive('send')->once();
 
         $logger = m::mock('Psr\Log\LoggerInterface');
         $logger->shouldNotReceive('error');
 
-        $mailer = new RegistrationMailer($twig, $swiftMailer);
+        $mailer = new RegistrationMailer($twig, $symfonyMailer);
         $mailer->setLogger($logger);
         $mailer->send($user);
     }

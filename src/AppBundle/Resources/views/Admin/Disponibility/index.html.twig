@@ -1,4 +1,4 @@
-{% extends "AppBundle:Base:base.html.twig" %}
+{% extends "@AppBundle/Base/base.html.twig" %}
 
 {% block title %}Disponibilités - Administration - {{ parent() }}{% endblock %}
 
@@ -57,6 +57,5 @@
 
 {% block javascripts %}
     <script src="{{ asset('vendor/jquery-confirm/jquery.confirm.min.js') }}"></script>
-    <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('bundles/app/js/Admin/default.js') }}"></script>
 {% endblock javascripts %}

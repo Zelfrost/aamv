@@ -1,4 +1,4 @@
-{% extends "AppBundle:Base:base.html.twig" %}
+{% extends "@AppBundle/Base/base.html.twig" %}
 
 {% block title %}Fichiers - Administration - {{ parent() }}{% endblock %}
 
@@ -19,7 +19,7 @@
             {% endfor %}
         </select>
 
-        <input type="submit" value="Gérer" class="btn btn-block btn-success">
+        <input type="submit" value="Gérer" class="btn btn-success w-100">
     </form>
 {% endblock %}
 

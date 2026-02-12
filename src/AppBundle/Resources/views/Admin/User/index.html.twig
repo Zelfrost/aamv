@@ -1,4 +1,4 @@
-{% extends "AppBundle:Base:base.html.twig" %}
+{% extends "@AppBundle/Base/base.html.twig" %}
 
 {% block title %}Utilisateurs - Administration - {{ parent() }}{% endblock %}
 
@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button class="btn btn-success pull-right">Rechercher</button>
+                    <button class="btn btn-success float-end">Rechercher</button>
                 </div>
             </div>
         </form>
@@ -97,12 +97,11 @@
         </table>
     {% endif %}
 
-    {% include 'AppBundle:Base:pagination.html.twig' %}
+    {% include '@AppBundle/Base/pagination.html.twig' %}
 {% endblock %}
 
 {% block javascripts %}
     <script src="{{ asset('vendor/jquery-confirm/jquery.confirm.min.js') }}"></script>
-    <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('bundles/app/js/Admin/default.js') }}"></script>
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>

@@ -3,13 +3,21 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\News;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomepageController extends Controller
+class HomepageController extends AbstractController
 {
+    private ManagerRegistry $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
+
     /**
      * @Route(path="/", name="homepage")
      * @Route(path="/news/{page}", name="homepage_news")
@@ -20,11 +28,11 @@ class HomepageController extends Controller
             return new Response(null, Response::HTTP_GONE);
         }
 
-        $repository = $this->getDoctrine()->getRepository('AppBundle\Entity\News');
+        $repository = $this->doctrine->getRepository('AppBundle\Entity\News');
 
         $pagination = array(
             'page'        => $page,
-            'pages_count' => ceil($repository->count() / 10),
+            'pages_count' => ceil($repository->countAll() / 10),
             'parameters'  => array()
         );
 
@@ -34,7 +42,7 @@ class HomepageController extends Controller
         $options['pagination']['route'] = 'homepage_news';
 
         return $this->render(
-            'AppBundle:Homepage:index.html.twig',
+            '@AppBundle/Homepage/index.html.twig',
             $options
         );
     }
@@ -44,7 +52,7 @@ class HomepageController extends Controller
      */
     public function newAction($id)
     {
-        $news = $this->getDoctrine()
+        $news = $this->doctrine
             ->getManager()
             ->getRepository(News::class)
             ->find($id);
@@ -54,7 +62,7 @@ class HomepageController extends Controller
         }
 
         return $this->render(
-            'AppBundle:Homepage:news.html.twig',
+            '@AppBundle/Homepage/news.html.twig',
             array('news' => $news)
         );
     }

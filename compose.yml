@@ -1,14 +1,16 @@
 services:
     mysql:
-        image: mysql:5.6
+        image: mysql:8.0
         container_name: mysql
         environment:
             - MYSQL_ROOT_PASSWORD=root
             - MYSQL_DATABASE=aamv
 
     php:
-        image: mehrdadkhah/php7:alpine-7.1
-        container_name: php7
+        build:
+            context: .
+            dockerfile: docker-config/Dockerfile
+        container_name: php8
         depends_on:
             - mysql
         volumes:
@@ -17,7 +19,7 @@ services:
 
     nginx:
         image: nginx
-        container_name: nginx_php7
+        container_name: nginx_php8
         depends_on:
             - php
             - mysql

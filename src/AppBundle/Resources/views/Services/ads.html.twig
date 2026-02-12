@@ -1,4 +1,4 @@
-{% extends "AppBundle:Base:base.html.twig" %}
+{% extends "@AppBundle/Base/base.html.twig" %}
 
 {% block title %}Petites annonces - {{ parent() }}{% endblock %}
 
@@ -16,11 +16,9 @@
     {% if is_granted('ROLE_MEMBER') %}
         <div class="ads-type"><a href="{{ path('services_ads_list', {'type': 'parent'}) }}" class="btn">Annonces de parents</a></div>
     {% elseif not is_granted('ROLE_PARENT') %}
-        <div class="panel panel-warning">
-            <div class="panel-heading">
-                <h3 class="panel-title">Attention</h3>
-            </div>
-            <div class="panel-body">
+        <div class="card border-warning">
+            <div class="card-header bg-warning text-white">Attention</div>
+            <div class="card-body text-warning">
                 <p>Les annonces de parents sont réservées aux assistantes maternelles faisant partie de l'association.</p>
                 {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
                     <p>Si vous êtes déjà inscrit en tant que membre de l'association, <a href="{{ path('login') }}">connectez-vous</a>.</p>

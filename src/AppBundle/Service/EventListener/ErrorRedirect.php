@@ -3,28 +3,28 @@
 namespace AppBundle\Service\EventListener;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Router;
+use Symfony\Component\Routing\RouterInterface;
 
 class ErrorRedirect
 {
     /**
-     *@var Router
+     * @var RouterInterface
      */
     protected $router;
 
     /**
-     * @param Router $router
+     * @param RouterInterface $router
      */
-    public function __construct(Router $router)
+    public function __construct(RouterInterface $router)
     {
         $this->router = $router;
     }
 
-    public function onKernelException(GetResponseForExceptionEvent $event)
+    public function onKernelException(ExceptionEvent $event)
     {
-        $exception = $event->getException();
+        $exception = $event->getThrowable();
 
         if (!$exception instanceof NotFoundHttpException) {
             return;

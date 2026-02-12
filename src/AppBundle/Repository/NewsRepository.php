@@ -17,7 +17,7 @@ class NewsRepository extends EntityRepository
         return new Paginator($query);
     }
 
-    public function count()
+    public function countAll(): int
     {
         $query = $this->createQueryBuilder('n')
             ->select('count(n.id)')

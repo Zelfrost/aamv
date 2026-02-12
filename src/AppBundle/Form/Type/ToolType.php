@@ -45,7 +45,7 @@ class ToolType extends AbstractType
             ->add('submit', SubmitType::class, array(
                 'label' => 'Confirmer',
                 'attr' => array(
-                    'class' => 'btn btn-block btn-success',
+                    'class' => 'btn btn-success w-100',
                 ),
             ));
         ;

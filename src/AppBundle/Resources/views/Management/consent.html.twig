@@ -1,4 +1,4 @@
-{% extends "AppBundle:Base:base.html.twig" %}
+{% extends "@AppBundle/Base/base.html.twig" %}
 
 {% block title %}Consentement requis - {{ parent() }}{% endblock %}
 
@@ -6,7 +6,7 @@
     <h2 class="main">Politique de confidentialité</h2>
 
     <div class="alert alert-warning">
-        <i class="glyphicon glyphicon-alert"></i>
+        <i class="bi bi-exclamation-triangle"></i>
         Conformément au Règlement Général sur la Protection des Données (RGPD), nous avons besoin de votre consentement
         pour continuer à traiter vos données personnelles. Veuillez prendre connaissance de notre politique de confidentialité
         et confirmer votre accord pour continuer à utiliser le site.
@@ -32,14 +32,14 @@
         <div class="col-md-6">
             <form method="post" action="{{ path('manage_consent') }}">
                 <input type="hidden" name="_token" value="{{ csrf_token('consent') }}">
-                <button type="submit" class="btn btn-success btn-block">
-                    <i class="glyphicon glyphicon-ok"></i> J'accepte la politique de confidentialité
+                <button type="submit" class="btn btn-success w-100">
+                    <i class="bi bi-check"></i> J'accepte la politique de confidentialité
                 </button>
             </form>
         </div>
         <div class="col-md-6" id="consent">
-            <a href="{{ path('logout') }}" class="btn btn-default btn-block">
-                <i class="glyphicon glyphicon-log-out"></i> Me déconnecter
+            <a href="{{ path('logout') }}" class="btn btn-secondary w-100">
+                <i class="bi bi-box-arrow-right"></i> Me déconnecter
             </a>
         </div>
     </div>

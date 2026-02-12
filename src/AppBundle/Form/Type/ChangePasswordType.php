@@ -10,18 +10,18 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class ChangePasswordType extends AbstractType
 {
     /**
-     * @var PasswordEncoder
+     * @var UserPasswordHasherInterface
      */
-    private $encoder;
+    private $hasher;
 
-    public function __construct(UserPasswordEncoder $encoder)
+    public function __construct(UserPasswordHasherInterface $hasher)
     {
-        $this->encoder = $encoder;
+        $this->hasher = $hasher;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -39,7 +39,7 @@ class ChangePasswordType extends AbstractType
             ->add('submit', SubmitType::class, array(
                 'label' => 'Confirmer',
                 'attr' => array(
-                    'class' => 'btn btn-block btn-success'
+                    'class' => 'btn btn-success w-100'
                 )
             ))
             ->addEventListener(FormEvents::POST_SUBMIT, function(FormEvent $event) {
@@ -50,7 +50,7 @@ class ChangePasswordType extends AbstractType
                     return;
                 }
 
-                if (!$this->encoder->isPasswordValid($user, $form->get('currentPassword')->getData())) {
+                if (!$this->hasher->isPasswordValid($user, $form->get('currentPassword')->getData())) {
                     $error = new FormError('Mauvais mot de passe, veuillez réessayer.');
                     $form->get('currentPassword')->addError($error);
                 }

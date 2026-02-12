@@ -3,8 +3,13 @@
 use AppBundle\Service\Retriever\RoleRetriever;
 use \Mockery as m;
 
-class RoleRetrieverTest extends \PHPUnit_Framework_TestCase
+class RoleRetrieverTest extends \PHPUnit\Framework\TestCase
 {
+    public function tearDown(): void
+    {
+        m::close();
+    }
+
     public function testParentUserGetRole()
     {
         $checker = m::mock('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');

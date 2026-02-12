@@ -23,7 +23,7 @@ class LoginType extends AbstractType
             ))
             ->add('submit', SubmitType::class, array(
                 'label' => 'Confirmer',
-                'attr' => array('class' => 'btn btn-success btn-block')
+                'attr' => array('class' => 'btn btn-success w-100')
             ))
         ;
     }

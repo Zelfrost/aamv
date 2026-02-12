@@ -4,7 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
+use Symfony\Component\PasswordHasher\Hasher\PasswordHasherAwareInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -12,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
-class User extends Person implements UserInterface, EncoderAwareInterface
+class User extends Person implements UserInterface, PasswordAuthenticatedUserInterface, PasswordHasherAwareInterface
 {
     const ROLE_PARENT    = 'ROLE_PARENT';
     const ROLE_ASSISTANT = 'ROLE_ASSISTANT';
@@ -91,7 +92,7 @@ class User extends Person implements UserInterface, EncoderAwareInterface
         $this->createdAt = new \DateTime();
     }
 
-    public function getUsername()
+    public function getUserIdentifier(): string
     {
         return $this->getEmail();
     }
@@ -106,7 +107,7 @@ class User extends Person implements UserInterface, EncoderAwareInterface
         return $this->plainPassword;
     }
 
-    public function setPassword($password)
+    public function setPassword($password): static
     {
         $this->password = $password;
         $this->legacyPassword = null;
@@ -114,7 +115,7 @@ class User extends Person implements UserInterface, EncoderAwareInterface
         return $this;
     }
 
-    public function getPassword()
+    public function getPassword(): ?string
     {
         if (null !== $this->legacyPassword) {
             return $this->legacyPassword;
@@ -123,7 +124,7 @@ class User extends Person implements UserInterface, EncoderAwareInterface
         return $this->password;
     }
 
-    public function setLegacyPassword($legacyPassword)
+    public function setLegacyPassword($legacyPassword): static
     {
         $this->legacyPassword = $legacyPassword;
 
@@ -135,41 +136,32 @@ class User extends Person implements UserInterface, EncoderAwareInterface
         return $this->legacyPassword;
     }
 
-    public function getSalt()
-    {
-        return null;
-    }
-
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
     }
 
-    public function setRoles(array $roles)
+    public function setRoles(array $roles): static
     {
         $this->roles = $roles;
 
         return $this;
     }
 
-    public function addRole($role)
+    public function addRole($role): static
     {
         $this->roles[] = $role;
 
         return $this;
     }
 
-    public function getRoles()
+    public function getRoles(): array
     {
         return $this->roles;
     }
 
-    public function getEncoderName()
+    public function getPasswordHasherName(): ?string
     {
-        if ($this->isLegacy()) {
-            return 'legacy';
-        }
-
-        return 'default';
+        return $this->isLegacy() ? 'legacy' : null;
     }
 
     public function isLegacy()
@@ -177,7 +169,7 @@ class User extends Person implements UserInterface, EncoderAwareInterface
         return $this->legacyPassword !== null ? true : false;
     }
 
-    public function setCurrentPassword($currentPassword)
+    public function setCurrentPassword($currentPassword): static
     {
         $this->currentPassword = $currentPassword;
 
@@ -194,7 +186,7 @@ class User extends Person implements UserInterface, EncoderAwareInterface
         return $this->active;
     }
 
-    public function setActive($active)
+    public function setActive($active): static
     {
         $this->active = $active;
 
@@ -214,7 +206,7 @@ class User extends Person implements UserInterface, EncoderAwareInterface
         return $this->passwordReinitializationCode;
     }
 
-    public function setPasswordReinitializationCode($passwordReinitializationCode)
+    public function setPasswordReinitializationCode($passwordReinitializationCode): static
     {
         $this->passwordReinitializationCode = $passwordReinitializationCode;
 
@@ -226,7 +218,7 @@ class User extends Person implements UserInterface, EncoderAwareInterface
         return $this->passwordReinitializationCodeExpiresAt;
     }
 
-    public function setPasswordReinitializationCodeExpiresAt($passwordReinitializationCodeExpiresAt)
+    public function setPasswordReinitializationCodeExpiresAt($passwordReinitializationCodeExpiresAt): static
     {
         $this->passwordReinitializationCodeExpiresAt = $passwordReinitializationCodeExpiresAt;
 

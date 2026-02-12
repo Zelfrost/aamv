@@ -5,18 +5,22 @@ namespace AppBundle\Service\Mailer;
 use AppBundle\Entity\User;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
+use Twig\Environment;
 
 class ForgotPasswordMailer implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
     /**
-     * @var \TwigEnvironment
+     * @var Environment
      */
     private $twig;
 
     /**
-     * @var \Swift_Mailer
+     * @var MailerInterface
      */
     private $mailer;
 
@@ -25,7 +29,7 @@ class ForgotPasswordMailer implements LoggerAwareInterface
      */
     private $baseUrl;
 
-    public function __construct(\Twig_Environment $twig, \Swift_Mailer $mailer, $baseUrl)
+    public function __construct(Environment $twig, MailerInterface $mailer, $baseUrl)
     {
         $this->twig = $twig;
         $this->mailer = $mailer;
@@ -34,14 +38,14 @@ class ForgotPasswordMailer implements LoggerAwareInterface
 
     public function send(User $user)
     {
-        $message = \Swift_Message::newInstance()
-            ->setSubject('AAMV - Ré-initialiser votre mot de passe')
-            ->setFrom('forgot_password@aamv.net', 'AAMV')
-            ->setTo($user->getEmail())
-            ->setBody($this->twig->render('emails/forgot_password.html.twig', array(
+        $message = (new Email())
+            ->from(new Address('forgot_password@aamv.net', 'AAMV'))
+            ->to($user->getEmail())
+            ->subject('AAMV - Ré-initialiser votre mot de passe')
+            ->html($this->twig->render('emails/forgot_password.html.twig', [
                 'user' => $user,
                 'base_url' => $this->baseUrl,
-            )), 'text/html')
+            ]))
         ;
 
         try {

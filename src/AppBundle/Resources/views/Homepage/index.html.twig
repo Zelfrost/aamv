@@ -1,4 +1,4 @@
-{% extends "AppBundle:Base:base.html.twig" %}
+{% extends "@AppBundle/Base/base.html.twig" %}
 
 {% block title %}Accueil - {{ parent() }}{% endblock %}
 
@@ -34,5 +34,5 @@
         <hr class="clear">
     </div>
 
-    {% include 'AppBundle:Base:pagination.html.twig' %}
+    {% include '@AppBundle/Base/pagination.html.twig' %}
 {% endblock %}

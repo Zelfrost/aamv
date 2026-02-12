@@ -1,11 +1,10 @@
 /app/config/parameters.yml
 /app/config/parameters.yml.local
+/.env.local
 
 /bin/*
 
 /var/*
-!var/SymfonyRequirements.php
-
 !/var/cache
 /var/cache/*
 
@@ -17,12 +16,14 @@
 
 /vendor/
 
-/web/bundles/
-/web/vendor/
-/web/public/
+/public/bundles/
+/public/vendor/
+/public/public/
 
-!/web/public/tools/aamv/
-/web/public/tools/aamv/*
+!/public/public/tools/aamv/
+/public/public/tools/aamv/*
 
-!/web/public/tools/veronalice
-/web/public/tools/veronalice/*
+!/public/public/tools/veronalice
+/public/public/tools/veronalice/*
+
+.claude/

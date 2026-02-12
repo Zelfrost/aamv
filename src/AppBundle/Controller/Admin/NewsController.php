@@ -4,30 +4,36 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\News;
 use AppBundle\Form\Type\NewsType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class NewsController extends Controller
+class NewsController extends AbstractController
 {
+    private ManagerRegistry $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
+
     /**
      * @Route(path="/admin/news", name="admin_news")
      */
     public function indexAction()
     {
-        $news = $this->getDoctrine()
+        $news = $this->doctrine
             ->getRepository(News::class)
             ->findAll();
 
-        return $this->render('AppBundle:Admin:News/index.html.twig', array(
+        return $this->render('@AppBundle/Admin/News/index.html.twig', array(
             'news' => $news
         ));
     }
 
     /**
-     * @Route(path="/admin/news/create", name="admin_news_create")
-     * @Method({"GET", "POST"})
+     * @Route(path="/admin/news/create", name="admin_news_create", methods={"GET", "POST"})
      */
     public function createAction(Request $request)
     {
@@ -40,28 +46,27 @@ class NewsController extends Controller
         if ($form->isValid()) {
             $news->setAuthor($this->getUser());
 
-            $this->getDoctrine()
+            $this->doctrine
                 ->getManager()
                 ->persist($news);
 
-            $this->getDoctrine()
+            $this->doctrine
                 ->getManager()
                 ->flush();
 
-            $this->get('session')->getFlashBag()->add('admin.news.success', "La news a bien été crée.");
+            $request->getSession()->getFlashBag()->add('admin.news.success', "La news a bien été crée.");
 
             return $this->redirect($this->generateUrl('admin_news'));
         }
 
-        return $this->render('AppBundle:Admin:News/create.html.twig', array(
+        return $this->render('@AppBundle/Admin/News/create.html.twig', array(
             'news' => $news,
             'form' => $form->createView()
         ));
     }
 
     /**
-     * @Route(path="/admin/news/edit/{id}", name="admin_news_edit")
-     * @Method({"GET", "POST"})
+     * @Route(path="/admin/news/edit/{id}", name="admin_news_edit", methods={"GET", "POST"})
      */
     public function editAction(Request $request, News $news)
     {
@@ -71,36 +76,35 @@ class NewsController extends Controller
         if ($form->isValid()) {
             $news->setUpdatedAt(new \DateTime());
 
-            $this->getDoctrine()
+            $this->doctrine
                 ->getManager()
                 ->flush();
 
-            $this->get('session')->getFlashBag()->add('admin.news.success', "La news a bien été modifiée.");
+            $request->getSession()->getFlashBag()->add('admin.news.success', "La news a bien été modifiée.");
 
             return $this->redirect($this->generateUrl('admin_news'));
         }
 
-        return $this->render('AppBundle:Admin:News/edit.html.twig', array(
+        return $this->render('@AppBundle/Admin/News/edit.html.twig', array(
             'news' => $news,
             'form' => $form->createView()
         ));
     }
 
     /**
-     * @Route(path="/admin/news/delete/{id}", name="admin_news_delete")
-     * @Method("DELETE")
+     * @Route(path="/admin/news/delete/{id}", name="admin_news_delete", methods={"DELETE"})
      */
-    public function deleteAction(News $news)
+    public function deleteAction(Request $request, News $news)
     {
-        $this->getDoctrine()
+        $this->doctrine
             ->getManager()
             ->remove($news);
 
-        $this->getDoctrine()
+        $this->doctrine
             ->getManager()
             ->flush();
 
-        $this->get('session')->getFlashBag()->add('admin.news.success', "La news a bien été supprimée.");
+        $request->getSession()->getFlashBag()->add('admin.news.success', "La news a bien été supprimée.");
 
         return $this->redirect($this->generateUrl('admin_news'));
     }

@@ -6,39 +6,45 @@ use AppBundle\Entity\Tool;
 use AppBundle\Entity\Category;
 use AppBundle\Form\Type\ToolType;
 use AppBundle\Form\Type\CategoryType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ToolController extends Controller
+class ToolController extends AbstractController
 {
+    private ManagerRegistry $doctrine;
+
+    public function __construct(ManagerRegistry $doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
+
     /**
      * @Route(path="/admin/tools", name="admin_tools")
      */
     public function indexAction()
     {
-        $tools = $this->getDoctrine()
+        $tools = $this->doctrine
             ->getManager()
             ->getRepository(Tool::class)
             ->findFiles(Tool::TOOL_TYPE)
         ;
 
-        $categories = $this->getDoctrine()
+        $categories = $this->doctrine
             ->getManager()
             ->getRepository(Category::class)
             ->findFiles(Tool::TOOL_TYPE)
         ;
 
-        return $this->render('AppBundle:Admin:Tools/index.html.twig', [
+        return $this->render('@AppBundle/Admin/Tools/index.html.twig', [
             'tools' => $tools,
             'categories' => $categories,
         ]);
     }
 
     /**
-     * @Route(path="/admin/tools/create", name="admin_tools_create")
-     * @Method({"GET", "POST"})
+     * @Route(path="/admin/tools/create", name="admin_tools_create", methods={"GET", "POST"})
      */
     public function createAction(Request $request)
     {
@@ -51,28 +57,27 @@ class ToolController extends Controller
         if ($form->isValid()) {
             $tool->upload();
 
-            $this->getDoctrine()
+            $this->doctrine
                 ->getManager()
                 ->persist($tool);
 
-            $this->getDoctrine()
+            $this->doctrine
                 ->getManager()
                 ->flush();
 
-            $this->get('session')->getFlashBag()->add('admin.tools.success', 'L\'outil a bien été ajouté.');
+            $request->getSession()->getFlashBag()->add('admin.tools.success', 'L\'outil a bien été ajouté.');
 
             return $this->redirect($this->generateUrl('admin_tools'));
         }
 
-        return $this->render('AppBundle:Admin:Tools/create.html.twig', array(
+        return $this->render('@AppBundle/Admin/Tools/create.html.twig', array(
             'tool' => $tool,
             'form' => $form->createView()
         ));
     }
 
     /**
-     * @Route(path="/admin/tools/edit/{id}", name="admin_tools_edit")
-     * @Method({"GET", "POST"})
+     * @Route(path="/admin/tools/edit/{id}", name="admin_tools_edit", methods={"GET", "POST"})
      */
     public function editAction(Request $request, Tool $tool)
     {
@@ -84,36 +89,35 @@ class ToolController extends Controller
 
             $tool->setUpdatedAt(new \DateTime());
 
-            $this->getDoctrine()
+            $this->doctrine
                 ->getManager()
                 ->flush();
 
-            $this->get('session')->getFlashBag()->add('admin.tools.success', 'L\'outil a bien été mis à jour.');
+            $request->getSession()->getFlashBag()->add('admin.tools.success', 'L\'outil a bien été mis à jour.');
 
             return $this->redirect($this->generateUrl('admin_tools'));
         }
 
-        return $this->render('AppBundle:Admin:Tools/edit.html.twig', array(
+        return $this->render('@AppBundle/Admin/Tools/edit.html.twig', array(
             'tool' => $tool,
             'form' => $form->createView()
         ));
     }
 
     /**
-     * @Route(path="/admin/tools/delete/{id}", name="admin_tools_delete")
-     * @Method("DELETE")
+     * @Route(path="/admin/tools/delete/{id}", name="admin_tools_delete", methods={"DELETE"})
      */
-    public function deleteAction(Tool $tool)
+    public function deleteAction(Request $request, Tool $tool)
     {
-        $this->getDoctrine()
+        $this->doctrine
             ->getManager()
             ->remove($tool);
 
-        $this->getDoctrine()
+        $this->doctrine
             ->getManager()
             ->flush();
 
-        $this->get('session')->getFlashBag()->add('admin.tools.success', 'L\'outil a bien été supprimé.');
+        $request->getSession()->getFlashBag()->add('admin.tools.success', 'L\'outil a bien été supprimé.');
 
         return $this->redirect($this->generateUrl('admin_tools'));
     }

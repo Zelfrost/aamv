@@ -1,9 +1,9 @@
 security:
-    encoders:
-        default:
+    password_hashers:
+        AppBundle\Entity\User:
             algorithm: bcrypt
         legacy:
-            id: password_encoder.legacy
+            id: password_hasher.legacy
 
     role_hierarchy:
         ROLE_PARENT:    ROLE_PARENT
@@ -19,7 +19,7 @@ security:
     providers:
         user:
             entity:
-                class: AppBundle:User
+                class: AppBundle\Entity\User
                 property: email
 
     firewalls:
@@ -29,7 +29,7 @@ security:
 
         default:
             pattern: ^/
-            anonymous: ~
+            lazy: true
             form_login:
                 login_path: login
                 check_path: login

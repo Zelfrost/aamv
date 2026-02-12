@@ -17,7 +17,7 @@ class ForgotPasswordType extends AbstractType
             ->add('email', TextType::class, array('label' => 'Email'))
             ->add('submit', SubmitType::class, array(
                 'label' => 'Confirmer',
-                'attr' => array('class' => 'btn btn-success btn-block')
+                'attr' => array('class' => 'btn btn-success w-100')
             ))
         ;
     }

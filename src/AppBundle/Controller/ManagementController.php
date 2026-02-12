@@ -8,14 +8,31 @@ use AppBundle\Entity\News;
 use AppBundle\Form\Type\AdType;
 use AppBundle\Form\Type\ChangePasswordType;
 use AppBundle\Form\Type\ProfileType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class ManagementController extends Controller
+class ManagementController extends AbstractController
 {
+    private ManagerRegistry $doctrine;
+    private UserPasswordHasherInterface $passwordHasher;
+    private TokenStorageInterface $tokenStorage;
+
+    public function __construct(
+        ManagerRegistry $doctrine,
+        UserPasswordHasherInterface $passwordHasher,
+        TokenStorageInterface $tokenStorage
+    ) {
+        $this->doctrine = $doctrine;
+        $this->passwordHasher = $passwordHasher;
+        $this->tokenStorage = $tokenStorage;
+    }
+
     /**
      * @Route(path="/manage/consent", name="manage_consent")
      */
@@ -29,14 +46,14 @@ class ManagementController extends Controller
             $user = $this->getUser();
             $user->setConsentedAt(new \DateTime());
 
-            $this->getDoctrine()->getManager()->flush();
+            $this->doctrine->getManager()->flush();
 
-            $this->get('session')->getFlashBag()->add('success', 'Merci, votre consentement a bien été enregistré.');
+            $request->getSession()->getFlashBag()->add('success', 'Merci, votre consentement a bien été enregistré.');
 
             return $this->redirectToRoute('homepage');
         }
 
-        return $this->render('AppBundle:Management:consent.html.twig');
+        return $this->render('@AppBundle/Management/consent.html.twig');
     }
 
     /**
@@ -51,20 +68,19 @@ class ManagementController extends Controller
 
 
         if (!$form->isValid()) {
-            return $this->render('AppBundle:Management:password.html.twig', array(
+            return $this->render('@AppBundle/Management/password.html.twig', array(
                 'form' => $form->createView()
             ));
         }
 
-        $password = $this->get('security.password_encoder')
-            ->encodePassword($user, $user->getPlainPassword());
+        $password = $this->passwordHasher->hashPassword($user, $user->getPlainPassword());
         $user->setPassword($password);
 
-        $this->getDoctrine()
+        $this->doctrine
             ->getManager()
             ->flush();
 
-        $this->get('session')->getFlashBag()->add(
+        $request->getSession()->getFlashBag()->add(
             'management.legacy_password.success',
             'Votre nouveau mot de passe a bien été enregistré'
         );
@@ -81,14 +97,14 @@ class ManagementController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $this->getDoctrine()
+            $this->doctrine
                 ->getManager()
                 ->flush();
 
-            $this->get('session')->getFlashBag()->add('management.account.success', "Votre compte a bien été modifié.");
+            $request->getSession()->getFlashBag()->add('management.account.success', "Votre compte a bien été modifié.");
         }
 
-        return $this->render('AppBundle:Management:account.html.twig', array(
+        return $this->render('@AppBundle/Management/account.html.twig', array(
             'form' => $form->createView()
         ));
     }
@@ -98,12 +114,12 @@ class ManagementController extends Controller
      */
     public function adsAction()
     {
-        $ads = $this->getDoctrine()
+        $ads = $this->doctrine
             ->getManager()
             ->getRepository(Ad::class)
             ->findByAuthor($this->getUser());
 
-        return $this->render('AppBundle:Management:ads.html.twig', array(
+        return $this->render('@AppBundle/Management/ads.html.twig', array(
             'ads' => $ads
         ));
     }
@@ -120,17 +136,17 @@ class ManagementController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $manager = $this->getDoctrine()->getManager();
+            $manager = $this->doctrine->getManager();
             $manager->persist($ad);
             $manager->flush();
 
-            $this->get('session')->getFlashBag()->add('management.ads.success', "Votre annonce a bien été crée.");
+            $request->getSession()->getFlashBag()->add('management.ads.success', "Votre annonce a bien été crée.");
 
             return $this->redirect($this->generateUrl('manage_ads'));
         }
 
         return $this->render(
-            'AppBundle:Management:create_ad.html.twig',
+            '@AppBundle/Management/create_ad.html.twig',
             array('form' => $form->createView())
         );
     }
@@ -138,9 +154,9 @@ class ManagementController extends Controller
     /**
      * @Route(path="/manage/ad/edit/{id}", name="manage_ad_edit")
      */
-    public function editAdAction(Request $request, Ad $ad = null)
+    public function editAdAction(Request $request, ?Ad $ad = null)
     {
-        $session = $this->get("session");
+        $session = $request->getSession();
 
         if ($this->getUser()->getId() !== $ad->getAuthor()->getId()) {
             $session->getFlashBag()->add('management.ads.error', "Cette annonce ne vous appartient pas.");
@@ -162,7 +178,7 @@ class ManagementController extends Controller
                 $ad->setCreatedAt(new \DateTime());
             }
 
-            $manager = $this->getDoctrine()->getManager();
+            $manager = $this->doctrine->getManager();
             $manager->persist($ad);
             $manager->flush();
 
@@ -171,7 +187,7 @@ class ManagementController extends Controller
             return $this->redirectToRoute('manage_ad_edit', ['id' => $ad->getId()]);
         }
 
-        return $this->render('AppBundle:Management:edit_ad.html.twig', array(
+        return $this->render('@AppBundle/Management/edit_ad.html.twig', array(
             'ad' => $ad,
             'form' => $form->createView()
         ));
@@ -180,9 +196,9 @@ class ManagementController extends Controller
     /**
      * @Route(path="/manage/ad/delete/{id}", name="manage_ad_delete")
      */
-    public function deleteAdAction(Ad $ad = null)
+    public function deleteAdAction(Request $request, ?Ad $ad = null)
     {
-        $session = $this->get("session");
+        $session = $request->getSession();
 
         if (null === $ad) {
             $session->getFlashBag()->add('management.ads.error', "Cette annonce n'existe pas.");
@@ -190,10 +206,10 @@ class ManagementController extends Controller
             if ($this->getUser()->getId() !== $ad->getAuthor()->getId()) {
                 $session->getFlashBag()->add('management.ads.error', "Cette annonce ne vous appartient pas.");
             } else {
-                $this->getDoctrine()
+                $this->doctrine
                     ->getManager()
                     ->remove($ad);
-                $this->getDoctrine()
+                $this->doctrine
                     ->getManager()
                     ->flush();
 
@@ -214,7 +230,7 @@ class ManagementController extends Controller
         }
 
         $user = $this->getUser();
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $ads = $em->getRepository(Ad::class)->findByAuthor($user);
         foreach ($ads as $ad) {
@@ -234,7 +250,7 @@ class ManagementController extends Controller
         $em->remove($user);
         $em->flush();
 
-        $this->get('security.token_storage')->setToken(null);
+        $this->tokenStorage->setToken(null);
         $request->getSession()->invalidate();
         $request->getSession()->getFlashBag()->add('success', 'Votre compte a été supprimé avec succès.');
 
@@ -247,7 +263,7 @@ class ManagementController extends Controller
     public function exportDataAction()
     {
         $user = $this->getUser();
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->doctrine->getManager();
 
         $data = [
             'informations_personnelles' => [

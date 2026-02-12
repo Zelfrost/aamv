@@ -2,102 +2,37 @@
 
 namespace AppBundle\Service\Retriever;
 
+use AppBundle\Repository\CityRepository;
 use AppBundle\Service\Retriever\CityRetriever;
-use Buzz\Message\Response;
-use \Mockery as m;
+use Mockery as m;
 
-class CityRetrieverTest extends \PHPUnit_Framework_TestCase
+class CityRetrieverTest extends \PHPUnit\Framework\TestCase
 {
-    public function testWithoutArrayAsResponse()
+    public function tearDown(): void
     {
-        $response = m::mock('Buzz\Message\Response');
-        $response->shouldReceive('getContent')->once()->withNoArgs()->andReturn('bad-json');
-
-        $browser = m::mock('Buzz\Browser');
-        $browser
-            ->shouldReceive('get')
-            ->once()
-            ->with('http://www.citysearch-api.com/fr/city?login=login&apikey=key&cp=59&ville=bad-json')
-            ->andReturn($response);
-
-        $retriever = new CityRetriever($browser, 'login', 'key');
-        $cities = $retriever->retrieve('bad-json');
-
-        $this->assertEmpty($cities);
+        m::close();
     }
 
-    public function testWithEmptyArrayAsResponse()
+    public function testRetrieve()
     {
-        $response = m::mock('Buzz\Message\Response');
-        $response->shouldReceive('getContent')->once()->withNoArgs()->andReturn('{}');
+        $repository = m::mock(CityRepository::class);
+        $repository->shouldReceive('findLike')->once()->with('test')->andReturn([['id' => 'test', 'text' => 'test']]);
 
-        $browser = m::mock('Buzz\Browser');
-        $browser
-            ->shouldReceive('get')
-            ->once()
-            ->with('http://www.citysearch-api.com/fr/city?login=login&apikey=key&cp=59&ville=empty-array')
-            ->andReturn($response);
-
-        $retriever = new CityRetriever($browser, 'login', 'key');
-        $cities = $retriever->retrieve('empty-array');
-
-        $this->assertEmpty($cities);
-    }
-
-    public function testArrayWithoutResultAsResponse()
-    {
-        $response = m::mock('Buzz\Message\Response');
-        $response->shouldReceive('getContent')->once()->withNoArgs()->andReturn('{"results":[]}');
-
-        $browser = m::mock('Buzz\Browser');
-        $browser
-            ->shouldReceive('get')
-            ->once()
-            ->with('http://www.citysearch-api.com/fr/city?login=login&apikey=key&cp=59&ville=array-without-result')
-            ->andReturn($response);
-
-        $retriever = new CityRetriever($browser, 'login', 'key');
-        $cities = $retriever->retrieve('array-without-result');
-
-        $this->assertEmpty($cities);
-    }
-
-    public function testArrayWithInvalidResultResponse()
-    {
-        $response = m::mock('Buzz\Message\Response');
-        $response->shouldReceive('getContent')->once()->withNoArgs()->andReturn('{"results":[{"test":"test"}]}');
-
-        $browser = m::mock('Buzz\Browser');
-        $browser
-            ->shouldReceive('get')
-            ->once()
-            ->with('http://www.citysearch-api.com/fr/city?login=login&apikey=key&cp=59&ville=array-with-invalid-result')
-            ->andReturn($response);
-
-        $retriever = new CityRetriever($browser, 'login', 'key');
-        $cities = $retriever->retrieve('array-with-invalid-result');
-
-        $this->assertEmpty($cities);
-    }
-
-    public function testArrayWithValidResultResponse()
-    {
-        $response = m::mock('Buzz\Message\Response');
-        $response->shouldReceive('getContent')->once()->withNoArgs()->andReturn('{"results":[{"ville":"test"}]}');
-
-        $browser = m::mock('Buzz\Browser');
-        $browser
-            ->shouldReceive('get')
-            ->once()
-            ->with('http://www.citysearch-api.com/fr/city?login=login&apikey=key&cp=59&ville=array-with-valid-result')
-            ->andReturn($response);
-
-        $retriever = new CityRetriever($browser, 'login', 'key');
-        $cities = $retriever->retrieve('array-with-valid-result');
-
-        $this->assertEquals('test', $cities[0]['id']);
-        $this->assertEquals('test', $cities[0]['text']);
+        $retriever = new CityRetriever($repository);
+        $cities = $retriever->retrieve('test');
 
         $this->assertCount(1, $cities);
+        $this->assertEquals('test', $cities[0]['id']);
+    }
+
+    public function testRetrieveEmpty()
+    {
+        $repository = m::mock(CityRepository::class);
+        $repository->shouldReceive('findLike')->once()->with('nonexistent')->andReturn([]);
+
+        $retriever = new CityRetriever($repository);
+        $cities = $retriever->retrieve('nonexistent');
+
+        $this->assertEmpty($cities);
     }
 }

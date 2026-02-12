@@ -1,4 +1,10 @@
 services:
+    AppBundle\Controller\:
+        resource: '../../Controller'
+        autowire: true
+        autoconfigure: true
+        tags: ['controller.service_arguments']
+
     AppBundle\Repository\ToolRepository:
         class: AppBundle\Repository\ToolRepository
         lazy: true
@@ -23,26 +29,15 @@ services:
 
     listener.legacy_authentication:
         class: AppBundle\Listener\LegacyAuthenticationListener
-        arguments: ['@security.token_storage', '@session', '@security.password_encoder', '@doctrine']
+        arguments: ['@security.token_storage', '@request_stack', '@security.user_password_hasher', '@doctrine']
         tags:
             - { name: kernel.event_listener, event: security.interactive_login }
 
     converter.csv_to_array:
         class: AppBundle\Service\Converter\CsvToArrayConverter
 
-    password_encoder.legacy:
+    password_hasher.legacy:
         class: AppBundle\Service\PasswordEncoder\LegacyPasswordEncoder
-        arguments: ['@doctrine.orm.entity_manager']
-
-    buzz.client.curl:
-        class:  Buzz\Client\Curl
-        public: false
-        calls:
-            - ['setVerifyPeer', [false]]
-
-    buzz.browser:
-        class:     Buzz\Browser
-        arguments: ['@buzz.client.curl']
 
     AppBundle\Form\Type\RegisterType:
         class: AppBundle\Form\Type\RegisterType
@@ -74,7 +69,7 @@ services:
 
     form.change_password:
         class: AppBundle\Form\Type\ChangePasswordType
-        arguments: [ '@security.password_encoder' ]
+        arguments: [ '@security.user_password_hasher' ]
         tags:
             - { name: form.type }
 
@@ -82,9 +77,15 @@ services:
         class: AppBundle\Service\Retriever\CityRetriever
         autowire: true
 
+    AppBundle\Service\Retriever\CityRetriever:
+        alias: retriever.city
+
     retriever.role:
         class: AppBundle\Service\Retriever\RoleRetriever
         arguments: ['@security.authorization_checker']
+
+    AppBundle\Service\Retriever\RoleRetriever:
+        alias: retriever.role
 
     retriever.publishable:
         class: AppBundle\Service\Retriever\PublishableRetriever
@@ -107,16 +108,22 @@ services:
         calls:
             - ['setLogger', ['@logger']]
 
+    AppBundle\Service\Mailer\RegistrationMailer:
+        alias: mailer.registration
+
     mailer.forgot_password:
         class: AppBundle\Service\Mailer\ForgotPasswordMailer
         arguments: ['@twig', '@mailer', '%base_url%']
         calls:
             - ['setLogger', ['@logger']]
 
+    AppBundle\Service\Mailer\ForgotPasswordMailer:
+        alias: mailer.forgot_password
+
     kernel.listener.kernel_request:
          class: AppBundle\Service\EventListener\ErrorRedirect
          arguments:
-             router: "@router"
+             - "@router"
          tags:
              - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }
 
