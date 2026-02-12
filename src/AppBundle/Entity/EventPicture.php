@@ -119,7 +119,7 @@ class EventPicture
         }
 
         $this->getFile()->move(
-            __DIR__.'/../../../../../web/public/eventPictures/'.str_replace(' ', '', $this->event->getName()).'/',
+            __DIR__.'/../../../../../public/public/eventPictures/'.str_replace(' ', '', $this->event->getName()).'/',
             $this->file->getClientOriginalName()
         );
 
@@ -134,7 +134,7 @@ class EventPicture
             return;
         }
 
-        $path = __DIR__.'/../../../../../web/public/eventPictures/'.str_replace(' ', '', $this->event->getName()).'/'.$this->realName;
+        $path = __DIR__.'/../../../../../public/public/eventPictures/'.str_replace(' ', '', $this->event->getName()).'/'.$this->realName;
         $fs = new Filesystem();
 
         if ($fs->exists($path)) {

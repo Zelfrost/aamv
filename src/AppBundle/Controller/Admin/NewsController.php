@@ -43,7 +43,7 @@ class NewsController extends AbstractController
         $form = $this->createForm(NewsType::class, $news);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $news->setAuthor($this->getUser());
 
             $this->doctrine
@@ -73,7 +73,7 @@ class NewsController extends AbstractController
         $form = $this->createForm(NewsType::class, $news);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $news->setUpdatedAt(new \DateTime());
 
             $this->doctrine

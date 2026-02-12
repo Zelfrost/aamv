@@ -29,7 +29,7 @@
     </div>
 
     <div class="row" style="margin-top: 20px;">
-        <div class="col-md-6">
+        <div class="col-md-6 mb-2 mb-md-0">
             <form method="post" action="{{ path('manage_consent') }}">
                 <input type="hidden" name="_token" value="{{ csrf_token('consent') }}">
                 <button type="submit" class="btn btn-success w-100">

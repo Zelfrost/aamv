@@ -240,7 +240,7 @@ class Tool
     {
         return sprintf(
             '%s/%s',
-            __DIR__ . '/../../../web' . self::PATH,
+            __DIR__ . '/../../../public' . self::PATH,
             null !== $this->category && $this->category->isForMembers() ? 'members' : null
         );
     }

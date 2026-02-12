@@ -37,6 +37,13 @@ article:hover {
     border: 1px solid #EBEBEB;
 }
 
+@media (max-width: 767px) {
+    #body .ads-type a {
+        width: 100%;
+        display: block;
+    }
+}
+
 article header {
     height: auto;
     padding-left: 4px;

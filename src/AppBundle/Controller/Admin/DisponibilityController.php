@@ -47,7 +47,7 @@ class DisponibilityController extends AbstractController
         $form = $this->createForm(DisponibilityType::class, $disponibility);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->doctrine
                 ->getManager()
                 ->persist($disponibility);
@@ -75,7 +75,7 @@ class DisponibilityController extends AbstractController
         $form = $this->createForm(DisponibilityType::class, $disponibility);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->doctrine
                 ->getManager()
                 ->flush();

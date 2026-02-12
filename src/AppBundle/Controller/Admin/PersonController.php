@@ -28,7 +28,7 @@ class PersonController extends AbstractController
         $form = $this->createForm(PersonType::class, $person);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->doctrine
                 ->getManager()
                 ->persist($person);

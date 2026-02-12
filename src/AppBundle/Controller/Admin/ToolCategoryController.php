@@ -46,7 +46,7 @@ class ToolCategoryController extends AbstractController
         $form = $this->createForm(CategoryType::class, $type);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->doctrine
                 ->getManager()
                 ->persist($type);
@@ -74,7 +74,7 @@ class ToolCategoryController extends AbstractController
         $form = $this->createForm(CategoryType::class, $type);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->doctrine
                 ->getManager()
                 ->flush();

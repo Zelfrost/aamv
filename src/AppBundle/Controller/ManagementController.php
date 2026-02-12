@@ -66,26 +66,25 @@ class ManagementController extends AbstractController
         $form = $this->createForm(ChangePasswordType::class, $user);
         $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $password = $this->passwordHasher->hashPassword($user, $user->getPlainPassword());
+            $user->setPassword($password);
 
-        if (!$form->isValid()) {
-            return $this->render('@AppBundle/Management/password.html.twig', array(
-                'form' => $form->createView()
-            ));
+            $this->doctrine
+                ->getManager()
+                ->flush();
+
+            $request->getSession()->getFlashBag()->add(
+                'management.legacy_password.success',
+                'Votre nouveau mot de passe a bien été enregistré'
+            );
+
+            return $this->redirect($this->generateUrl('homepage'));
         }
 
-        $password = $this->passwordHasher->hashPassword($user, $user->getPlainPassword());
-        $user->setPassword($password);
-
-        $this->doctrine
-            ->getManager()
-            ->flush();
-
-        $request->getSession()->getFlashBag()->add(
-            'management.legacy_password.success',
-            'Votre nouveau mot de passe a bien été enregistré'
-        );
-
-        return $this->redirect($this->generateUrl('homepage'));
+        return $this->render('@AppBundle/Management/password.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 
     /**
@@ -96,7 +95,7 @@ class ManagementController extends AbstractController
         $form = $this->createForm(ProfileType::class, $this->getUser());
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->doctrine
                 ->getManager()
                 ->flush();
@@ -135,7 +134,7 @@ class ManagementController extends AbstractController
         $form = $this->createForm(AdType::class, $ad);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $manager = $this->doctrine->getManager();
             $manager->persist($ad);
             $manager->flush();
@@ -173,7 +172,7 @@ class ManagementController extends AbstractController
         $form = $this->createForm(AdType::class, $ad);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             if ($form->has('revalidate') && $form->get('revalidate')->isClicked()) {
                 $ad->setCreatedAt(new \DateTime());
             }

@@ -358,7 +358,7 @@ label.check-label {
     font-weight: normal;
 }
 
-form .btn:not(.btn.btn-normal) {
+.btn:not(.btn.btn-normal) {
     font-size: 1.3em;
 }
 
@@ -382,6 +382,10 @@ form .btn:not(.btn.btn-normal) {
 blockquote {
     margin: 10px 0 0 50px;
     font-style: italic;
+}
+
+.table {
+    --bs-table-bg: transparent;
 }
 
 .table tr th {
@@ -473,4 +477,162 @@ blockquote {
 .modal-footer button.btn, #consent a.btn {
     color : #FFF;
     font-size: 1.3em;
+}
+
+/* Hamburger caché sur desktop */
+.nav-hamburger {
+    display: none;
+}
+
+/* =============================================
+   RESPONSIVE MOBILE (< 768px)
+   ============================================= */
+@media (max-width: 767px) {
+
+    /* Container pleine largeur */
+    .container {
+        max-width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    /* Header logo centré et adapté */
+    #top {
+        margin: 0;
+        padding: 8px 0;
+    }
+    #top #bloc {
+        width: 100%;
+        padding: 0 15px;
+    }
+    #top #bloc img {
+        margin: 0 auto;
+        width: 70%;
+        display: block;
+    }
+
+    /* Nav : bande pleine largeur sans coins arrondis */
+    nav.navbar {
+        border-radius: 0;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Hamburger button */
+    .nav-hamburger {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 38px;
+        height: 28px;
+        padding: 4px 6px;
+        margin: 8px 12px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+    }
+    .nav-hamburger span {
+        display: block;
+        height: 3px;
+        background: #FFF;
+        border-radius: 2px;
+        transition: 0.2s;
+    }
+
+    /* Menu principal caché par défaut, visible quand .open */
+    #nav-main-menu {
+        display: none;
+        padding: 0;
+        margin: 0;
+    }
+    #nav-main-menu.open {
+        display: block;
+    }
+
+    /* Items du menu en colonne */
+    nav li {
+        display: block;
+        float: none;
+        width: 100%;
+        text-align: left;
+        border-bottom: 1px solid #CCA561;
+        font-size: 16px;
+    }
+    nav li a,
+    nav li.has-submenu {
+        display: block;
+        padding: 12px 16px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Sous-menus : position statique, masqués par défaut (JS les affiche) */
+    nav li > div {
+        position: static;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        display: none;
+    }
+    nav li ul {
+        display: block;
+        border-radius: 0;
+        padding: 0 8px;
+        width: 100%;
+    }
+    nav li li {
+        border-bottom: none;
+        font-size: 0.9em;
+    }
+    nav li li a {
+        padding: 10px 16px;
+    }
+    nav li li:nth-child(1) a {
+        padding: 10px 16px;
+    }
+
+    /* Body collé au nav, sans coins arrondis */
+    #body {
+        border-radius: 0;
+        padding: 15px;
+        margin: 0;
+        overflow-x: auto;
+    }
+
+    /* Footer sans coins arrondis */
+    footer {
+        border-radius: 0;
+        margin: 0;
+    }
+
+    /* Tables scrollables horizontalement */
+    .table-responsive-wrapper {
+        overflow-x: auto;
+    }
+    .table {
+        font-size: 0.9em;
+    }
+
+    /* Selects et inputs pleine largeur */
+    select,
+    .select2-container {
+        width: 100% !important;
+    }
+
+    /* Réduire la taille des boutons de formulaire */
+    form .btn:not(.btn.btn-normal) {
+        font-size: 1.1em;
+    }
+
+    /* #back bouton pleine largeur */
+    #back {
+        right: 0;
+        float: none;
+        display: block;
+        margin-bottom: 10px;
+    }
+    #back a {
+        display: block;
+        text-align: center;
+    }
 }

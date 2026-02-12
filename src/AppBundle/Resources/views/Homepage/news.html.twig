@@ -18,7 +18,7 @@
     </div>
     
     <div id="author">
-        <p>Publiée le <strong>{{ news.createdAt|localizeddate('long', 'none', 'fr') }}</strong> à <strong>{{ news.createdAt|date('h:i') }}</strong></p>
+        <p>Publiée le <strong>{{ news.createdAt|format_date(locale='fr', dateFormat='long') }}</strong> à <strong>{{ news.createdAt|date('h:i') }}</strong></p>
         <p>Par <a href="">{{ news.author.firstname }} {{ news.author.name }}</a></p>
     </div>
 {% endblock %}

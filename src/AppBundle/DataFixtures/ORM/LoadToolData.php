@@ -34,9 +34,9 @@ class LoadToolData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($toolC);
         $manager->flush();
 
-        $fs->touch('web/public/tools/toolA.txt');
-        $fs->touch('web/public/tools/toolB.txt');
-        $fs->touch('web/public/tools/toolC.txt');
+        $fs->touch('public/public/tools/toolA.txt');
+        $fs->touch('public/public/tools/toolB.txt');
+        $fs->touch('public/public/tools/toolC.txt');
     }
 
     public function getOrder()

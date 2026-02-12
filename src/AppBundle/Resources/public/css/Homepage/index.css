@@ -84,6 +84,37 @@
     color: #493917;
 }
 
+@media (max-width: 767px) {
+    #news {
+        width: 100%;
+        padding: 5px;
+    }
+
+    .new {
+        float: none;
+        width: 100%;
+        height: auto;
+        margin: 6px 0;
+    }
+
+    .new.important.first {
+        width: 100%;
+        font-size: 1em;
+    }
+
+    .new .title {
+        height: auto;
+        line-height: 1.4;
+    }
+
+    #body .new h3 {
+        font-size: 0.95em;
+        display: block;
+        vertical-align: unset;
+        line-height: 1.4;
+    }
+}
+
 #newsletter {
     width: 70%;
     padding: 5%;

@@ -31,7 +31,7 @@ class CommonFilesController extends AbstractController
         $form = $this->createForm(CommonFileType::class);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $this->saveFile($data['file'], Tool::JOIN_NAME, $request->query->get('year'));
 
@@ -53,7 +53,7 @@ class CommonFilesController extends AbstractController
         $form = $this->createForm(CommonFileType::class);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $this->saveFile($data['file'], Tool::TERMS_NAME);
 
@@ -75,7 +75,7 @@ class CommonFilesController extends AbstractController
         $form = $this->createForm(CommonFileType::class);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $this->saveFile($data['file'], Tool::DISPONIBILITIES_NAME);
 

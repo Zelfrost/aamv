@@ -55,7 +55,7 @@ class SecurityController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $password = $this->passwordHasher->hashPassword($user, $user->getPlainPassword());
             $user->setPassword($password);
 
@@ -140,7 +140,7 @@ class SecurityController extends AbstractController
 
         $error = null;
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             /** @var User $user */
             $user = $this->doctrine
                 ->getRepository(User::class)
@@ -211,7 +211,7 @@ class SecurityController extends AbstractController
         $form = $this->createForm(ReinitPasswordType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $user->setPasswordReinitializationCode(null);
             $user->setPasswordReinitializationCodeExpiresAt(null);
             $user->setLegacyPassword(null);

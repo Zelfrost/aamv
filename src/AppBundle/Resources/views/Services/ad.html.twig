@@ -36,7 +36,7 @@
                 {% if not ad.disponibilityDate is null %}
                 <div class="row">
                     <label>Début de la garde :</label>
-                    <p>{{ ad.disponibilityDate|localizeddate('long', 'none', 'fr', null, "MMMM yyyy")|capitalize }}</p>
+                    <p>{{ ad.disponibilityDate|format_date(locale='fr', pattern='MMMM yyyy')|capitalize }}</p>
                 </div>
                 {% endif %}
                 {% if not ad.author.neighborhood is null %}
@@ -98,6 +98,6 @@
     </div>
     
     <div id="author">
-        <p>Publiée le <strong>{{ ad.createdAt|localizeddate('long', 'none', 'fr') }}</strong> à <strong>{{ ad.createdAt|date('H:i') }}</strong></p>
+        <p>Publiée le <strong>{{ ad.createdAt|format_date(locale='fr', dateFormat='long') }}</strong> à <strong>{{ ad.createdAt|date('H:i') }}</strong></p>
     </div>
 {% endblock %}

@@ -54,7 +54,7 @@ class ToolController extends AbstractController
         $form = $this->createForm(ToolType::class, $tool, ['attr' => ['type' => Tool::TOOL_TYPE]]);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $tool->upload();
 
             $this->doctrine
@@ -84,7 +84,7 @@ class ToolController extends AbstractController
         $form = $this->createForm(ToolType::class, $tool, ['attr' => ['type' => Tool::TOOL_TYPE]]);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $tool->upload();
 
             $tool->setUpdatedAt(new \DateTime());
