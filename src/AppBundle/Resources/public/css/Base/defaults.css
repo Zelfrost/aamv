@@ -125,6 +125,7 @@ nav li.multi-nav:hover {
 }
 nav > ul > li:hover {
     background-color: #CCA561;
+    border-radius: 4px;
 }
 nav li:hover a {
     color: #FFF;
@@ -149,8 +150,6 @@ nav li ul {
     margin-top: 1px;
 
     width: 100%;
-    padding-left: 10px;
-    padding-right: 10px;
 
     display: none;
     z-index: 0;
@@ -173,17 +172,20 @@ nav li li {
 }
 nav li li a {
     display: block;
-    padding: 0 10px 20px 10px;
+    padding: 10px 20px;
 
     color: #fff;
     text-decoration: none;
     text-align: left;
-}
-nav li li:nth-child(1) a {
-    padding: 20px 10px;
+
+    border-left: 3px solid transparent;
+    transition: border-left-color 0.2s ease, padding-left 0.2s ease, background-color 0.2s ease;
 }
 nav li li a:hover {
-    text-decoration: underline;
+    text-decoration: none;
+    border-left-color: #79B9FF;
+    background-color: rgba(255, 255, 255, 0.12);
+    border-radius: 4px;
 }
 
 .int {
@@ -586,6 +588,7 @@ blockquote {
     }
     nav li li a {
         padding: 10px 16px;
+        border-left: 3px solid transparent;
     }
     nav li li:nth-child(1) a {
         padding: 10px 16px;

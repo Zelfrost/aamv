@@ -1,0 +1,8 @@
+# Contenu standard pour Symfony (compatible OVH)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Si le fichier demandé n'existe pas, on redirige vers index.php
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>

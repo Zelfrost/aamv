@@ -28,10 +28,6 @@ services:
         arguments:
             - 'AppBundle\Entity\City'
 
-    AppBundle\Controller\Api\CitiesApiController:
-        class: AppBundle\Controller\Api\CitiesApiController
-        autowire: true
-
     listener.legacy_authentication:
         class: AppBundle\Listener\LegacyAuthenticationListener
         arguments: ['@security.token_storage', '@request_stack', '@security.user_password_hasher', '@doctrine']
