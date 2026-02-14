@@ -49,6 +49,15 @@ exec: ## Executes a command in a container
 	$(eval cmd ?= bash)
 	@$(COMPOSE) exec --user $(user) $(app) sh -c "$(cmd)"
 
+.PHONY: load
+load: ## Loads SQL dumps from docker/dump/*.sql into the database
+	@for file in docker/dump/*.sql; do \
+		if [ -f "$$file" ]; then \
+			echo "Loading $$file..."; \
+			$(COMPOSE) exec -T mysql mysql aamv -hmysql -uroot -proot < "$$file"; \
+		fi; \
+	done
+
 .PHONY: mysql
 mysql: ## Connects you to the mysql server
 	@$(COMPOSE) run --rm mysql mysql aamv -hmysql -uroot -proot

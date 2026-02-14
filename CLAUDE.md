@@ -29,7 +29,7 @@ make exec cmd="bin/phpunit -c app/phpunit.xml.dist"
 make exec cmd="bin/phpunit -c app/phpunit.xml.dist tests/AppBundle/Path/To/TestFile.php"
 ```
 
-The app is served at `http://localhost:8080` when containers are running.
+The app is served at `http://localhost:8081` when containers are running.
 
 ## Architecture
 
@@ -39,7 +39,7 @@ The app is served at `http://localhost:8080` when containers are running.
 - `src/AppBundle/` — All application code (single-bundle structure)
 - `tests/AppBundle/` — PHPUnit tests (mirrors src structure)
 - `web/` — Web root (`app.php` production, `app_dev.php` development front controllers)
-- `docker-config/` — Nginx and PHP OPcache configuration
+- `docker/` — Nginx and PHP OPcache configuration
 
 ### Source Code Organization (`src/AppBundle/`)
 
