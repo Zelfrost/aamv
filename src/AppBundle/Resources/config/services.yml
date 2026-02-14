@@ -5,6 +5,11 @@ services:
         autoconfigure: true
         tags: ['controller.service_arguments']
 
+    AppBundle\DataFixtures\:
+        resource: '../../DataFixtures'
+        autowire: true
+        autoconfigure: true
+
     AppBundle\Repository\ToolRepository:
         class: AppBundle\Repository\ToolRepository
         lazy: true

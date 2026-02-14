@@ -1,24 +1,23 @@
 <?php
 
-namespace AppBundle\DataFixtures\ORM;
+namespace AppBundle\DataFixtures;
 
 use AppBundle\Entity\User;
-use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
+class LoadUserData extends Fixture implements OrderedFixtureInterface
 {
-    private $container;
-
-    public function load(ObjectManager $manager)
+    public function __construct(private UserPasswordHasherInterface $hasher)
     {
-        $encoder = $this->container->get('security.password_encoder');
+    }
 
+    public function load(ObjectManager $manager): void
+    {
         $admin = new User();
-        $admin->setPassword($encoder->encodePassword($admin, 'admin'));
+        $admin->setPassword($this->hasher->hashPassword($admin, 'admin'));
         $admin->setRoles([User::ROLE_ADMIN]);
         $admin->setActive(true);
         $admin->setName('Admin');
@@ -28,7 +27,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $admin->setCity('Nowhere');
 
         $assistante = new User();
-        $assistante->setPassword($encoder->encodePassword($assistante, 'assistante'));
+        $assistante->setPassword($this->hasher->hashPassword($assistante, 'assistante'));
         $assistante->setRoles([User::ROLE_ASSISTANT, User::ROLE_MEMBER]);
         $assistante->setActive(true);
         $assistante->setName('Assistant');
@@ -38,7 +37,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $assistante->setCity('Lille');
 
         $notMember = new User();
-        $notMember->setPassword($encoder->encodePassword($notMember, 'not-member'));
+        $notMember->setPassword($this->hasher->hashPassword($notMember, 'not-member'));
         $notMember->setRoles([User::ROLE_ASSISTANT]);
         $notMember->setActive(true);
         $notMember->setName('Not member');
@@ -48,7 +47,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $notMember->setCity('Lille');
 
         $parent = new User();
-        $parent->setPassword($encoder->encodePassword($parent, 'parent'));
+        $parent->setPassword($this->hasher->hashPassword($parent, 'parent'));
         $parent->setRoles([User::ROLE_PARENT]);
         $parent->setActive(true);
         $parent->setName('Parent');
@@ -70,13 +69,8 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $this->addReference('parent', $parent);
     }
 
-    public function getOrder()
+    public function getOrder(): int
     {
         return 1;
-    }
-
-    public function setContainer(?ContainerInterface $container = null)
-    {
-        $this->container = $container;
     }
 }

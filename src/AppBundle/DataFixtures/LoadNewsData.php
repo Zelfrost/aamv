@@ -1,16 +1,16 @@
 <?php
 
-namespace AppBundle\DataFixtures\ORM;
+namespace AppBundle\DataFixtures;
 
 use AppBundle\Entity\News;
-use Doctrine\Common\DataFixtures\AbstractFixture;
+use AppBundle\Entity\User;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Filesystem\Filesystem;
+use Doctrine\Persistence\ObjectManager;
 
-class LoadNewsData extends AbstractFixture implements OrderedFixtureInterface
+class LoadNewsData extends Fixture implements OrderedFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $newsA = new News();
         $newsA->setTitle('Nous avons de grandes nouvelles !');
@@ -22,7 +22,8 @@ class LoadNewsData extends AbstractFixture implements OrderedFixtureInterface
                 <li>Une utilisation <b>plus simple</b> du site</li>
             </ul>
         ');
-        $newsA->setAuthor($this->getReference('admin'));
+        $newsA->setAuthor($this->getReference('admin', \AppBundle\Entity\User::class));
+        $newsA->setImportant(false);
         $newsA->setCreatedAt(new \DateTime());
         $newsA->setUpdatedAt(new \DateTime());
 
@@ -34,7 +35,8 @@ class LoadNewsData extends AbstractFixture implements OrderedFixtureInterface
             <p>Assistantes maternelles et parents y sont conviés si ils sont en recherche d\'un mode de garde.</p>
             <p>Si vous vous garez sur le parking de Carrefour Market, celui-ci ferme à 20h30.</p>
         ');
-        $newsB->setAuthor($this->getReference('admin'));
+        $newsB->setAuthor($this->getReference('admin', \AppBundle\Entity\User::class));
+        $newsB->setImportant(false);
         $newsB->setCreatedAt(new \DateTime());
         $newsB->setUpdatedAt(new \DateTime());
 
@@ -43,7 +45,7 @@ class LoadNewsData extends AbstractFixture implements OrderedFixtureInterface
         $manager->flush();
     }
 
-    public function getOrder()
+    public function getOrder(): int
     {
         return 5;
     }

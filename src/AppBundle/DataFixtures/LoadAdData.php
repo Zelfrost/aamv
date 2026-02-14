@@ -1,15 +1,16 @@
 <?php
 
-namespace AppBundle\DataFixtures\ORM;
+namespace AppBundle\DataFixtures;
 
 use AppBundle\Entity\Ad;
-use Doctrine\Common\DataFixtures\AbstractFixture;
+use AppBundle\Entity\User;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 
-class LoadAdData extends AbstractFixture implements OrderedFixtureInterface
+class LoadAdData extends Fixture implements OrderedFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $adA = new Ad();
         $adA->setTitle('Plein de places !');
@@ -28,7 +29,7 @@ class LoadAdData extends AbstractFixture implements OrderedFixtureInterface
         $adA->setViewCount(12);
         $adA->setCreatedAt(new \DateTime());
         $adA->setUpdatedAt(new \DateTime());
-        $adA->setAuthor($this->getReference('assistante'));
+        $adA->setAuthor($this->getReference('assistante', \AppBundle\Entity\User::class));
 
         $adB = new Ad();
         $adB->setTitle('Une place en Mars');
@@ -47,14 +48,14 @@ class LoadAdData extends AbstractFixture implements OrderedFixtureInterface
         $adB->setViewCount(36);
         $adB->setCreatedAt(new \DateTime());
         $adB->setUpdatedAt(new \DateTime());
-        $adB->setAuthor($this->getReference('assistante'));
+        $adB->setAuthor($this->getReference('assistante', \AppBundle\Entity\User::class));
 
         $manager->persist($adA);
         $manager->persist($adB);
         $manager->flush();
     }
 
-    public function getOrder()
+    public function getOrder(): int
     {
         return 2;
     }

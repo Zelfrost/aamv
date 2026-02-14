@@ -1,16 +1,16 @@
 <?php
 
-namespace AppBundle\DataFixtures\ORM;
+namespace AppBundle\DataFixtures;
 
 use AppBundle\Entity\Tool;
-use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Filesystem\Filesystem;
 
-class LoadToolData extends AbstractFixture implements OrderedFixtureInterface
+class LoadToolData extends Fixture implements OrderedFixtureInterface
 {
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
         $fs = new Filesystem();
 
@@ -39,7 +39,7 @@ class LoadToolData extends AbstractFixture implements OrderedFixtureInterface
         $fs->touch('public/public/tools/toolC.txt');
     }
 
-    public function getOrder()
+    public function getOrder(): int
     {
         return 4;
     }
