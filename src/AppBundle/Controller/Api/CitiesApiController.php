@@ -16,7 +16,7 @@ class CitiesApiController extends AbstractController
         $this->repository = $repository;
     }
 
-    #[Route(path: '/api/cities/get/{name}', name: 'api_cities', options: ['expose' => true])]
+    #[Route(path: '/api/cities/get/{name}', name: 'api_cities')]
     public function getAction($name)
     {
         return new JsonResponse($this->repository->findLike($name));

@@ -1,6 +1,5 @@
 imports:
     - { resource: security.yml }
-    - { resource: services.yml }
     - { resource: "@AppBundle/Resources/config/services.yml" }
 
 framework:

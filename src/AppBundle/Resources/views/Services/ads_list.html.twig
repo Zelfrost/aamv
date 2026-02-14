@@ -36,7 +36,7 @@
             </select>
         </div>
 
-        <div id="ads" data-type="{{ type }}">
+        <div id="ads" data-type="{{ type }}" data-url="{{ path('services_ads_list', {type: type, city: '__CITY__', neighborhood: '__NEIGH__'}) }}">
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
@@ -74,7 +74,5 @@
 {% endblock body %}
 
 {% block javascripts %}
-    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-    <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
     <script src="{{ asset('bundles/app/js/list_ad.js') }}"></script>
 {% endblock javascripts %}

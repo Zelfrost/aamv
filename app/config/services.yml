@@ -1,5 +1,0 @@
-services:
-    twig.extension.intl:
-        class: Twig\Extra\Intl\IntlExtension
-        tags:
-            - { name: twig.extension }

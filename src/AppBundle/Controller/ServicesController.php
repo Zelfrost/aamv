@@ -25,13 +25,13 @@ class ServicesController extends AbstractController
         $this->roleRetriever = $roleRetriever;
     }
 
-    #[Route(path: '/services/ads', name: 'services_ads_index', options: ['expose' => true])]
+    #[Route(path: '/services/ads', name: 'services_ads_index')]
     public function adsIndexAction()
     {
         return $this->render('@AppBundle/Services/ads.html.twig');
     }
 
-    #[Route(path: '/services/ads/{type}/{city}/{neighborhood}/{page}', name: 'services_ads_list', options: ['expose' => true])]
+    #[Route(path: '/services/ads/{type}/{city}/{neighborhood}/{page}', name: 'services_ads_list')]
     public function adsListAction($type, $city = "none", $neighborhood = "none", $page = 1)
     {
         $role = $this->roleRetriever->getRoleFromName($type);
@@ -105,7 +105,7 @@ class ServicesController extends AbstractController
         );
     }
 
-    #[Route(path: '/services/disponibilities/{city}/{neighborhood}/{page}', name: 'services_disponibilities', options: ['expose' => true])]
+    #[Route(path: '/services/disponibilities/{city}/{neighborhood}/{page}', name: 'services_disponibilities')]
     public function disponibilitiesAction($city = "none", $neighborhood = "none", $page = 1)
     {
         $repository = $this->doctrine

@@ -1,11 +1,12 @@
 $(document).ready(function() {
     var city = $('form.city').data('value');
+    var citiesApiUrl = $('#cities-api-url').data('url');
 
     $('.select2').select2({
         language: 'fr',
         ajax: {
             url: function(params) {
-                return Routing.generate('api_cities', {'name': params.term})
+                return citiesApiUrl.replace('__SEARCH__', encodeURIComponent(params.term));
             },
             dataType: 'json',
             processResults: function (data, page) {

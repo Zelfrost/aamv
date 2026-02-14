@@ -3,30 +3,15 @@
 namespace AppBundle\Service\Mailer;
 
 use AppBundle\Entity\User;
-use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
 use Twig\Environment;
 
-class ForgotPasswordMailer implements LoggerAwareInterface
+class ForgotPasswordMailer
 {
-    use LoggerAwareTrait;
-
-    /**
-     * @var Environment
-     */
     private $twig;
-
-    /**
-     * @var MailerInterface
-     */
     private $mailer;
-
-    /**
-     * @var string
-     */
     private $baseUrl;
 
     public function __construct(Environment $twig, MailerInterface $mailer, $baseUrl)
@@ -51,7 +36,7 @@ class ForgotPasswordMailer implements LoggerAwareInterface
         try {
             $this->mailer->send($message);
         } catch (\Exception $e) {
-            $this->logger->error($e->getMessage());
+            error_log($e->getMessage());
         }
     }
 }

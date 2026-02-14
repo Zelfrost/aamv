@@ -1,4 +1,6 @@
 $(document).ready(function() {
+    var manageAccountUrl = $('#manage-account-url').data('url');
+
     $('<div></div>').appendTo('body')
         .html('Votre compte a été automatiquement importé depuis l\'ancien site.\n\
             Il vous est donc conseillé de vérifier que toutes vos données sont exactes.\n\
@@ -15,7 +17,7 @@ $(document).ready(function() {
                     'text': 'Oui, je souhaite vérifier',
                     'class': 'confirm',
                     'click': function() {
-                        window.location.href = Routing.generate('manage_account');
+                        window.location.href = manageAccountUrl;
                     }
                 },
                 {

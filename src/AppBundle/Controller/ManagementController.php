@@ -83,7 +83,7 @@ class ManagementController extends AbstractController
         ));
     }
 
-    #[Route(path: '/manage/account', name: 'manage_account', options: ['expose' => true])]
+    #[Route(path: '/manage/account', name: 'manage_account')]
     public function accountAction(Request $request)
     {
         $form = $this->createForm(ProfileType::class, $this->getUser());

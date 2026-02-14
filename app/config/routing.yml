@@ -1,6 +1,3 @@
-fos_js_routing:
-    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing-sf4.xml"
-
 aamv_security:
     resource: "@AppBundle/Controller/"
     type:     attribute

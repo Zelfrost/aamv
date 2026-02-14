@@ -1,17 +1,16 @@
 $(document).ready(function() {
+    var urlTemplate = $('#ads').data('url');
+
     $('.city select').change(function() {
-        window.location.href = Routing.generate('services_ads_list', {
-            type: $('#ads').data('type'),
-            city: $(this).val()
-        });
+        window.location.href = urlTemplate
+            .replace('__CITY__', encodeURIComponent($(this).val()))
+            .replace('__NEIGH__', 'none');
     });
 
     $('.neighborhood select').change(function() {
-        window.location.href = Routing.generate('services_ads_list', {
-            type: $('#ads').data('type'),
-            city: $('.city select').val(),
-            neighborhood: $(this).val(),
-        });
+        window.location.href = urlTemplate
+            .replace('__CITY__', encodeURIComponent($('.city select').val()))
+            .replace('__NEIGH__', encodeURIComponent($(this).val()));
     });
 
     if ($('.city select').val() === "Villeneuve-d'Ascq, France") {

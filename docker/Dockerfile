@@ -4,6 +4,7 @@ FROM php:8.4-fpm-alpine
 
 RUN apk add --no-cache \
     icu-dev \
+    icu-data-full \
     libzip-dev \
     libpng-dev \
     libjpeg-turbo-dev \

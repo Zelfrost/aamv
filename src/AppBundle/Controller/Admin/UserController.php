@@ -17,7 +17,7 @@ class UserController extends AbstractController
         $this->doctrine = $doctrine;
     }
 
-    #[Route(path: '/admin/users/{page}', name: 'admin_users', options: ['expose' => true])]
+    #[Route(path: '/admin/users/{page}', name: 'admin_users')]
     public function indexAction(Request $request, $page = 1)
     {
         $email = $request->query->get('email');

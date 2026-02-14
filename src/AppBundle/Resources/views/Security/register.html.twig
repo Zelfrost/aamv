@@ -4,7 +4,7 @@
 
 {% block css %}
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/Base/register.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css">
 {% endblock css %}
 
 {% block body %}
@@ -44,9 +44,8 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-    <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
-    <script src="{{ asset('vendor/select2/dist/js/select2.min.js') }}"></script>
-    <script src="{{ asset('vendor/select2/dist/js/i18n/fr.js') }}"></script>
+    <span id="cities-api-url" data-url="{{ path('api_cities', {name: '__SEARCH__'}) }}"></span>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/i18n/fr.js"></script>
     <script src="{{ asset('bundles/app/js/cities.js') }}"></script>
 {% endblock javascripts %}

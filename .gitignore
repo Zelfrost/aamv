@@ -17,7 +17,6 @@
 /vendor/
 
 /public/bundles/
-/public/vendor/
 /public/public/
 
 !/public/public/tools/aamv/
