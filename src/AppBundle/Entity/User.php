@@ -9,10 +9,8 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
- */
+#[ORM\Table(name: 'user')]
+#[ORM\Entity(repositoryClass: 'AppBundle\Repository\UserRepository')]
 class User extends Person implements UserInterface, PasswordAuthenticatedUserInterface, PasswordHasherAwareInterface
 {
     const ROLE_PARENT    = 'ROLE_PARENT';
@@ -21,69 +19,36 @@ class User extends Person implements UserInterface, PasswordAuthenticatedUserInt
     const ROLE_TRAINEE   = 'ROLE_TRAINEE';
     const ROLE_ADMIN     = 'ROLE_ADMIN';
 
-    /**
-     * @Assert\Length(max="4096")
-     */
+    #[Assert\Length(max: 4096)]
     private $plainPassword;
 
-    /**
-     * @ORM\Column(type="string", length=64)
-     */
+    #[ORM\Column(type: 'string', length: 64)]
     private $password;
 
-    /**
-     * @ORM\Column(name="legacy_password", type="string", length=64, nullable=true)
-     */
+    #[ORM\Column(name: 'legacy_password', type: 'string', length: 64, nullable: true)]
     private $legacyPassword;
 
-    /**
-     * @ORM\Column(type="array")
-     */
+    #[ORM\Column(type: 'array')]
     private $roles;
 
-    /**
-     * @ORM\Column(name="is_active", type="boolean")
-     */
+    #[ORM\Column(name: 'is_active', type: 'boolean')]
     private $active;
 
-    /**
-     * @var string
-     */
     private $currentPassword;
 
-    /**
-     * @var \DateTime;
-     *
-     * @ORM\Column(name="created_at", type="datetime")
-     */
+    #[ORM\Column(name: 'created_at', type: 'datetime')]
     private $createdAt;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password_reinitialization_code", type="string", nullable=true)
-     */
+    #[ORM\Column(name: 'password_reinitialization_code', type: 'string', nullable: true)]
     private $passwordReinitializationCode;
 
-    /**
-     * @var \DateTime|null
-     *
-     * @ORM\Column(name="password_reinitialization_code_expires_at", type="datetime", nullable=true)
-     */
+    #[ORM\Column(name: 'password_reinitialization_code_expires_at', type: 'datetime', nullable: true)]
     private $passwordReinitializationCodeExpiresAt;
 
-    /**
-     * @var \DateTime|null
-     *
-     * @ORM\Column(name="consented_at", type="datetime", nullable=true)
-     */
+    #[ORM\Column(name: 'consented_at', type: 'datetime', nullable: true)]
     private $consentedAt;
 
-    /**
-     * @var ArrayCollection
-     *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Ad", mappedBy="author")
-     */
+    #[ORM\OneToMany(targetEntity: 'AppBundle\Entity\Ad', mappedBy: 'author')]
     private $ads;
 
     public function __construct()

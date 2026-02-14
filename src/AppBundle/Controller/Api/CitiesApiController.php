@@ -5,7 +5,7 @@ namespace AppBundle\Controller\Api;
 use AppBundle\Repository\CityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class CitiesApiController extends AbstractController
 {
@@ -16,9 +16,7 @@ class CitiesApiController extends AbstractController
         $this->repository = $repository;
     }
 
-    /**
-     * @Route(path="/api/cities/get/{name}", options={"expose" = true}, name="api_cities")
-     */
+    #[Route(path: '/api/cities/get/{name}', name: 'api_cities', options: ['expose' => true])]
     public function getAction($name)
     {
         return new JsonResponse($this->repository->findLike($name));

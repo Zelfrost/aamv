@@ -14,7 +14,7 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class ManagementController extends AbstractController
@@ -33,9 +33,7 @@ class ManagementController extends AbstractController
         $this->tokenStorage = $tokenStorage;
     }
 
-    /**
-     * @Route(path="/manage/consent", name="manage_consent")
-     */
+    #[Route(path: '/manage/consent', name: 'manage_consent')]
     public function consentAction(Request $request)
     {
         if ($request->isMethod('POST')) {
@@ -56,9 +54,7 @@ class ManagementController extends AbstractController
         return $this->render('@AppBundle/Management/consent.html.twig');
     }
 
-    /**
-     * @Route(path="/manage/password", name="manage_password")
-     */
+    #[Route(path: '/manage/password', name: 'manage_password')]
     public function changePasswordAction(Request $request)
     {
         $user = $this->getUser();
@@ -87,9 +83,7 @@ class ManagementController extends AbstractController
         ));
     }
 
-    /**
-     * @Route(path="/manage/account", options={"expose" = true}, name="manage_account")
-     */
+    #[Route(path: '/manage/account', name: 'manage_account', options: ['expose' => true])]
     public function accountAction(Request $request)
     {
         $form = $this->createForm(ProfileType::class, $this->getUser());
@@ -108,9 +102,7 @@ class ManagementController extends AbstractController
         ));
     }
 
-    /**
-     * @Route(path="/manage/ads", name="manage_ads")
-     */
+    #[Route(path: '/manage/ads', name: 'manage_ads')]
     public function adsAction()
     {
         $ads = $this->doctrine
@@ -123,9 +115,7 @@ class ManagementController extends AbstractController
         ));
     }
 
-    /**
-     * @Route(path="/manage/ad/create", name="manage_ad_create")
-     */
+    #[Route(path: '/manage/ad/create', name: 'manage_ad_create')]
     public function createAdAction(Request $request)
     {
         $ad = new Ad();
@@ -150,9 +140,7 @@ class ManagementController extends AbstractController
         );
     }
 
-    /**
-     * @Route(path="/manage/ad/edit/{id}", name="manage_ad_edit")
-     */
+    #[Route(path: '/manage/ad/edit/{id}', name: 'manage_ad_edit')]
     public function editAdAction(Request $request, ?Ad $ad = null)
     {
         $session = $request->getSession();
@@ -192,9 +180,7 @@ class ManagementController extends AbstractController
         ));
     }
 
-    /**
-     * @Route(path="/manage/ad/delete/{id}", name="manage_ad_delete")
-     */
+    #[Route(path: '/manage/ad/delete/{id}', name: 'manage_ad_delete')]
     public function deleteAdAction(Request $request, ?Ad $ad = null)
     {
         $session = $request->getSession();
@@ -219,9 +205,7 @@ class ManagementController extends AbstractController
         return $this->redirect($this->generateUrl('manage_ads'));
     }
 
-    /**
-     * @Route(path="/manage/account/delete", name="manage_account_delete", methods={"POST"})
-     */
+    #[Route(path: '/manage/account/delete', name: 'manage_account_delete', methods: ['POST'])]
     public function deleteAccountAction(Request $request)
     {
         if (!$this->isCsrfTokenValid('delete_account', $request->request->get('_token'))) {
@@ -256,9 +240,7 @@ class ManagementController extends AbstractController
         return $this->redirectToRoute('login');
     }
 
-    /**
-     * @Route(path="/manage/account/export", name="manage_account_export")
-     */
+    #[Route(path: '/manage/account/export', name: 'manage_account_export')]
     public function exportDataAction()
     {
         $user = $this->getUser();

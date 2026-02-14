@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class CommonFilesController extends AbstractController
 {
@@ -20,9 +20,7 @@ class CommonFilesController extends AbstractController
         $this->doctrine = $doctrine;
     }
 
-    /**
-     * @Route(path="/files/join", name="files_join", methods={"GET"})
-     */
+    #[Route(path: '/files/join', name: 'files_join', methods: ['GET'])]
     public function getJoinAction(Request $request)
     {
         $criterias = [
@@ -51,9 +49,7 @@ class CommonFilesController extends AbstractController
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
 
-    /**
-     * @Route(path="/files/terms", name="files_terms", methods={"GET"})
-     */
+    #[Route(path: '/files/terms', name: 'files_terms', methods: ['GET'])]
     public function getTermsAction(Request $request)
     {
         /** @var Tool $tool */
@@ -76,9 +72,7 @@ class CommonFilesController extends AbstractController
         return new Response(null, Response::HTTP_NO_CONTENT);
     }
 
-    /**
-     * @Route(path="/files/disponibilities", name="files_disponibilities", methods={"GET"})
-     */
+    #[Route(path: '/files/disponibilities', name: 'files_disponibilities', methods: ['GET'])]
     public function getDisponibilitiesAction()
     {
         /** @var Tool $tool */

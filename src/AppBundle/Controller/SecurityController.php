@@ -17,7 +17,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
@@ -45,9 +45,7 @@ class SecurityController extends AbstractController
         $this->forgotPasswordMailer = $forgotPasswordMailer;
     }
 
-    /**
-     * @Route(path="/register", name="register")
-     */
+    #[Route(path: '/register', name: 'register')]
     public function registerAction(Request $request)
     {
         $user = new User();
@@ -105,9 +103,7 @@ class SecurityController extends AbstractController
         );
     }
 
-    /**
-     * @Route(path="/login", name="login")
-     */
+    #[Route(path: '/login', name: 'login')]
     public function loginAction(Request $request)
     {
         if ($this->getUser() !== null) {
@@ -126,9 +122,7 @@ class SecurityController extends AbstractController
         );
     }
 
-    /**
-     * @Route(path="/forgot_password", name="forgot_password")
-     */
+    #[Route(path: '/forgot_password', name: 'forgot_password')]
     public function forgotPasswordAction(Request $request)
     {
         if ($this->getUser() !== null) {
@@ -177,9 +171,7 @@ class SecurityController extends AbstractController
         ));
     }
 
-    /**
-     * @Route(path="/reinit_password/{code}", name="reinit_password")
-     */
+    #[Route(path: '/reinit_password/{code}', name: 'reinit_password')]
     public function reinitPasswordAction($code, Request $request)
     {
         if ($this->getUser() !== null) {

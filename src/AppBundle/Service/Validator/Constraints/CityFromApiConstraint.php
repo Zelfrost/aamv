@@ -4,9 +4,7 @@ namespace AppBundle\Service\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
-/**
- * @Annotation
- */
+#[\Attribute(\Attribute::TARGET_CLASS)]
 class CityFromApiConstraint extends Constraint
 {
     public $cityMessage = "Vous devez entrer votre ville en utilisant la liste.";

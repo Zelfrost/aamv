@@ -7,7 +7,7 @@ use AppBundle\Form\Type\NewsType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class NewsController extends AbstractController
 {
@@ -18,9 +18,7 @@ class NewsController extends AbstractController
         $this->doctrine = $doctrine;
     }
 
-    /**
-     * @Route(path="/admin/news", name="admin_news")
-     */
+    #[Route(path: '/admin/news', name: 'admin_news')]
     public function indexAction()
     {
         $news = $this->doctrine
@@ -32,9 +30,7 @@ class NewsController extends AbstractController
         ));
     }
 
-    /**
-     * @Route(path="/admin/news/create", name="admin_news_create", methods={"GET", "POST"})
-     */
+    #[Route(path: '/admin/news/create', name: 'admin_news_create', methods: ['GET', 'POST'])]
     public function createAction(Request $request)
     {
         $news = new News();
@@ -65,9 +61,7 @@ class NewsController extends AbstractController
         ));
     }
 
-    /**
-     * @Route(path="/admin/news/edit/{id}", name="admin_news_edit", methods={"GET", "POST"})
-     */
+    #[Route(path: '/admin/news/edit/{id}', name: 'admin_news_edit', methods: ['GET', 'POST'])]
     public function editAction(Request $request, News $news)
     {
         $form = $this->createForm(NewsType::class, $news);
@@ -91,9 +85,7 @@ class NewsController extends AbstractController
         ));
     }
 
-    /**
-     * @Route(path="/admin/news/delete/{id}", name="admin_news_delete", methods={"DELETE"})
-     */
+    #[Route(path: '/admin/news/delete/{id}', name: 'admin_news_delete', methods: ['DELETE'])]
     public function deleteAction(Request $request, News $news)
     {
         $this->doctrine

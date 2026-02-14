@@ -7,7 +7,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class HomepageController extends AbstractController
 {
@@ -18,10 +18,8 @@ class HomepageController extends AbstractController
         $this->doctrine = $doctrine;
     }
 
-    /**
-     * @Route(path="/", name="homepage")
-     * @Route(path="/news/{page}", name="homepage_news")
-     */
+    #[Route(path: '/', name: 'homepage')]
+    #[Route(path: '/news/{page}', name: 'homepage_news')]
     public function indexAction(Request $request, $page = 1)
     {
         if (0 < count($request->query->all()) && ['page'] !== array_keys($request->query->all())) {
@@ -47,9 +45,7 @@ class HomepageController extends AbstractController
         );
     }
 
-    /**
-     * @Route(path="/new/{id}", name="homepage_new")
-     */
+    #[Route(path: '/new/{id}', name: 'homepage_new')]
     public function newAction($id)
     {
         $news = $this->doctrine

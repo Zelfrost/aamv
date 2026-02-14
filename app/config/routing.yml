@@ -3,7 +3,7 @@ fos_js_routing:
 
 aamv_security:
     resource: "@AppBundle/Controller/"
-    type:     annotation
+    type:     attribute
 
 logout:
     path: /logout

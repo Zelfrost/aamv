@@ -4,97 +4,47 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Table(name="ad")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\AdRepository")
- */
+#[ORM\Table(name: 'ad')]
+#[ORM\Entity(repositoryClass: 'AppBundle\Repository\AdRepository')]
 class Ad
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-    */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="title", type="string", length=255)
-     */
+    #[ORM\Column(name: 'title', type: 'string', length: 255)]
     private $title;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="content", type="text")
-     */
+    #[ORM\Column(name: 'content', type: 'text')]
     private $content;
 
-    /**
-     * @var User
-     *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="ads")
-     * @ORM\JoinColumn(nullable=false, referencedColumnName="id")
-     */
+    #[ORM\ManyToOne(targetEntity: 'User', inversedBy: 'ads')]
+    #[ORM\JoinColumn(nullable: false, referencedColumnName: 'id')]
     private $author;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="disponibility_date", type="datetime", nullable=true)
-     */
+    #[ORM\Column(name: 'disponibility_date', type: 'datetime', nullable: true)]
     private $disponibilityDate;
 
-    /**
-     * @var array
-     *
-     * @ORM\Column(name="wished_days", type="array", nullable=true)
-     */
+    #[ORM\Column(name: 'wished_days', type: 'array', nullable: true)]
     private $wishedDays;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="type", type="string", nullable=true)
-     */
+    #[ORM\Column(name: 'type', type: 'string', nullable: true)]
     private $type;
 
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="show_phone_number", type="boolean")
-     */
+    #[ORM\Column(name: 'show_phone_number', type: 'boolean')]
     private $showPhoneNumber = false;
 
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="show_email", type="boolean")
-     */
+    #[ORM\Column(name: 'show_email', type: 'boolean')]
     private $showEmail = false;
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="view_count", type="integer")
-     */
+    #[ORM\Column(name: 'view_count', type: 'integer')]
     private $viewCount = 0;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="created_at", type="datetime")
-     */
+    #[ORM\Column(name: 'created_at', type: 'datetime')]
     private $createdAt;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
-     */
+    #[ORM\Column(name: 'updated_at', type: 'datetime', nullable: true)]
     private $updatedAt;
 
     public function __construct()
@@ -107,7 +57,7 @@ class Ad
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -130,7 +80,7 @@ class Ad
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -153,7 +103,7 @@ class Ad
     /**
      * Get content
      *
-     * @return string 
+     * @return string
      */
     public function getContent()
     {
@@ -199,7 +149,7 @@ class Ad
     /**
      * Get disponibilityDate
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDisponibilityDate()
     {
@@ -222,7 +172,7 @@ class Ad
     /**
      * Get wishedDays
      *
-     * @return array 
+     * @return array
      */
     public function getWishedDays()
     {
@@ -245,7 +195,7 @@ class Ad
     /**
      * Get type
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {
@@ -301,7 +251,7 @@ class Ad
     /**
      * Get viewCount
      *
-     * @return integer 
+     * @return integer
      */
     public function getViewCount()
     {
@@ -324,7 +274,7 @@ class Ad
     /**
      * Get createdAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -347,7 +297,7 @@ class Ad
     /**
      * Get updatedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {

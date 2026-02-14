@@ -2,72 +2,37 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Service\Validator\Constraints;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * Type
- *
- * @ORM\Entity(repositoryClass="AppBundle\Repository\CategoryRepository")
- * @ORM\Table(name="category")
- */
+#[ORM\Entity(repositoryClass: 'AppBundle\Repository\CategoryRepository')]
+#[ORM\Table(name: 'category')]
 class Category
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
-     */
+    #[ORM\Column(name: 'name', type: 'string', length: 255)]
     private $name;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="position", type="integer")
-     */
+    #[ORM\Column(name: 'position', type: 'integer')]
     private $position;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="type", type="string")
-     */
+    #[ORM\Column(name: 'type', type: 'string')]
     private $type;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="for_members", type="boolean")
-     */
+    #[ORM\Column(name: 'for_members', type: 'boolean')]
     private $forMembers;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="order_field", type="string")
-     * @Assert\Choice(choices={"name", "date"}, message="Le tri ne peut se faire que par nom ou par date")
-     */
+    #[ORM\Column(name: 'order_field', type: 'string')]
+    #[Assert\Choice(choices: ['name', 'date'], message: 'Le tri ne peut se faire que par nom ou par date')]
     private $orderField;
 
-    /**
-     * @var ArrayCollection
-     *
-     * @ORM\OneToMany(
-     *      targetEntity="Tool",
-     *      mappedBy="category",
-     *      cascade={"persist"}
-     * )
-     */
+    #[ORM\OneToMany(targetEntity: 'Tool', mappedBy: 'category', cascade: ['persist'])]
     private $tools;
 
     public function getId()

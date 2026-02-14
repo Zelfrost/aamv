@@ -12,7 +12,7 @@ use AppBundle\Service\Retriever\RoleRetriever;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class ServicesController extends AbstractController
 {
@@ -25,25 +25,13 @@ class ServicesController extends AbstractController
         $this->roleRetriever = $roleRetriever;
     }
 
-    /**
-     * @Route(
-     *      path="/services/ads",
-     *      options={"expose" = true},
-     *      name="services_ads_index"
-     * )
-     */
+    #[Route(path: '/services/ads', name: 'services_ads_index', options: ['expose' => true])]
     public function adsIndexAction()
     {
         return $this->render('@AppBundle/Services/ads.html.twig');
     }
 
-    /**
-     * @Route(
-     *      path="/services/ads/{type}/{city}/{neighborhood}/{page}",
-     *      options={"expose" = true},
-     *      name="services_ads_list"
-     * )
-     */
+    #[Route(path: '/services/ads/{type}/{city}/{neighborhood}/{page}', name: 'services_ads_list', options: ['expose' => true])]
     public function adsListAction($type, $city = "none", $neighborhood = "none", $page = 1)
     {
         $role = $this->roleRetriever->getRoleFromName($type);
@@ -96,9 +84,7 @@ class ServicesController extends AbstractController
         return $this->render('@AppBundle/Services/ads_list.html.twig', $parameters);
     }
 
-    /**
-     * @Route(path="/services/ad/{id}", requirements={"id" = "\d+"}, name="services_ad")
-     */
+    #[Route(path: '/services/ad/{id}', name: 'services_ad', requirements: ['id' => '\d+'])]
     public function AdAction(Ad $ad)
     {
         if (null === $this->getUser() || ($ad->getAuthor()->getId() !== $this->getUser()->getId())) {
@@ -119,13 +105,7 @@ class ServicesController extends AbstractController
         );
     }
 
-    /**
-     * @Route(
-     *      path="/services/disponibilities/{city}/{neighborhood}/{page}",
-     *      options={"expose" = true},
-     *      name="services_disponibilities"
-     * )
-     */
+    #[Route(path: '/services/disponibilities/{city}/{neighborhood}/{page}', name: 'services_disponibilities', options: ['expose' => true])]
     public function disponibilitiesAction($city = "none", $neighborhood = "none", $page = 1)
     {
         $repository = $this->doctrine
@@ -172,9 +152,7 @@ class ServicesController extends AbstractController
         return $this->render('@AppBundle/Services/disponibilities.html.twig', $parameters);
     }
 
-    /**
-     * @Route(path="/services/tools/{type}", name="services_tools")
-     */
+    #[Route(path: '/services/tools/{type}', name: 'services_tools')]
     public function toolsAction($type = 'public')
     {
         if (!in_array($type, ['public', 'members'])) {
@@ -198,9 +176,7 @@ class ServicesController extends AbstractController
         );
     }
 
-    /**
-     * @Route(path="/services/docs/{type}", name="services_docs")
-     */
+    #[Route(path: '/services/docs/{type}', name: 'services_docs')]
     public function docsAction($type = 'public')
     {
         if (!in_array($type, ['public', 'members'])) {

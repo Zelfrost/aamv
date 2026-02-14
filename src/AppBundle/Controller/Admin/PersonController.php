@@ -7,7 +7,7 @@ use AppBundle\Form\Type\PersonType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class PersonController extends AbstractController
 {
@@ -18,9 +18,7 @@ class PersonController extends AbstractController
         $this->doctrine = $doctrine;
     }
 
-    /**
-     * @Route(path="/admin/person/create", name="admin_person_create", methods={"GET", "POST"})
-     */
+    #[Route(path: '/admin/person/create', name: 'admin_person_create', methods: ['GET', 'POST'])]
     public function createAction(Request $request)
     {
         $person = new Person();

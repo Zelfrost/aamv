@@ -4,9 +4,7 @@ namespace AppBundle\Service\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 
-/**
- * @Annotation
- */
+#[\Attribute(\Attribute::TARGET_PROPERTY)]
 class EmailConstraint extends Constraint
 {
     public $messageUnauthorize = 'Les adresses emails en @aamv.net ne sont pas autorisées';

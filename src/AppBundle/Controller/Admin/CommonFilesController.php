@@ -8,7 +8,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class CommonFilesController extends AbstractController
 {
@@ -19,9 +19,7 @@ class CommonFilesController extends AbstractController
         $this->doctrine = $doctrine;
     }
 
-    /**
-     * @Route(path="/admin/files/join", name="admin_files_join", methods={"GET", "POST"})
-     */
+    #[Route(path: '/admin/files/join', name: 'admin_files_join', methods: ['GET', 'POST'])]
     public function joinAction(Request $request)
     {
         if (null === $request->query->get('year')) {
@@ -45,9 +43,7 @@ class CommonFilesController extends AbstractController
         ));
     }
 
-    /**
-     * @Route(path="/admin/files/terms", name="admin_files_terms", methods={"GET", "POST"})
-     */
+    #[Route(path: '/admin/files/terms', name: 'admin_files_terms', methods: ['GET', 'POST'])]
     public function termsAction(Request $request)
     {
         $form = $this->createForm(CommonFileType::class);
@@ -67,9 +63,7 @@ class CommonFilesController extends AbstractController
         ));
     }
 
-    /**
-     * @Route(path="/admin/files/disponibility", name="admin_files_disponibility", methods={"GET", "POST"})
-     */
+    #[Route(path: '/admin/files/disponibility', name: 'admin_files_disponibility', methods: ['GET', 'POST'])]
     public function disponibilityAction(Request $request)
     {
         $form = $this->createForm(CommonFileType::class);

@@ -9,7 +9,7 @@ use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class DocCategoryController extends AbstractController
 {
@@ -20,9 +20,7 @@ class DocCategoryController extends AbstractController
         $this->doctrine = $doctrine;
     }
 
-    /**
-     * @Route(path="/admin/doc_categories", name="admin_doc_categories")
-     */
+    #[Route(path: '/admin/doc_categories', name: 'admin_doc_categories')]
     public function indexAction()
     {
         $categories = $this->doctrine
@@ -35,9 +33,7 @@ class DocCategoryController extends AbstractController
         ));
     }
 
-    /**
-     * @Route(path="/admin/doc_categories/create", name="admin_doc_categories_create", methods={"GET", "POST"})
-     */
+    #[Route(path: '/admin/doc_categories/create', name: 'admin_doc_categories_create', methods: ['GET', 'POST'])]
     public function createCategoryAction(Request $request)
     {
         $type = new Category();
@@ -66,9 +62,7 @@ class DocCategoryController extends AbstractController
         ));
     }
 
-    /**
-     * @Route(path="/admin/doc_categories/edit/{id}", name="admin_doc_categories_edit", methods={"GET", "POST"})
-     */
+    #[Route(path: '/admin/doc_categories/edit/{id}', name: 'admin_doc_categories_edit', methods: ['GET', 'POST'])]
     public function editAction(Request $request, Category $type)
     {
         $form = $this->createForm(CategoryType::class, $type);
@@ -90,9 +84,7 @@ class DocCategoryController extends AbstractController
         ));
     }
 
-    /**
-     * @Route(path="/admin/doc_categories/delete/{id}", name="admin_doc_categories_delete", methods={"DELETE"})
-     */
+    #[Route(path: '/admin/doc_categories/delete/{id}', name: 'admin_doc_categories_delete', methods: ['DELETE'])]
     public function deleteAction(Request $request, Category $type)
     {
         $this->doctrine

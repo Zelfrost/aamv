@@ -6,12 +6,8 @@ use Symfony\Component\Filesystem\Filesystem;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * Tool
- *
- * @ORM\Table(name="tool")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ToolRepository")
- */
+#[ORM\Table(name: 'tool')]
+#[ORM\Entity(repositoryClass: 'AppBundle\Repository\ToolRepository')]
 class Tool
 {
     const PATH = '/public/tools';
@@ -23,76 +19,37 @@ class Tool
     const TERMS_NAME = 'admin-terms-tool';
     const DISPONIBILITIES_NAME = 'admin-disponibilities-tool';
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255)
-     */
+    #[ORM\Column(name: 'name', type: 'string', length: 255)]
     private $name;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="real_name", type="string", length=255)
-     */
+    #[ORM\Column(name: 'real_name', type: 'string', length: 255)]
     private $realName;
 
-    /**
-     * @var int|null
-     *
-     * @ORM\Column(name="year", type="integer", nullable=true)
-     */
+    #[ORM\Column(name: 'year', type: 'integer', nullable: true)]
     private $year = null;
 
-    /**
-     * @var Category
-     *
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="tools")
-     * @ORM\JoinColumn(nullable=true, referencedColumnName="id")
-     */
+    #[ORM\ManyToOne(targetEntity: 'Category', inversedBy: 'tools')]
+    #[ORM\JoinColumn(nullable: true, referencedColumnName: 'id')]
     private $category;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="type", type="string", length=255, nullable=true)
-     * @Assert\Choice(choices={"doc", "tool"})
-     */
+    #[ORM\Column(name: 'type', type: 'string', length: 255, nullable: true)]
+    #[Assert\Choice(choices: ['doc', 'tool'])]
     private $type;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date", type="datetime", nullable=true)
-     */
+    #[ORM\Column(name: 'date', type: 'datetime', nullable: true)]
     private $date;
 
-    /**
-     * @var Datetime
-     *
-     * @ORM\Column(name="createdAt", type="datetime", nullable=true)
-     */
+    #[ORM\Column(name: 'createdAt', type: 'datetime', nullable: true)]
     private $createdAt;
 
-    /**
-     * @var Datetime
-     *
-     * @ORM\Column(name="updatedAt", type="datetime", nullable=true)
-     */
+    #[ORM\Column(name: 'updatedAt', type: 'datetime', nullable: true)]
     private $updatedAt;
 
-    /**
-     * @var UploadedFile
-     */
     private $file;
 
     public function __construct()

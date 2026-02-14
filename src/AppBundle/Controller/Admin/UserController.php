@@ -6,7 +6,7 @@ use AppBundle\Entity\User;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class UserController extends AbstractController
 {
@@ -17,13 +17,7 @@ class UserController extends AbstractController
         $this->doctrine = $doctrine;
     }
 
-    /**
-     * @Route(
-     *     path="/admin/users/{page}",
-     *     options={"expose" = true},
-     *     name="admin_users"
-     * )
-     */
+    #[Route(path: '/admin/users/{page}', name: 'admin_users', options: ['expose' => true])]
     public function indexAction(Request $request, $page = 1)
     {
         $email = $request->query->get('email');
@@ -47,9 +41,7 @@ class UserController extends AbstractController
         ));
     }
 
-    /**
-     * @Route(path="/admin/user/delete/{id}", name="admin_user_delete", methods={"DELETE"})
-     */
+    #[Route(path: '/admin/user/delete/{id}', name: 'admin_user_delete', methods: ['DELETE'])]
     public function deleteAction(User $user, Request $request)
     {
         $this->doctrine
@@ -68,9 +60,7 @@ class UserController extends AbstractController
         ]));
     }
 
-    /**
-     * @Route(path="/admin/user/change/{id}", name="admin_user_change", methods={"PUT"})
-     */
+    #[Route(path: '/admin/user/change/{id}', name: 'admin_user_change', methods: ['PUT'])]
     public function changeAction(User $user, Request $request)
     {
         $roles = $user->getRoles();

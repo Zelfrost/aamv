@@ -9,7 +9,7 @@ use AppBundle\Form\Type\CategoryType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class DocController extends AbstractController
 {
@@ -20,9 +20,7 @@ class DocController extends AbstractController
         $this->doctrine = $doctrine;
     }
 
-    /**
-     * @Route(path="/admin/docs", name="admin_docs")
-     */
+    #[Route(path: '/admin/docs', name: 'admin_docs')]
     public function indexAction()
     {
         $tools = $this->doctrine
@@ -43,9 +41,7 @@ class DocController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route(path="/admin/docs/create", name="admin_docs_create", methods={"GET", "POST"})
-     */
+    #[Route(path: '/admin/docs/create', name: 'admin_docs_create', methods: ['GET', 'POST'])]
     public function createAction(Request $request)
     {
         $tool = new Tool();
@@ -76,9 +72,7 @@ class DocController extends AbstractController
         ));
     }
 
-    /**
-     * @Route(path="/admin/docs/edit/{id}", name="admin_docs_edit", methods={"GET", "POST"})
-     */
+    #[Route(path: '/admin/docs/edit/{id}', name: 'admin_docs_edit', methods: ['GET', 'POST'])]
     public function editAction(Request $request, Tool $tool)
     {
         $form = $this->createForm(ToolType::class, $tool, ['attr' => ['type' => Tool::DOC_TYPE]]);
@@ -104,9 +98,7 @@ class DocController extends AbstractController
         ));
     }
 
-    /**
-     * @Route(path="/admin/docs/delete/{id}", name="admin_docs_delete", methods={"DELETE"})
-     */
+    #[Route(path: '/admin/docs/delete/{id}', name: 'admin_docs_delete', methods: ['DELETE'])]
     public function deleteAction(Request $request, Tool $tool)
     {
         $this->doctrine

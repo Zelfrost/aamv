@@ -4,49 +4,29 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Disponibility
- *
- * @ORM\Table(name="disponibility")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\DisponibilityRepository")
- */
+#[ORM\Table(name: 'disponibility')]
+#[ORM\Entity(repositoryClass: 'AppBundle\Repository\DisponibilityRepository')]
 class Disponibility
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-    */
+    #[ORM\Column(name: 'id', type: 'integer')]
+    #[ORM\Id]
+    #[ORM\GeneratedValue(strategy: 'AUTO')]
     private $id;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="number_of_children", type="integer")
-     */
+    #[ORM\Column(name: 'number_of_children', type: 'integer')]
     private $numberOfChildren;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="period", type="string", length=500)
-     */
+    #[ORM\Column(name: 'period', type: 'string', length: 500)]
     private $period;
 
-    /**
-     * @var Childminder
-     *
-     * @ORM\ManyToOne(targetEntity="Person", inversedBy="disponibilities")
-     * @ORM\JoinColumn(nullable=true, referencedColumnName="id")
-     */
+    #[ORM\ManyToOne(targetEntity: 'Person', inversedBy: 'disponibilities')]
+    #[ORM\JoinColumn(nullable: true, referencedColumnName: 'id')]
     private $childminder;
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -69,7 +49,7 @@ class Disponibility
     /**
      * Get numberOfChildren
      *
-     * @return int 
+     * @return int
      */
     public function getNumberOfChildren()
     {
@@ -92,7 +72,7 @@ class Disponibility
     /**
      * Get period
      *
-     * @return string 
+     * @return string
      */
     public function getPeriod()
     {
