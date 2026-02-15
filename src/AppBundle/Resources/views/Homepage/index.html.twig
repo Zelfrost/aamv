@@ -3,36 +3,223 @@
 {% block title %}Accueil - {{ parent() }}{% endblock %}
 
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/Homepage/index.css') }}">
     <link rel="canonical" href="https://aamv.net" />
 {% endblock css %}
+
+{% block body_style %}{% endblock %}
+
+{% block hero %}
+<header class="hero" id="accueil">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+        <div class="hero-text">
+            <h1>Bienvenue à <span class="highlight">l'A.A.M.V.</span></h1>
+            <p>L'<strong>Association des Assistantes Maternelles Villeneuvoises</strong> et des Parents et ses Environs.</p>
+            <p>Retrouvez des outils utiles, des petites annonces, des informations pour assistantes maternelles et parents de <strong>Villeneuve d'Ascq</strong>.</p>
+            <div class="hero-buttons">
+                <a href="{{ path('services_ads_index') }}" class="btn btn-primary">📋 Petites annonces</a>
+                <a href="{{ path('services_disponibilities') }}" class="btn btn-outline">🔍 Disponibilités</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="hero-img-wrapper">
+                <div class="hero-img-inner">
+                    <img src="{{ asset('bundles/app/images/logo.png') }}" alt="Logo AAMV - Association des Assistantes Maternelles Villeneuvoises">
+                </div>
+            </div>
+            <div class="hero-badge badge-1">
+                <div class="badge-icon">🌿</div>
+                <div><strong>Agréées PMI</strong><br><small style="color:#9B8A7C">Professionnelles</small></div>
+            </div>
+            <div class="hero-badge badge-2">
+                <div class="badge-icon">❤️</div>
+                <div><strong>140+ adhérentes</strong><br><small style="color:#9B8A7C">Ass. maternelles</small></div>
+            </div>
+        </div>
+    </div>
+    <svg class="hero-pattern" viewBox="0 0 1440 120" preserveAspectRatio="none">
+        <path fill="#FFF8F0" d="M0,60 C360,120 720,0 1080,60 C1260,90 1380,60 1440,60 L1440,120 L0,120 Z"/>
+    </svg>
+</header>
+{% endblock %}
 
 {% block body %}
     {% for flash in app.session.flashbag.get('management.legacy_password.success') %}
         <div class="alert alert-success">{{ flash }}</div>
     {% endfor %}
 
-    <h2 class="main">Bienvenue</h2>
-
-    <p>Bienvenue sur le site de l'<b>A.A.M.V.</b>, l'<b>Association des Assistantes Maternelles Villeneuvoises</b> et des Parents et ses Environs.</p>
-    <p>Vous trouverez des outils utiles aux assistantes maternelles et aux parents, des propositions de sorties pour les assistantes maternelles, des informations sur des évènements à venir...</p>
-    <p>Mais surtout, vous y trouverez une section <a href="{{ path('services_ads_index') }}">ANNONCES</a>, qui contient des annonces d'<b>assistantes maternelles</b> et de <b>parents</b>, pour accueillir ou faire accueillir ses enfants.</p>
-
-    <h2 class="main">News</h2>
-
-    <div id="news">
-        {% for new in news %}
-        <a href="{{ path('homepage_new', {'id': new.id}) }}">
-            <div class="new{% if new.important %} important{% endif %}{% if pagination.page == 1 and loop.index0 == 0 %} first{% endif %}">
-                <div class="title">
-                    <h3>{{ new.title|raw|slice(0, 150) }} {% if new.title|length > 150 %}...{% endif %}</h3>
-                </div>
-            </div>
-        </a>
-        {% endfor %}
-
-        <hr class="clear">
+    <!-- Stats -->
+    <div class="stats reveal">
+        <div class="stat-item">
+            <div class="stat-number">140+</div>
+            <div class="stat-label">Assistantes maternelles</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <div class="stat-number">1997</div>
+            <div class="stat-label">Année de création</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <div class="stat-number">28</div>
+            <div class="stat-label">Années d'expérience</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Bénévole & solidaire</div>
+        </div>
     </div>
 
-    {% include '@AppBundle/Base/pagination.html.twig' %}
+    <!-- News Section -->
+    <section id="news">
+        <div class="section-header reveal">
+            <div class="section-tag">Actualités</div>
+            <h2>Les dernières nouvelles</h2>
+            <p>Toute l'info pour les assistantes maternelles et les parents</p>
+        </div>
+        <div class="news-grid">
+            {% set icons = ['📄', '💰', '🔒', '📝', '⚖️', '📋', '🤝', '🗺️', '📢', '🏠', '📅', '🌟'] %}
+            {% for new in news %}
+            <a href="{{ path('homepage_new', {'id': new.id}) }}" class="news-card reveal">
+                <div class="news-icon">{{ icons[loop.index0 % icons|length] }}</div>
+                <h3>{{ new.title|raw|slice(0, 120) }}{% if new.title|length > 120 %}...{% endif %}</h3>
+                {% if new.important %}
+                    <span class="news-badge important">Important</span>
+                {% elseif loop.index <= 2 %}
+                    <span class="news-badge">Nouveau</span>
+                {% endif %}
+            </a>
+            {% endfor %}
+        </div>
+
+        {% include '@AppBundle/Base/pagination.html.twig' %}
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="section-header reveal">
+            <div class="section-tag">Nos Services</div>
+            <h2>Ce que nous proposons</h2>
+            <p>Des outils et services pour faciliter le quotidien des assistantes maternelles et des parents</p>
+        </div>
+        <div class="services-grid">
+            <a href="{{ path('services_ads_index') }}" class="service-card reveal">
+                <div class="service-icon">📢</div>
+                <h3>Petites annonces</h3>
+                <p>Publiez ou consultez les annonces d'assistantes maternelles et de parents pour trouver le bon accueil pour vos enfants.</p>
+            </a>
+            <a href="{{ path('services_disponibilities') }}" class="service-card reveal">
+                <div class="service-icon">📅</div>
+                <h3>Disponibilités</h3>
+                <p>Consultez les disponibilités des assistantes maternelles de l'association pour trouver rapidement une place d'accueil.</p>
+            </a>
+            <a href="{{ path('services_tools', {"type": "public"}) }}" class="service-card reveal">
+                <div class="service-icon">🛠️</div>
+                <h3>Outils libres</h3>
+                <p>Accédez gratuitement à nos calculateurs et outils pratiques pour la mensualisation, les congés payés et plus encore.</p>
+            </a>
+            <a href="{{ path('services_tools', {"type": "members"}) }}" class="service-card reveal">
+                <div class="service-icon">⭐</div>
+                <h3>Outils adhérents</h3>
+                <p>Des outils exclusifs réservés aux adhérents : fiches de paie, contrats de travail, simulateurs avancés...</p>
+            </a>
+            <a href="{{ path('services_docs', {"type": "public"}) }}" class="service-card reveal">
+                <div class="service-icon">📁</div>
+                <h3>Documents libres</h3>
+                <p>Documents d'information accessibles à tous : guides, textes de référence, modèles de base.</p>
+            </a>
+            <a href="{{ path('services_docs', {"type": "members"}) }}" class="service-card reveal">
+                <div class="service-icon">📂</div>
+                <h3>Documents adhérents</h3>
+                <p>Bibliothèque complète de documents réservés aux adhérents : contrats, fiches techniques, formulaires à jour.</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section" id="apropos">
+        <div class="about-content">
+            <div class="about-images reveal">
+                <div class="about-img about-img-1">👶</div>
+                <div class="about-img about-img-2">🏡</div>
+                <div class="about-floating-badge">
+                    <span>Depuis</span>
+                    <span>1997</span>
+                </div>
+            </div>
+            <div class="about-text reveal">
+                <div class="section-tag">Qui sommes-nous ?</div>
+                <h2>L'A.A.M.V., votre association</h2>
+                <p>L'A.A.M.V. est une association à but non lucratif, loi de 1901, enregistrée en Novembre 1997. Elle réunit et accompagne les assistantes maternelles et les parents de <strong>Villeneuve d'Ascq et ses environs</strong>.</p>
+                <p>Notre objectif : sortir les assistantes maternelles de leur isolement, favoriser l'entraide, le partage d'information et offrir un point de rencontre entre professionnelles et familles.</p>
+                <ul class="about-features">
+                    <li><span class="check">✓</span> Réunions régulières et échanges professionnels</li>
+                    <li><span class="check">✓</span> Cadre juridique respecté : droit du travail, convention collective, agrément PMI</li>
+                    <li><span class="check">✓</span> Contrats de travail clairs et à jour, fiches techniques de mensualisation</li>
+                    <li><span class="check">✓</span> Service de remplacement en cas de maladie</li>
+                    <li><span class="check">✓</span> Orientation et mise en relation parents / assistantes maternelles</li>
+                    <li><span class="check">✓</span> Information sur les aides à l'emploi d'une assistante maternelle agréée</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Adhesion CTA -->
+    <section class="adhesion-section">
+        <div class="section-header reveal">
+            <div class="section-tag">Adhésions {{ "now"|date("Y") }}</div>
+            <h2>Rejoignez l'association !</h2>
+            <p>Choisissez votre type d'adhésion et bénéficiez de tous les services de l'A.A.M.V.</p>
+        </div>
+        <div class="adhesion-grid">
+            {% for tool in toolRepository.findValidJoin %}
+            <a href="{{ path('files_join', {year: tool.year}) }}" class="adhesion-card reveal">
+                <div class="card-emoji">👩‍🍼</div>
+                <div>
+                    <h3>Assistante Maternelle {{ tool.year }}</h3>
+                    <p>Accès complet aux outils, documents, annonces et services réservés aux professionnelles.</p>
+                </div>
+            </a>
+            {% endfor %}
+            <a href="https://aamv.net/public/adhesion-parents-2026.pdf" class="adhesion-card reveal">
+                <div class="card-emoji">👨‍👩‍👧</div>
+                <div>
+                    <h3>Parents</h3>
+                    <p>Consultez les annonces, trouvez une assistante maternelle et accédez aux ressources parents.</p>
+                </div>
+            </a>
+            <a href="https://aamv.net/public/adhesion-mam-3-2026.pdf" class="adhesion-card reveal">
+                <div class="card-emoji">🏠</div>
+                <div>
+                    <h3>MAM 3</h3>
+                    <p>Adhésion pour les Maisons d'Assistantes Maternelles (3 professionnelles).</p>
+                </div>
+            </a>
+            <a href="https://aamv.net/public/adhesion-mam-4-2026.pdf" class="adhesion-card reveal">
+                <div class="card-emoji">🏡</div>
+                <div>
+                    <h3>MAM 4</h3>
+                    <p>Adhésion pour les Maisons d'Assistantes Maternelles (4 professionnelles).</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" id="divers">
+        <div class="cta-box reveal">
+            <h2>Besoin d'aide ? 🌻</h2>
+            <p>Consultez notre FAQ, nos sites utiles ou contactez-nous directement. Notre permanence est ouverte du lundi au vendredi de 14h à 16h.</p>
+            <div class="cta-buttons">
+                <a href="{{ path('divers_questions_answers') }}" class="btn btn-primary">❓ Questions / Réponses</a>
+                <a href="{{ path('divers_sites') }}" class="btn btn-outline">🔗 Sites utiles</a>
+            </div>
+            <p style="margin-top:1.5rem;font-size:0.9rem;">
+                📧 <a href="mailto:nounounathaamv@gmail.com" style="color:var(--warm-orange);font-weight:700;">nounounathaamv@gmail.com</a>
+                &nbsp;·&nbsp;
+                📞 <a href="tel:+33670972990" style="color:var(--warm-orange);font-weight:700;">06.70.97.29.90</a>
+            </p>
+        </div>
+    </section>
 {% endblock %}

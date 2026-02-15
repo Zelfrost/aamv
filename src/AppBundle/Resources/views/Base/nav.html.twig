@@ -1,69 +1,97 @@
-<nav class="navbar">
-    <button class="nav-hamburger" id="nav-toggle" aria-label="Menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-    </button>
-    <ul id="nav-main-menu">
-        <li class="has-submenu">L'association
-            <div><ul>
-                <li><a href="{{ path('association_presentation') }}">Qui sommes-nous ?</a></li>
-                {# <li><a href="{{ path('association_pictures') }}">Photos</a></li> #}
-                <li><a href="{{ path('association_about_us') }}">On en parle</a></li>
-                {% for tool in toolRepository.findValidJoin %}
-                    <li>{% if not loop.first %} | {% endif %}<a href="{{ path('files_join', {year: tool.year}) }}">{% if loop.first %}Adhésion Assistante Maternelle {% endif %}{{ tool.year }}</a></li>
-                {% endfor %}
-                <li><a href="https://aamv.net/public/adhesion-parents-2026.pdf">Adhésion Parents 2026</a></li>
-                <li><a href="https://aamv.net/public/adhesion-mam-3-2026.pdf">Adhésion 2026 MAM 3</a></li>
-                <li><a href="https://aamv.net/public/adhesion-mam-4-2026.pdf">Adhésion 2026 MAM 4</a></li>
-                <li><a href="{{ path('association_contacts') }}">Nous contacter</a></li>
-                <hr>
-            </ul></div>
-        </li>
-        <li class="has-submenu">Services
-            <div><ul>
-                <li><a href="{{ path('services_ads_index') }}">Petites annonces</a></li>
-                <li><a href="{{ path('services_disponibilities') }}">Disponibilité des assistantes maternelles</a></li>
-                <li><a href="{{ path('services_tools', {"type": "public"}) }}">Nos outils libres</a></li>
-                <li><a href="{{ path('services_tools', {"type": "members"}) }}">Nos outils adhérents</a></li>
-                <li><a href="{{ path('services_docs', {"type": "public"}) }}">Nos documents libres</a></li>
-                <li><a href="{{ path('services_docs', {"type": "members"}) }}">Nos documents adhérents</a></li>
-                <hr>
-            </ul></div>
-        </li>
-        {% if app.user %}
-        <li class="has-submenu">Gérer mon compte
-            <div><ul>
-                <li><a href="{{ path('manage_account') }}">Modifier mon compte</a></li>
-                <li><a href="{{ path('manage_password') }}">Modifier mon mot de passe</a></li>
-                {% if is_granted('ROLE_PARENT') or is_granted('ROLE_MEMBER') or is_granted('ROLE_TRAINEE') %}
-                    <li><a href="{{ path('manage_ads') }}">Gérer mes annonces</a></li>
-                {% endif %}
+<nav id="navbar">
+    <div class="nav-inner">
+        <a href="{{ path('homepage') }}" class="nav-logo">
+            <div class="nav-logo-icon">
+                <img src="{{ asset('bundles/app/images/logo.png') }}" alt="Logo AAMV">
+            </div>
+            <div class="nav-logo-text">A.A.M.V.<span>Assistantes Maternelles Villeneuvoises</span></div>
+        </a>
 
-                {% if is_granted('ROLE_MEMBER') %}
-                    <li><a href="{{ path('files_disponibilities') }}">Formulaire de disponibilité</a></li>
-                {% endif %}
+        <ul class="nav-links" id="navLinks">
+            <li><a href="{{ path('homepage') }}">Accueil</a></li>
 
-                {% if is_granted('ROLE_ADMIN') %}
-                    <li><a href="{{ path('admin') }}">Administration</a></li>
-                {% endif %}
-                <li><a href="{{ path('manage_account_export') }}">Exporter mes données</a></li>
-                <hr>
-            </ul></div>
-        </li>
-        {% endif %}
-        <li class="has-submenu">Divers
-            <div><ul>
-                <li><a href="{{ path('divers_questions_answers') }}">Questions/Réponses</a></li>
-                <li><a href="{{ path('divers_sites') }}">Sites utiles</a></li>
-                <hr>
-            </ul></div>
-        </li>
-        {% if app.user %}
-            <li><a href="{{ path('logout') }}">Déconnexion</a></li>
-        {% else %}
-            <li><a href="{{ path('register') }}">Inscription</a></li>
-            <li><a href="{{ path('login') }}">Connexion</a></li>
-        {% endif %}
+            <li>
+                <a href="#">L'association <span class="dropdown-arrow">▼</span></a>
+                <ul class="nav-dropdown">
+                    <li><a href="{{ path('association_presentation') }}">Qui sommes-nous ?</a></li>
+                    <li><a href="{{ path('association_about_us') }}">On en parle</a></li>
+                    <hr>
+                    {% for tool in toolRepository.findValidJoin %}
+                        <li><a href="{{ path('files_join', {year: tool.year}) }}">Adhésion Ass. Mat. {{ tool.year }}</a></li>
+                    {% endfor %}
+                    <li><a href="https://aamv.net/public/adhesion-parents-2026.pdf">Adhésion Parents 2026</a></li>
+                    <li><a href="https://aamv.net/public/adhesion-mam-3-2026.pdf">Adhésion MAM 3 — 2026</a></li>
+                    <li><a href="https://aamv.net/public/adhesion-mam-4-2026.pdf">Adhésion MAM 4 — 2026</a></li>
+                    <hr>
+                    <li><a href="{{ path('association_contacts') }}">Nous contacter</a></li>
+                </ul>
+            </li>
 
-        <hr>
-    </ul>
+            <li>
+                <a href="#">Services <span class="dropdown-arrow">▼</span></a>
+                <ul class="nav-dropdown">
+                    <li><a href="{{ path('services_ads_index') }}">Petites annonces</a></li>
+                    <li><a href="{{ path('services_disponibilities') }}">Disponibilités des Ass. Mat.</a></li>
+                    <hr>
+                    <li><a href="{{ path('services_tools', {"type": "public"}) }}">Nos outils libres</a></li>
+                    <li><a href="{{ path('services_tools', {"type": "members"}) }}">Nos outils adhérents</a></li>
+                    <li><a href="{{ path('services_docs', {"type": "public"}) }}">Nos documents libres</a></li>
+                    <li><a href="{{ path('services_docs', {"type": "members"}) }}">Nos documents adhérents</a></li>
+                </ul>
+            </li>
+
+            {% if app.user %}
+            <li>
+                <a href="#">Mon compte <span class="dropdown-arrow">▼</span></a>
+                <ul class="nav-dropdown">
+                    <li><a href="{{ path('manage_account') }}">Modifier mon compte</a></li>
+                    <li><a href="{{ path('manage_password') }}">Modifier mon mot de passe</a></li>
+                    {% if is_granted('ROLE_PARENT') or is_granted('ROLE_MEMBER') or is_granted('ROLE_TRAINEE') %}
+                        <li><a href="{{ path('manage_ads') }}">Gérer mes annonces</a></li>
+                    {% endif %}
+                    {% if is_granted('ROLE_MEMBER') %}
+                        <li><a href="{{ path('files_disponibilities') }}">Formulaire de disponibilité</a></li>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <hr>
+                        <li><a href="{{ path('admin') }}">Administration</a></li>
+                    {% endif %}
+                    <hr>
+                    <li><a href="{{ path('manage_account_export') }}">Exporter mes données</a></li>
+                </ul>
+            </li>
+            {% endif %}
+
+            <li>
+                <a href="#">Divers <span class="dropdown-arrow">▼</span></a>
+                <ul class="nav-dropdown">
+                    <li><a href="{{ path('divers_questions_answers') }}">Questions / Réponses</a></li>
+                    <li><a href="{{ path('divers_sites') }}">Sites utiles</a></li>
+                </ul>
+            </li>
+
+            <!-- Mobile auth (hidden on desktop) -->
+            <li class="nav-auth-mobile" style="display:none;">
+                {% if app.user %}
+                    <a href="{{ path('logout') }}" class="logout-btn" style="border:2px solid #ddd;color:#9B8A7C;border-radius:25px;padding:0.45rem 1rem;font-weight:600;font-size:0.85rem;">Déconnexion</a>
+                {% else %}
+                    <a href="{{ path('register') }}" class="register-btn" style="background:linear-gradient(135deg,#6BCB77,#4CAF50);color:white;border-radius:25px;padding:0.45rem 1rem;font-weight:600;font-size:0.85rem;">Inscription</a>
+                    <a href="{{ path('login') }}" class="login-btn" style="border:2px solid var(--warm-orange);color:var(--warm-orange);border-radius:25px;padding:0.45rem 1rem;font-weight:600;font-size:0.85rem;">Connexion</a>
+                {% endif %}
+            </li>
+        </ul>
+
+        <div class="nav-auth">
+            {% if app.user %}
+                <a href="{{ path('logout') }}" class="logout-btn">Déconnexion</a>
+            {% else %}
+                <a href="{{ path('register') }}" class="register-btn">Inscription</a>
+                <a href="{{ path('login') }}" class="login-btn">Connexion</a>
+            {% endif %}
+        </div>
+
+        <button class="nav-burger" id="navBurger" aria-label="Menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
 </nav>

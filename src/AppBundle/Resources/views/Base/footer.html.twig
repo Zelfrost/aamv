@@ -1,22 +1,74 @@
-<footer class="col-md-12">
-    <div class="int clearfix">
-        <p>
-            Télécharger les <a href="{{ path('files_terms') }}">conditions générales d'utilisation du site</a>
-            | <a href="{{ path('association_privacy') }}">Politique de confidentialité</a>
-            | <a href="{{ path('association_legal') }}">Mentions légales</a>
-        </p>
-        <hr>
-        <div class="col-md-6">
-            <h4>Nos partenaires</h4>
-                <img src="{{ asset('bundles/app/images/nord.png') }}" alt="Logo du département du nord">
-                <img src="{{ asset('bundles/app/images/villeneuve.jpg') }}" alt="Logo de la ville de Villeneuve d'Ascq">
+<footer>
+    <svg class="footer-wave" viewBox="0 0 1440 60" preserveAspectRatio="none">
+        <path fill="#FFF8F0" d="M0,0 L1440,0 L1440,30 C1200,60 720,0 360,40 C180,55 60,30 0,30 Z"/>
+    </svg>
+
+    <div class="footer-content">
+        <div class="footer-brand">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:1rem;">
+                <img src="{{ asset('bundles/app/images/logo.png') }}" alt="Logo AAMV" style="height:45px;border-radius:8px;">
+                <span class="footer-logo-text">A.A.M.V.</span>
+            </div>
+            <p>Association des Assistantes Maternelles Villeneuvoises et des Parents et ses Environs. Loi 1901 — Depuis 1997.</p>
+            <p>50 rue Anne Josèphe du Bourg<br>59650 Villeneuve d'Ascq</p>
+            <div class="footer-social">
+                <a href="mailto:nounounathaamv@gmail.com" title="Email">✉️</a>
+                <a href="tel:+33670972990" title="Téléphone">📞</a>
+            </div>
         </div>
-        <div class="col-md-6">
-            <h4>Réalisation</h4>
-            <ul>
-                <li>Développement : Damien Deconinck / 2016-2019</li>
-                <li>Graphisme : Damien Deconinck / 2016-2019</li>
+
+        <div>
+            <h4>L'association</h4>
+            <ul class="footer-links">
+                <li><a href="{{ path('association_presentation') }}">Qui sommes-nous ?</a></li>
+                <li><a href="{{ path('association_about_us') }}">On en parle</a></li>
+                <li><a href="{{ path('association_contacts') }}">Nous contacter</a></li>
+                {% for tool in toolRepository.findValidJoin %}
+                    <li><a href="{{ path('files_join', {year: tool.year}) }}">Adhésion {{ tool.year }}</a></li>
+                {% endfor %}
             </ul>
         </div>
+
+        <div>
+            <h4>Services</h4>
+            <ul class="footer-links">
+                <li><a href="{{ path('services_ads_index') }}">Petites annonces</a></li>
+                <li><a href="{{ path('services_disponibilities') }}">Disponibilités</a></li>
+                <li><a href="{{ path('services_tools', {"type": "public"}) }}">Outils libres</a></li>
+                <li><a href="{{ path('services_docs', {"type": "public"}) }}">Documents libres</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h4>Divers</h4>
+            <ul class="footer-links">
+                <li><a href="{{ path('divers_questions_answers') }}">Questions / Réponses</a></li>
+                <li><a href="{{ path('divers_sites') }}">Sites utiles</a></li>
+                {% if app.user %}
+                    <li><a href="{{ path('logout') }}">Déconnexion</a></li>
+                {% else %}
+                    <li><a href="{{ path('register') }}">Inscription</a></li>
+                    <li><a href="{{ path('login') }}">Connexion</a></li>
+                {% endif %}
+                <li>
+                    <div class="partners-logos" style="margin-top:0.8rem;gap:1rem;justify-content:flex-start;">
+                        <img src="{{ asset('bundles/app/images/nord.png') }}" alt="Département du Nord" class="partner-logo" style="height:40px;">
+                        <img src="{{ asset('bundles/app/images/villeneuve.jpg') }}" alt="Ville de Villeneuve d'Ascq" class="partner-logo" style="height:40px;">
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <span>© {{ "now"|date("Y") }} A.A.M.V. — Tous droits réservés</span>
+        <span>Développement : Damien Deconinck / 2016-2019</span>
+        <span>
+            <a href="{{ path('files_terms') }}">CGU</a>
+            &nbsp;·&nbsp;
+            <a href="{{ path('association_privacy') }}">Confidentialité</a>
+            &nbsp;·&nbsp;
+            <a href="{{ path('association_legal') }}">Mentions légales</a>
+        </span>
     </div>
 </footer>
