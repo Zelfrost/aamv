@@ -12,6 +12,116 @@
     --deep-coral: #E85D4A;
 }
 
+/* ===== BOOTSTRAP COLOR OVERRIDES (palette pastel du site) ===== */
+
+/* --- Alerts --- */
+.alert {
+    border-radius: 14px;
+    border-width: 1.5px;
+    font-size: 0.93rem;
+    font-weight: 500;
+}
+.alert a { font-weight: 700; }
+
+.alert-warning {
+    color: #7A5200;
+    background-color: #FFF8E6;
+    border-color: #FFE0A0;
+}
+.alert-warning a { color: #5C3D00; }
+
+.alert-danger {
+    color: #8B2A2A;
+    background-color: #FFF0F0;
+    border-color: #F5BABA;
+}
+.alert-danger a { color: #6B1A1A; }
+
+.alert-success {
+    color: #2A6B33;
+    background-color: #F0FBF1;
+    border-color: #A8DEB0;
+}
+.alert-success a { color: #1A4B23; }
+
+.alert-info {
+    color: #0A5F8A;
+    background-color: #EBF6FD;
+    border-color: #A8D8F0;
+}
+.alert-info a { color: #084A6C; }
+
+/* --- Utilitaires bg-* --- */
+.bg-warning { background-color: #F0A830 !important; }
+.bg-danger  { background-color: #E87070 !important; }
+.bg-success { background-color: #5BB865 !important; }
+.bg-info    { background-color: #4AAFE0 !important; }
+.bg-primary { background-color: #FF8C42 !important; }
+
+/* --- Utilitaires text-* --- */
+.text-warning { color: #C07A00 !important; }
+.text-danger  { color: #C04040 !important; }
+.text-success { color: #2A7B35 !important; }
+.text-info    { color: #0A6FA0 !important; }
+.text-primary { color: #FF8C42 !important; }
+
+/* --- Utilitaires border-* --- */
+.border-warning { border-color: #F0C060 !important; }
+.border-danger  { border-color: #F5BABA !important; }
+.border-success { border-color: #A8DEB0 !important; }
+.border-info    { border-color: #A8D8F0 !important; }
+.border-primary { border-color: #FFD0B0 !important; }
+
+/* --- Notice (remplacement des cards Bootstrap colorées) --- */
+.site-notice {
+    background: white;
+    border-radius: 18px;
+    border: 2px solid var(--sun-yellow);
+    box-shadow: 0 4px 15px rgba(93, 64, 55, 0.07);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+.site-notice-header {
+    padding: 0.75rem 1.5rem;
+    font-family: 'Bubblegum Sans', cursive;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--warm-brown);
+    background: rgba(255, 217, 61, 0.12);
+    border-bottom: 1px solid rgba(255, 217, 61, 0.25);
+}
+.site-notice-body {
+    padding: 1.2rem 1.5rem;
+    font-size: 0.93rem;
+    color: var(--warm-brown);
+    line-height: 1.6;
+}
+.site-notice-body p:last-child { margin-bottom: 0; }
+.site-notice-body a { color: var(--warm-orange); font-weight: 700; }
+.site-notice-body a:hover { color: var(--deep-coral); }
+.site-notice-body ul { margin: 0.5rem 0 0 1rem; padding: 0; }
+.site-notice-body li { margin-bottom: 0.25rem; }
+
+/* --- Cards harmonisées --- */
+.card {
+    border-radius: 18px;
+    border-color: var(--light-peach);
+    box-shadow: 0 4px 15px rgba(93, 64, 55, 0.07);
+}
+.card-header {
+    border-radius: 16px 16px 0 0 !important;
+    font-family: 'Bubblegum Sans', cursive;
+    font-size: 1rem;
+    font-weight: 700;
+    border-bottom-width: 1px;
+    background-color: rgba(255, 248, 240, 0.7);
+}
+.card-header.bg-warning,
+.card-header.bg-danger,
+.card-header.bg-success,
+.card-header.bg-info    { color: white; }
+.card-body { font-size: 0.92rem; }
+
 /* ===== RESET / BASE ===== */
 * { box-sizing: border-box; }
 
@@ -250,6 +360,9 @@ nav#navbar.scrolled {
     padding: 0.45rem 1rem;
     border-radius: 25px;
     transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
 }
 
 .nav-auth .login-btn {

@@ -4,6 +4,73 @@
 
 {% block css %}
     <link rel="canonical" href="https://aamv.net" />
+    <style>
+    /* ===== HOMEPAGE FULLPAGE SCROLL ===== */
+    html { min-height: unset; height: 100%; overflow: hidden; }
+    body { min-height: unset; height: 100vh; overflow-x: hidden; overflow-y: scroll; scroll-snap-type: y mandatory; }
+    #body { display: contents; }
+
+    /* Hero = 1re section snap */
+    .hero { height: 100vh; min-height: unset; scroll-snap-align: start; overflow: hidden; display: flex; flex-direction: column; padding-top: 70px; padding-bottom: 1rem; }
+    .hero-content { flex: 1; padding: 1.5rem 2rem 0; }
+    .hero-pattern { display: none; }
+    .stats { flex-shrink: 0; margin: 0.5rem auto 1rem; width: calc(100% - 4rem); max-width: 900px; }
+
+    /* Sections snap */
+    #news, #services, .about-section, .adhesion-section, .cta-section {
+        height: 100vh; scroll-snap-align: start; overflow: hidden;
+        padding: 2rem; display: flex; flex-direction: column; justify-content: center;
+    }
+    footer { scroll-snap-align: start; }
+
+    /* Headers compacts */
+    .section-header { margin-bottom: 1.2rem; }
+    .section-header h2 { font-size: 1.85rem; margin-bottom: 0.2rem; }
+    .section-header p { font-size: 0.9rem; }
+
+    /* News 2 colonnes */
+    .news-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; max-width: 1100px; }
+    .news-year-divider {
+        grid-column: 1 / -1;
+        display: flex; align-items: center; gap: 0.8rem;
+        font-family: 'Bubblegum Sans', cursive; font-size: 1rem;
+        color: var(--warm-orange); font-weight: 700;
+        margin: 0.3rem 0 0.1rem;
+    }
+    .news-year-divider::before, .news-year-divider::after {
+        content: ''; flex: 1; height: 1px; background: var(--light-peach);
+    }
+    .news-card { padding: 0.85rem 1.1rem; }
+    .news-card h3 { font-size: 0.87rem; }
+    .news-icon { width: 40px; height: 40px; font-size: 20px; border-radius: 10px; }
+
+    /* Services compacts */
+    .services-grid { gap: 1rem; }
+    .service-card { padding: 1.3rem; }
+    .service-card p { font-size: 0.82rem; line-height: 1.4; }
+    .service-icon { width: 48px; height: 48px; font-size: 22px; margin-bottom: 0.6rem; }
+    .service-card h3 { font-size: 1.1rem; margin-bottom: 0.4rem; }
+
+    /* About compact */
+    .about-content { gap: 2rem; }
+    .about-images { height: 270px; }
+    .about-img-1 { width: 190px; height: 215px; font-size: 56px; }
+    .about-img-2 { width: 170px; height: 185px; font-size: 50px; }
+    .about-floating-badge { width: 86px; height: 86px; }
+    .about-text h2 { font-size: 1.7rem; margin-bottom: 0.4rem; }
+    .about-text p { font-size: 0.87rem; margin-bottom: 0.4rem; line-height: 1.5; }
+    .about-features { margin: 0.4rem 0 0; }
+    .about-features li { padding: 0.2rem 0; font-size: 0.83rem; }
+
+    /* Adhésion compact */
+    .adhesion-grid { gap: 1rem; }
+    .adhesion-card { padding: 1.2rem; }
+
+    /* CTA compact */
+    .cta-box { padding: 2.5rem; }
+    .cta-box h2 { font-size: 1.8rem; }
+    .cta-box p { margin-bottom: 1.2rem; font-size: 0.93rem; }
+    </style>
 {% endblock css %}
 
 {% block body_style %}{% endblock %}
@@ -37,19 +104,7 @@
             </div>
         </div>
     </div>
-    <svg class="hero-pattern" viewBox="0 0 1440 120" preserveAspectRatio="none">
-        <path fill="#FFF8F0" d="M0,60 C360,120 720,0 1080,60 C1260,90 1380,60 1440,60 L1440,120 L0,120 Z"/>
-    </svg>
-</header>
-{% endblock %}
-
-{% block body %}
-    {% for flash in app.session.flashbag.get('management.legacy_password.success') %}
-        <div class="alert alert-success">{{ flash }}</div>
-    {% endfor %}
-
-    <!-- Stats -->
-    <div class="stats reveal">
+    <div class="stats">
         <div class="stat-item">
             <div class="stat-number">{{ assistants_count }}</div>
             <div class="stat-label">Assistantes maternelles</div>
@@ -70,6 +125,13 @@
             <div class="stat-label">Bénévole & solidaire</div>
         </div>
     </div>
+</header>
+{% endblock %}
+
+{% block body %}
+    {% for flash in app.session.flashbag.get('management.legacy_password.success') %}
+        <div class="alert alert-success">{{ flash }}</div>
+    {% endfor %}
 
     <!-- News Section -->
     <section id="news">
@@ -80,16 +142,22 @@
         </div>
         <div class="news-grid">
             {% set icons = ['📄', '💰', '🔒', '📝', '⚖️', '📋', '🤝', '🗺️', '📢', '🏠', '📅', '🌟'] %}
+            {% set currentYear = null %}
             {% for new in news %}
-            <a href="{{ path('homepage_new', {'id': new.id}) }}" class="news-card reveal">
-                <div class="news-icon">{{ icons[loop.index0 % icons|length] }}</div>
-                <h3>{{ new.title|raw|slice(0, 120) }}{% if new.title|length > 120 %}...{% endif %}</h3>
-                {% if new.important %}
-                    <span class="news-badge important">Important</span>
-                {% elseif loop.index <= 2 %}
-                    <span class="news-badge">Nouveau</span>
+                {% set year = new.createdAt|date('Y') %}
+                {% if year != currentYear %}
+                    <div class="news-year-divider">{{ year }}</div>
+                    {% set currentYear = year %}
                 {% endif %}
-            </a>
+                <a href="{{ path('homepage_new', {'id': new.id}) }}" class="news-card reveal">
+                    <div class="news-icon">{{ icons[loop.index0 % icons|length] }}</div>
+                    <h3>{{ new.title|raw|slice(0, 120) }}{% if new.title|length > 120 %}...{% endif %}</h3>
+                    {% if new.important %}
+                        <span class="news-badge important">Important</span>
+                    {% elseif loop.index <= 2 %}
+                        <span class="news-badge">Nouveau</span>
+                    {% endif %}
+                </a>
             {% endfor %}
         </div>
 
