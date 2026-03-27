@@ -45,6 +45,28 @@ class UserRepository extends EntityRepository
         return new Paginator($builder);
     }
 
+    public function countByRole($role)
+    {
+        return $this->createQueryBuilder('u')
+            ->select('COUNT(u.id)')
+            ->where('u.roles LIKE :role')
+            ->setParameter('role', '%"ROLE_'.strtoupper($role).'"%')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function countAssistantMembers()
+    {
+        return $this->createQueryBuilder('u')
+            ->select('COUNT(u.id)')
+            ->where('u.roles LIKE :assistant')
+            ->andWhere('u.roles LIKE :member')
+            ->setParameter('assistant', '%"ROLE_ASSISTANT"%')
+            ->setParameter('member', '%"ROLE_MEMBER"%')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     public function getCities($type)
     {
         $cities = $this->createQueryBuilder('u')

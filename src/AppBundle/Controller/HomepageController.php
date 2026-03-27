@@ -38,6 +38,7 @@ class HomepageController extends AbstractController
 
         $options = array('news' => $news, 'pagination' => $pagination);
         $options['pagination']['route'] = 'homepage_news';
+        $options['assistants_count'] = $this->doctrine->getRepository('AppBundle\Entity\User')->countAssistantMembers();
 
         return $this->render(
             '@AppBundle/Homepage/index.html.twig',
