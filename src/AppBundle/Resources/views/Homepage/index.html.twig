@@ -23,6 +23,18 @@
     }
     footer { scroll-snap-align: start; }
 
+    /* ===== MOBILE : désactivation du fullpage scroll ===== */
+    @media (max-width: 767px) {
+        html { height: auto; overflow: auto; }
+        body { height: auto; scroll-snap-type: none; }
+        .hero { height: auto; min-height: 100svh; scroll-snap-align: none; overflow: visible; padding-bottom: 2rem; }
+        #news, #services, .about-section, .adhesion-section, .cta-section {
+            height: auto; scroll-snap-align: none; overflow: visible;
+            padding: 2rem 1.2rem; justify-content: flex-start;
+        }
+        footer { scroll-snap-align: none; }
+    }
+
     /* Headers compacts */
     .section-header { margin-bottom: 1.2rem; }
     .section-header h2 { font-size: 1.85rem; margin-bottom: 0.2rem; }
